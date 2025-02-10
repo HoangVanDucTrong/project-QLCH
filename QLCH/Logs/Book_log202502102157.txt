@@ -1,0 +1,26 @@
+2025-02-10 21:57:06.766 +07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7126/api/Sanpham/Getsanpham - null null
+2025-02-10 21:57:06.784 +07:00 [INF] Executing endpoint 'QLCH.Controllers.Sanphamcontroller.Getsanpham (QLCH)'
+2025-02-10 21:57:06.786 +07:00 [INF] Route matched with {action = "Getsanpham", controller = "Sanpham"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[QLCH.Models.SanPham]]] Getsanpham() on controller QLCH.Controllers.Sanphamcontroller (QLCH).
+2025-02-10 21:57:06.789 +07:00 [INF] StoreIdClaim: 20
+2025-02-10 21:57:06.801 +07:00 [INF] Executed DbCommand (10ms) [Parameters=[@__storeId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[SanPhamId], [s].[DanhMucId], [s].[Gia], [s].[ImageBase64], [s].[MoTa], [s].[StoreId], [s].[Ten]
+FROM [SanPhams] AS [s]
+WHERE [s].[StoreId] = @__storeId_0
+2025-02-10 21:57:08.252 +07:00 [INF] Successfully retrieved products.
+2025-02-10 21:57:08.253 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[QLCH.Models.SanPham, QLCH, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-02-10 21:57:08.274 +07:00 [INF] Executed action QLCH.Controllers.Sanphamcontroller.Getsanpham (QLCH) in 1486.4753ms
+2025-02-10 21:57:08.276 +07:00 [INF] Executed endpoint 'QLCH.Controllers.Sanphamcontroller.Getsanpham (QLCH)'
+2025-02-10 21:57:08.277 +07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7126/api/Sanpham/Getsanpham - 200 null application/json; charset=utf-8 1511.3769ms
+2025-02-10 21:57:08.283 +07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7126/api/Ban/Getban - null null
+2025-02-10 21:57:08.286 +07:00 [INF] Executing endpoint 'QLCH.Controllers.BanController.GetBan (QLCH)'
+2025-02-10 21:57:08.287 +07:00 [INF] Route matched with {action = "GetBan", controller = "Ban"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[QLCH.Models.Bans]]] GetBan() on controller QLCH.Controllers.BanController (QLCH).
+2025-02-10 21:57:08.288 +07:00 [INF] StoreIdClaim: 20
+2025-02-10 21:57:08.296 +07:00 [INF] Executed DbCommand (6ms) [Parameters=[@__storeId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BanId], [b].[IsInUse], [b].[SoBan], [b].[StoreId]
+FROM [Bans] AS [b]
+WHERE [b].[StoreId] = @__storeId_0
+2025-02-10 21:57:08.298 +07:00 [INF] Successfully retrieved products.
+2025-02-10 21:57:08.299 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[QLCH.Models.Bans, QLCH, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-02-10 21:57:08.300 +07:00 [INF] Executed action QLCH.Controllers.BanController.GetBan (QLCH) in 12.0791ms
+2025-02-10 21:57:08.301 +07:00 [INF] Executed endpoint 'QLCH.Controllers.BanController.GetBan (QLCH)'
+2025-02-10 21:57:08.302 +07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7126/api/Ban/Getban - 200 null application/json; charset=utf-8 19.2123ms

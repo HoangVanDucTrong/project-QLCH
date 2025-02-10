@@ -1,0 +1,29 @@
+﻿.success {
+    position: fixed; /* Để phần tử nằm trên toàn bộ trang */
+    top: 50%; /* Đưa phần tử vào giữa theo chiều dọc */
+    left: 50%; /* Đưa phần tử vào giữa theo chiều ngang */
+    transform: translate(-50%, -50%); /* Điều chỉnh phần tử để căn chính xác vào giữa */
+    background-color: #ffffff; /* Màu nền xanh lá */
+    color: rgb(198, 77, 77); /* Màu chữ trắng */
+    padding: 20px;
+    border-radius: 10px; /* Bo góc cho đẹp */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Đổ bóng nhẹ */
+    z-index: 9999; /* Đảm bảo nó hiển thị trên các phần tử khác */
+    text-align: center; /* Căn giữa nội dung */
+    width: 300px; /* Chiều rộng phần tử */
+}
+
+    .success button {
+        margin-top: 10px; /* Khoảng cách giữa thông báo và nút */
+        padding: 10px 20px;
+        background-color: rgb(229, 73, 73); /* Nền của nút */
+        border: none;
+        color: #000000; /* Màu chữ của nút */
+        border-radius: 5px; /* Bo góc nút */
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+        .success button:hover {
+            background-color: #e0e0e0; /* Màu nền khi hover vào nút */
+        }

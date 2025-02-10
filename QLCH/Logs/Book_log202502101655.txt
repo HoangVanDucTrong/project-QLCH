@@ -1,0 +1,17 @@
+2025-02-10 16:55:16.119 +07:00 [INF] Request starting HTTP/1.1 POST https://localhost:7126/api/Store/ForgotPassword - application/json; charset=utf-8 32
+2025-02-10 16:55:16.129 +07:00 [INF] Executing endpoint 'QLCH.Controllers.StoreController.ForgotPassword (QLCH)'
+2025-02-10 16:55:16.143 +07:00 [INF] Route matched with {action = "ForgotPassword", controller = "Store"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ForgotPassword(ForgotPasswordModel) on controller QLCH.Controllers.StoreController (QLCH).
+2025-02-10 16:55:16.167 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DiaChi], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[QuocGia], [a].[Sdt], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @__normalizedEmail_0
+2025-02-10 16:55:16.412 +07:00 [INF] Executed DbCommand (12ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (Size = 4000), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [passwordResetCodes] ([Code], [Email], [Expiration], [IsUsed])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3);
+2025-02-10 16:55:43.772 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2025-02-10 16:55:43.777 +07:00 [INF] Executed action QLCH.Controllers.StoreController.ForgotPassword (QLCH) in 27630.6922ms
+2025-02-10 16:55:43.782 +07:00 [INF] Executed endpoint 'QLCH.Controllers.StoreController.ForgotPassword (QLCH)'
+2025-02-10 16:55:43.786 +07:00 [INF] Request finished HTTP/1.1 POST https://localhost:7126/api/Store/ForgotPassword - 200 null text/plain; charset=utf-8 27666.694ms

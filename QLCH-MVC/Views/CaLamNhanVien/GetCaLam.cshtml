@@ -1,0 +1,234 @@
+﻿@model IEnumerable<QLCH_MVC.Models.Calam>
+@{
+    string displayedDateRange = null; // Biến lưu trữ khoảng thời gian đã hiển thị
+    var roles = ViewBag.UserRoles as string[] ?? new string[0];
+}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ca lam</title>
+    <style>
+       
+
+        .filter-container {
+            margin-bottom: 20px;
+        }
+
+            .filter-container label {
+                margin-right: 10px;
+                font-weight: bold;
+            }
+
+            .filter-container input {
+                padding: 5px;
+                margin-right: 10px;
+            }
+
+            .filter-container button {
+                padding: 6px 12px;
+                background-color: #f6153b;
+                color: white;
+                border: none;
+                border-radius: 10px;
+                cursor: pointer;
+            }
+
+                .filter-container button:hover {
+                    background-color: #45a049;
+                }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            text-align: center;
+            padding: 10px;
+        }
+
+        th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: #f9f9f9;
+        }
+
+        .time-header {
+            background-color: #d9f2d9;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            color: rgb(255, 0, 72)
+        }
+
+        th, td {
+            border: 1px solid #f39fb8;
+            text-align: center;
+            padding: 10px;
+        }
+
+        th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+            margin-left: 50px;
+        }
+
+        .time-header {
+            background-color: #c34768;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: rgb(248, 212, 167);
+        }
+
+        td {
+            height: 50px; /* Adjust for cell height */
+        }
+
+        .filter-container {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin: 20px 0;
+
+        }
+
+            .filter-container a{
+            margin-left: 45%;
+            }
+
+            .filter-container label {
+                font-size: 16px;
+                font-weight: bold;
+                color: #333;
+                margin-right: 10px;
+            }
+
+            .filter-container input[type="date"] {
+                width: 150px; /* Điều chỉnh độ rộng của các trường input */
+                padding: 8px;
+                font-size: 14px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+
+            .filter-container button {
+                padding: 10px 20px;
+                font-size: 16px;
+                background-color: #e74c3c; /* Màu đỏ của nút Lọc */
+                color: white;
+                border: none;
+                border-radius: 10px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+                .filter-container button:hover {
+                    background-color: #c0392b; /* Màu đỏ đậm khi hover */
+                }
+                .edit{
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #e74c3c; /* Màu đỏ của nút Lọc */
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-left:20px;
+            text-decoration:none;
+                }
+    </style>
+</head>
+    <div>
+
+    <form method="get" asp-action="Filter">
+        <div class="filter-container">
+            <label for="startDate">Từ ngày:</label>
+            <input type="date" id="startDate" name="startDate" class="form-control" required />
+
+            <label for="endDate">Đến ngày:</label>
+            <input type="date" id="endDate" name="endDate" class="form-control" required />
+
+            <button type="submit" class="btn btn-primary">Lọc</button>
+
+        </div>
+    </form>
+    @foreach (var calam in Model)
+    {
+        string currentDateRange = $"Từ ngày: {calam.StartOfWeek.ToString("dd/MM/yyyy")} đến {calam.EndOfWeek.ToString("dd/MM/yyyy")}";
+
+        if (currentDateRange != displayedDateRange)
+        {
+            <h6 style="font-style: italic;color: #c34768;display:flex">
+                @currentDateRange
+                @if (roles.Contains("Admin"))
+                {
+            <a  asp-controller="CaLamNhanVien" asp-action="Putcalam" asp-route-startDate="@calam.StartOfWeek.ToString("yyyy-MM-dd")" asp-route-endDate="@calam.EndOfWeek.ToString("yyyy-MM-dd")" class="edit">Edit</a>
+                }
+            </h6>
+            displayedDateRange = currentDateRange; // Cập nhật biến tạm
+        }
+    }
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Ca Làm</th>
+                    <th>Thứ 2</th>
+                    <th>Thứ 3</th>
+                    <th>Thứ 4</th>
+                    <th>Thứ 5</th>
+                    <th>Thứ 6</th>
+                    <th>Thứ 7</th>
+                    <th>Chủ Nhật</th>
+                </tr>
+            </thead>
+        <tbody>
+            @foreach (var timeSlot in new[] { "Sáng", "Chiều", "Tối" })
+            {
+                <tr>
+                    <td class="time-header">@timeSlot</td>
+
+                    @for (int day = 2; day <= 8; day++) // Thứ 2 đến Chủ nhật (8 là Chủ Nhật)
+                    {
+                        var dayName = day == 8 ? "Chủ nhật" : $"Thứ {day}";
+
+                        // Lọc các ca làm cho ca này và ngày này
+                        var shiftsForDay = Model.Where(x => x.calam == timeSlot && x.Thu == dayName).ToList();
+
+                        if (shiftsForDay.Any())
+                        {
+                            // Hiển thị tên nhân viên (chỉ hiển thị một lần)
+                            var firstShift = shiftsForDay.First();
+                            <td>
+                                @string.Join(",", shiftsForDay.Select(x => x.TenNhanVien)) <br />
+                                @firstShift.GioBatDau - @firstShift.GioKetThuc <br />
+                                @firstShift.GhiChu
+                            </td>
+                        }
+                        else
+                        {
+                            <td>--</td> <!-- Ô trống nếu không có ca làm -->
+                        }
+                    }
+                </tr>
+            }
+        </tbody>
+
+        </table>
+         @if (roles.Contains("Admin"))
+          {
+             <a asp-controller="CaLamNhanVien" asp-action="Postcalam"><button class="add-btn" onclick="CalamtoggleForm()">+</button></a>
+           }
+    </div>

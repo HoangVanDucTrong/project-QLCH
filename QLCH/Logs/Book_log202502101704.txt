@@ -1,0 +1,14 @@
+2025-02-10 17:04:29.973 +07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7126/api/CaLamNV/GetCaLam - null null
+2025-02-10 17:04:29.988 +07:00 [INF] Executing endpoint 'QLCH.Controllers.CaLamNV.GetCaLam (QLCH)'
+2025-02-10 17:04:30.001 +07:00 [INF] Route matched with {action = "GetCaLam", controller = "CaLamNV"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[System.Object]]] GetCaLam() on controller QLCH.Controllers.CaLamNV (QLCH).
+2025-02-10 17:04:30.015 +07:00 [INF] StoreIdClaim: 20
+2025-02-10 17:04:30.069 +07:00 [INF] Executed DbCommand (18ms) [Parameters=[@__startOfWeek_1='?' (DbType = DateTime2), @__endOfWeek_2='?' (DbType = DateTime2), @__storeId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CaLamId], [c].[NgayLam], [c].[GioBatDau], [c].[GioKetThuc], [c].[GhiChu], [c].[Thu], [c].[calam], [n].[TenNV] AS [TenNhanVien], [n].[SDT], [n].[StoreId], @__startOfWeek_1 AS [StartOfWeek], @__endOfWeek_2 AS [EndOfWeek]
+FROM [CaLamNhanVien] AS [c]
+INNER JOIN [NhanVien] AS [n] ON [c].[NVid] = [n].[NVid]
+WHERE [c].[StoreId] = @__storeId_0 AND [c].[NgayLam] >= @__startOfWeek_1 AND [c].[NgayLam] <= @__endOfWeek_2
+2025-02-10 17:04:30.076 +07:00 [INF] No work shifts found for StoreId: 20
+2025-02-10 17:04:30.081 +07:00 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ProblemDetails'.
+2025-02-10 17:04:30.118 +07:00 [INF] Executed action QLCH.Controllers.CaLamNV.GetCaLam (QLCH) in 112.1476ms
+2025-02-10 17:04:30.121 +07:00 [INF] Executed endpoint 'QLCH.Controllers.CaLamNV.GetCaLam (QLCH)'
+2025-02-10 17:04:30.124 +07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7126/api/CaLamNV/GetCaLam - 404 null application/problem+json; charset=utf-8 150.6245ms
