@@ -314,3 +314,5 @@ D:\Dự An\QLCH\QLCH\bin\Debug\net8.0\Serilog.Sinks.Debug.dll
 D:\Dự An\QLCH\QLCH\bin\Debug\net8.0\Serilog.Sinks.File.dll
 D:\Dự An\QLCH\QLCH\bin\Debug\net8.0\QRCoder.dll
 D:\Dự An\QLCH\QLCH\bin\Debug\net8.0\runtimes\win\lib\net8.0\Microsoft.Win32.SystemEvents.dll
+D:\Dự An\QLCH\QLCH\obj\Debug\net8.0\QLCH.sourcelink.json
+D:\Dự An\QLCH\QLCH\bin\Debug\net8.0\RestSharp.dll

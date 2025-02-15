@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,14 +23,16 @@ namespace QLCH.Controllers
         private readonly QLCHDbConText _context;
         private readonly IEmailSender _emailSender;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IGetClaimsFromToken _getClaimsFromToken;
 
-        public StoreController(UserManager<AuthorcationStore> userManager, ITokenRepository tokenRepository, QLCHDbConText context, IEmailSender emailSender, RoleManager<IdentityRole> roleManager)
+        public StoreController(UserManager<AuthorcationStore> userManager, ITokenRepository tokenRepository, QLCHDbConText context, IEmailSender emailSender, RoleManager<IdentityRole> roleManager, IGetClaimsFromToken getClaimsFromToken)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _tokenRepository = tokenRepository;
             _context = context;
             _emailSender = emailSender;
+            _getClaimsFromToken = getClaimsFromToken;
         }
        
         [HttpPost]
@@ -172,7 +175,7 @@ namespace QLCH.Controllers
 
                         var storeId = store.StoreId;
                         var jwtToken = _tokenRepository.CreateJWTToken(user, roles.ToList(), storeId);
-                        Console.WriteLine("chuoi:"+jwtToken.ToString());
+                 
                         var response = new LoginResponseDTO
                         {
                             JwtToken = jwtToken,
@@ -256,5 +259,37 @@ namespace QLCH.Controllers
             // Example: Invalidate the JWT token if you're storing tokens server-side
             return NoContent(); // Or return any appropriate response
         }
+
+        [HttpGet("GetinfoStore")]
+        [Authorize]
+        public async Task<ActionResult<IEnumerable<store>>> GetinfoStore()
+        {
+            var token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+
+            var claimsPrincipal = _getClaimsFromToken.laytoken(token);
+
+            var storeIdClaim = claimsPrincipal.Claims.FirstOrDefault(c => c.Type == "StoreId")?.Value;
+
+
+            if (string.IsNullOrEmpty(storeIdClaim))
+            {
+
+                return Unauthorized(); // Không có StoreId trong claims
+            }
+
+            
+            var sp = await _context.Stores
+                .Where(s =>  s.StoreId == int.Parse(storeIdClaim))
+                .FirstOrDefaultAsync();
+            Console.WriteLine("thong tin cửa hàng:" + sp);
+            if (sp == null)
+            {
+                return NotFound();
+            }
+
+
+            return Ok(sp);
+        }
     }
+
 }

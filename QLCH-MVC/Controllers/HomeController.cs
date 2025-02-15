@@ -168,7 +168,7 @@ namespace QLCH_MVC.Controllers
                 // Chuẩn bị dữ liệu JSON
                 var jsonContent = JsonConvert.SerializeObject(transaction);
                 var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-                Console.WriteLine(transaction);
+
                 // Tạo HttpClient
                 using (var client = new HttpClient())
                 {
@@ -183,8 +183,12 @@ namespace QLCH_MVC.Controllers
                     {
                         var responseContent = await response.Content.ReadAsStringAsync();
                         var result = JsonConvert.DeserializeObject<dynamic>(responseContent);
+                        var transactionId = result.transactionId;
 
-                        return Json(new { success = true, message = "Transaction created successfully.", data = result });
+                        // Trả về dữ liệu bao gồm transactionId
+                        var jsonResult = Json(new { success = true, message = "Transaction created ô sờ kê .", transactionId = transactionId.ToString() });
+                        return jsonResult;
+
                     }
                     else
                     {
@@ -200,7 +204,7 @@ namespace QLCH_MVC.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GenerateQrView(decimal amount, string note)
+        public async Task<IActionResult> GenerateQrView(int transactionId)
         {
             try
             {
@@ -208,8 +212,7 @@ namespace QLCH_MVC.Controllers
                 var apiUrl = "https://localhost:7126/api/Thanhtoan/stores/createqr";
                 var transaction = new
                 {
-                    Amount = amount,
-                    Note = note
+                    TransactionId = transactionId,
                 };
                 var jsonContent = JsonConvert.SerializeObject(transaction);
                 var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
@@ -231,11 +234,12 @@ namespace QLCH_MVC.Controllers
                     if (response.IsSuccessStatusCode)
                     {
                         var responseContent = await response.Content.ReadAsStringAsync();
+                       
                         var apiResult = JsonConvert.DeserializeObject<dynamic>(responseContent);
 
                         // Lấy URL mã QR từ API
                         string qrCodeUrl = apiResult?.qrCodeUrl;
-
+                       
                         // Trả về view với mã QR
                         return PartialView("_QrCodeView", model: qrCodeUrl);
                     }
@@ -251,7 +255,7 @@ namespace QLCH_MVC.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
-
+   
         public IActionResult Privacy()
         {
             return View();

@@ -32,3 +32,5 @@ D:\Dự An\QLCH\QLCH-MVC\bin\Debug\net8.0\System.Security.Permissions.dll
 D:\Dự An\QLCH\QLCH-MVC\obj\Debug\net8.0\QLCH-MVC.csproj.AssemblyReference.cache
 D:\Dự An\QLCH\QLCH-MVC\obj\Debug\net8.0\QLCH-MVC.csproj.CopyComplete
 D:\Dự An\QLCH\QLCH-MVC\bin\Debug\net8.0\Newtonsoft.Json.dll
+D:\Dự An\QLCH\QLCH-MVC\obj\Debug\net8.0\QLCH-MVC.sourcelink.json
+D:\Dự An\QLCH\QLCH-MVC\bin\Debug\net8.0\RestSharp.dll

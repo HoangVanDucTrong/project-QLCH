@@ -1,0 +1,7 @@
+2025-02-15 01:14:46.561 +07:00 [INF] Request starting HTTP/1.1 POST https://localhost:7126/api/Store/Logout - null 0
+2025-02-15 01:14:46.565 +07:00 [INF] Executing endpoint 'QLCH.Controllers.StoreController.Logout (QLCH)'
+2025-02-15 01:14:46.568 +07:00 [INF] Route matched with {action = "Logout", controller = "Store"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Logout() on controller QLCH.Controllers.StoreController (QLCH).
+2025-02-15 01:14:46.573 +07:00 [INF] Executing StatusCodeResult, setting HTTP status code 204
+2025-02-15 01:14:46.574 +07:00 [INF] Executed action QLCH.Controllers.StoreController.Logout (QLCH) in 4.7401ms
+2025-02-15 01:14:46.575 +07:00 [INF] Executed endpoint 'QLCH.Controllers.StoreController.Logout (QLCH)'
+2025-02-15 01:14:46.577 +07:00 [INF] Request finished HTTP/1.1 POST https://localhost:7126/api/Store/Logout - 204 null null 17.1066ms

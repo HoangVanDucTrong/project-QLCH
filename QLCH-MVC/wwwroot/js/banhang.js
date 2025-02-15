@@ -252,24 +252,45 @@ document.addEventListener("DOMContentLoaded", function () {
             body: JSON.stringify({
             
                 Amount: bill.total,    // Tổng số tiền cần thanh toán
-                Note: `Thanh toán bàn ${currentTable}`
+                Note: `Thanh toán bàn ${currentTable}`,
+                QRCodeUrl: ''
             })
         })
             .then(response => response.json())
             .then(data => {
+              //  console.log("Full Response:", data);
+              //  console.log("Data type of transactionId:", typeof data.transactionId);
+              //  console.log("Transaction ID:", data.transactionId);
                 if (data.success) {
                     alert("Thanh toán thành công!");
+                    var transactionId = data.transactionId;
                     delete bills[currentTable]; // Xóa hóa đơn sau khi thanh toán
-                    fetch(`/Home/GenerateQrView?amount=${bill.total}&note=Thanh toán bàn ${currentTable}`, {
+                    fetch(`/Home/GenerateQrView?transactionId=${transactionId}`, {
                         method: "GET"
                     })
                         .then(response => response.text())
                         .then(html => {
-                            // Hiển thị view trả về từ MVC
-                            document.getElementById("qrViewContainer").innerHTML = html;
+                            let qrContainer = document.getElementById("qrViewContainer");
+
+                            // Xóa nội dung cũ trước khi thêm mới
+                            qrContainer.innerHTML = "";
+
+                            // Thêm nút đóng (✖)
+                            let closeButton = document.createElement("button");
+                            closeButton.innerHTML = "✖";
+                            closeButton.classList.add("qr-close-btn");
+                            closeButton.onclick = function () {
+                                qrContainer.style.display = "none";
+                                qrContainer.innerHTML = ""; // Xóa nội dung QR khi đóng
+                            };
+
+                            // Hiển thị QR
+                            qrContainer.style.display = "flex";
+                            qrContainer.insertAdjacentHTML("beforeend", html);
+                            qrContainer.appendChild(closeButton);
                         })
                         .catch(error => {
-                            console.error("Error loading QR view:", error);
+                            console.error("Error loading QR view:", error); 
                             alert("Không thể tải mã QR!");
                         });
                     saveBillsToLocalStorage(); // Lưu lại trạng thái

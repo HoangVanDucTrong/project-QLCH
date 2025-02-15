@@ -26,9 +26,6 @@ namespace QLCH.Models
         [Required]
         [StringLength(30)]
         public string QuocGia { get; set; }
-        /*
-        [Required]
-        [StringLength(50)]
-        public string BankAccount { get; set; }*/
+       
     }
 }

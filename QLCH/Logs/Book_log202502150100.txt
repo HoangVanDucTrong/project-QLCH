@@ -1,0 +1,46 @@
+2025-02-15 01:00:00.586 +07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7126/api/Thanhtoan/get-banks - null null
+2025-02-15 01:00:00.591 +07:00 [INF] Executing endpoint 'QLCH.Controllers.Thanhtoancontroller.GetBankList (QLCH)'
+2025-02-15 01:00:00.593 +07:00 [INF] Route matched with {action = "GetBankList", controller = "Thanhtoan"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetBankList() on controller QLCH.Controllers.Thanhtoancontroller (QLCH).
+2025-02-15 01:00:00.741 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[QLCH.Models.Datum, QLCH, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-02-15 01:00:00.743 +07:00 [INF] Executed action QLCH.Controllers.Thanhtoancontroller.GetBankList (QLCH) in 149.4189ms
+2025-02-15 01:00:00.745 +07:00 [INF] Executed endpoint 'QLCH.Controllers.Thanhtoancontroller.GetBankList (QLCH)'
+2025-02-15 01:00:00.746 +07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7126/api/Thanhtoan/get-banks - 200 null application/json; charset=utf-8 159.3997ms
+2025-02-15 01:00:00.773 +07:00 [INF] Request starting HTTP/1.1 POST https://localhost:7126/api/Thanhtoan/save - application/json; charset=utf-8 99
+2025-02-15 01:00:00.775 +07:00 [INF] Executing endpoint 'QLCH.Controllers.Thanhtoancontroller.SaveAccount (QLCH)'
+2025-02-15 01:00:00.779 +07:00 [INF] Route matched with {action = "SaveAccount", controller = "Thanhtoan"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] SaveAccount(QLCH.Models.Thongtintaikhoan) on controller QLCH.Controllers.Thanhtoancontroller (QLCH).
+2025-02-15 01:00:00.796 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__request_StoreId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [t].[bankid], [t].[AccountName], [t].[AcqId], [t].[BankAccount], [t].[ShortName], [t].[StoreId]
+FROM [Thongtintaikhoan] AS [t]
+WHERE [t].[StoreId] = @__request_StoreId_0
+2025-02-15 01:00:00.880 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (DbType = Int32), @p2='?' (Size = 4000), @p3='?' (Size = 4000), @p4='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Thongtintaikhoan] ([AccountName], [AcqId], [BankAccount], [ShortName], [StoreId])
+OUTPUT INSERTED.[bankid]
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2025-02-15 01:00:00.902 +07:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType8`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-02-15 01:00:00.909 +07:00 [INF] Executed action QLCH.Controllers.Thanhtoancontroller.SaveAccount (QLCH) in 129.4146ms
+2025-02-15 01:00:00.911 +07:00 [INF] Executed endpoint 'QLCH.Controllers.Thanhtoancontroller.SaveAccount (QLCH)'
+2025-02-15 01:00:00.912 +07:00 [INF] Request finished HTTP/1.1 POST https://localhost:7126/api/Thanhtoan/save - 200 null application/json; charset=utf-8 138.7497ms
+2025-02-15 01:00:00.930 +07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7126/api/Store/GetinfoStore - null null
+2025-02-15 01:00:00.933 +07:00 [INF] Executing endpoint 'QLCH.Controllers.StoreController.GetinfoStore (QLCH)'
+2025-02-15 01:00:00.934 +07:00 [INF] Route matched with {action = "GetinfoStore", controller = "Store"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[QLCH.Models.store]]] GetinfoStore() on controller QLCH.Controllers.StoreController (QLCH).
+2025-02-15 01:00:00.941 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__Parse_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [s].[StoreId], [s].[DiaChi], [s].[Email], [s].[Pass], [s].[QuocGia], [s].[Sdt]
+FROM [Stores] AS [s]
+WHERE [s].[StoreId] = @__Parse_0
+2025-02-15 01:00:00.945 +07:00 [INF] Executing OkObjectResult, writing value of type 'QLCH.Models.store'.
+2025-02-15 01:00:00.946 +07:00 [INF] Executed action QLCH.Controllers.StoreController.GetinfoStore (QLCH) in 11.3116ms
+2025-02-15 01:00:00.948 +07:00 [INF] Executed endpoint 'QLCH.Controllers.StoreController.GetinfoStore (QLCH)'
+2025-02-15 01:00:00.949 +07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7126/api/Store/GetinfoStore - 200 null application/json; charset=utf-8 18.6992ms
+2025-02-15 01:00:00.958 +07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7126/api/Thanhtoan/Getinfobank - null null
+2025-02-15 01:00:00.960 +07:00 [INF] Executing endpoint 'QLCH.Controllers.Thanhtoancontroller.Getinfobank (QLCH)'
+2025-02-15 01:00:00.961 +07:00 [INF] Route matched with {action = "Getinfobank", controller = "Thanhtoan"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[QLCH.Models.NhanVien]] Getinfobank() on controller QLCH.Controllers.Thanhtoancontroller (QLCH).
+2025-02-15 01:00:00.965 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__Parse_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [t].[bankid], [t].[AccountName], [t].[AcqId], [t].[BankAccount], [t].[ShortName], [t].[StoreId]
+FROM [Thongtintaikhoan] AS [t]
+WHERE [t].[StoreId] = @__Parse_0
+2025-02-15 01:00:00.968 +07:00 [INF] Executing OkObjectResult, writing value of type 'QLCH.Models.Thongtintaikhoan'.
+2025-02-15 01:00:00.970 +07:00 [INF] Executed action QLCH.Controllers.Thanhtoancontroller.Getinfobank (QLCH) in 7.5246ms
+2025-02-15 01:00:00.971 +07:00 [INF] Executed endpoint 'QLCH.Controllers.Thanhtoancontroller.Getinfobank (QLCH)'
+2025-02-15 01:00:00.972 +07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7126/api/Thanhtoan/Getinfobank - 200 null application/json; charset=utf-8 14.3046ms

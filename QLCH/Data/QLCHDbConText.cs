@@ -26,7 +26,7 @@ namespace QLCH.Data
         public DbSet<NhapHang> nhapHangs { get; set; }
         public DbSet<Bans> bans { get; set; }
         public DbSet<PasswordResetCode> passwordResetCodes { get; set; }
-        public DbSet<Thongtintaikhoan> thongtintaikhoans { get; set; }
+        public DbSet<Thongtintaikhoan> Thongtintaikhoan { get; set; }
         public DbSet<transaction> transactions   { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {

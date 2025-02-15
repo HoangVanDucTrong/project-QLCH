@@ -1,10 +1,17 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
+using Org.BouncyCastle.Asn1.Crmf;
 using QLCH.Data;
 using QLCH.Models;
 using QLCH.Models.IRepository;
 using QRCoder;
-
+using System;
+using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using RestSharp;
+using Microsoft.EntityFrameworkCore;
 namespace QLCH.Controllers
 {
 
@@ -20,86 +27,117 @@ namespace QLCH.Controllers
             _context = context;
             _getClaimsFromToken = getClaimsFromToken;
         }
-        /*
+
         [HttpPost("stores/createqr")]
-        public IActionResult CreateQrForStore([FromBody] CreateTransactionRequest request)
+        public async Task<IActionResult> CreateQrForStore([FromBody] CreateTransactionRequest request)
         {
-            // Lấy token từ Header
-            var token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
-            var claimsPrincipal = _getClaimsFromToken.laytoken(token);
-
-            // Lấy StoreId từ claims
-            var storeIdClaim = claimsPrincipal.Claims.FirstOrDefault(c => c.Type == "StoreId")?.Value;
-
-            if (string.IsNullOrEmpty(storeIdClaim))
-            {
-                return Unauthorized(); // Không có StoreId trong claims
-            }
-
-            if (!int.TryParse(storeIdClaim, out int storeId))
-            {
-                return BadRequest("Invalid StoreId"); // StoreId không hợp lệ
-            }
-
-         
-
             try
             {
-                // Truy vấn thông tin cửa hàng từ database
-                var store = _context.Stores.FirstOrDefault(s => s.StoreId == storeId);
-                if (store == null)
+                // Lấy token từ Header
+                var token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+                var claimsPrincipal = _getClaimsFromToken.laytoken(token);
+
+                // Lấy StoreId từ claims
+                var storeIdClaim = claimsPrincipal.Claims.FirstOrDefault(c => c.Type == "StoreId")?.Value;
+                if (string.IsNullOrEmpty(storeIdClaim) || !int.TryParse(storeIdClaim, out int storeId))
                 {
-                    return NotFound("Store not found.");
+                    return Unauthorized(new { success = false, message = "Invalid StoreId" });
                 }
 
-                // Lấy thông tin cần thiết
-                string bankCode = "VBAAVNVX"; // Mã ngân hàng (thay đổi nếu cần)
-                string bankAccount = store.BankAccount; // Tài khoản ngân hàng lấy từ database
-                decimal amount = request.Transaction.Amount; // Số tiền cần thanh toán
-                string note = $"StoreID_{storeId}_OrderID_{Guid.NewGuid()}"; // Nội dung giao dịch
-
-                // Tạo nội dung QR code
-                var qrContent = $"000201010211" +
-                                $"0208{bankCode}" +
-                                $"0301{bankAccount}" +
-                                $"0401{amount:0}" +
-                                $"0501{note}" +
-                                $"6304"; // Checksum (cần tính toán nếu cần)
-
-                // Tạo QR code
-                var qrGenerator = new QRCodeGenerator();
-                var qrCodeData = qrGenerator.CreateQrCode(qrContent, QRCodeGenerator.ECCLevel.Q);
-                var qrCode = new QRCode(qrCodeData);
-
-                using (var bitmap = qrCode.GetGraphic(20))
+                // Kiểm tra giao dịch tồn tại
+                var transaction = _context.transactions.FirstOrDefault(t => t.TransactionId == request.transactionId && t.StoreId == storeId);
+                if (transaction == null)
                 {
-                    using (var stream = new MemoryStream())
-                    {
-                        bitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
-                        var qrBase64 = Convert.ToBase64String(stream.ToArray());
-                        var qrUrl = $"data:image/png;base64,{qrBase64}";
-
-                        // Lưu mã QR vào database
-                        var newStoreQr = new Thongtintaikhoan
-                        {
-                            StoreId = storeId,
-                            BankAccount = bankAccount,
-                            QRCodeUrl = qrUrl
-                        };
-
-                        _context.thongtintaikhoans.Add(newStoreQr);
-                        _context.SaveChanges();
-
-                        return Ok(new { success = true, qrCodeUrl = qrUrl });
-                    }
+                    return NotFound(new { success = false, message = "Transaction not found." });
                 }
+
+                // Kiểm tra thông tin ngân hàng
+                var bankInfo = _context.Thongtintaikhoan.FirstOrDefault(b => b.StoreId == storeId);
+                if (bankInfo == null || string.IsNullOrEmpty(bankInfo.BankAccount))
+                {
+                    return NotFound(new { success = false, message = "Bank account information not found." });
+                }
+
+                // ✅ Chuẩn bị dữ liệu gửi lên VietQR API
+                var apiRequest = new APIRequest
+                {
+                    acqId = bankInfo.AcqId, // Ví dụ: Mã ngân hàng techcombak (thay đổi theo ngân hàng)
+                    accountNo = long.Parse(bankInfo.BankAccount), // Số tài khoản ngân hàng
+                    accountName = bankInfo.AccountName, // Tên tài khoản ngân hàng
+                    amount = (int)transaction.Amount, // Số tiền cần thanh toán
+                    addInfo = $"Thanh toán đơn hàng {transaction.TransactionId}", // Nội dung giao dịch
+                    format = "text",
+                    template = "compact2"
+                };
+
+                // Chuyển request thành JSON
+                var jsonRequest = JsonConvert.SerializeObject(apiRequest);
+
+                // Gửi request đến API VietQR
+                var client = new RestClient("https://api.vietqr.io/v2/generate"); // Đổi thành URL chính xác của VietQR
+                var apiRequestRest = new RestRequest();
+                apiRequestRest.Method = Method.Post;
+                apiRequestRest.AddHeader("Accept", "application/json");
+                apiRequestRest.AddHeader("Content-Type", "application/json");
+                apiRequestRest.AddParameter("application/json", jsonRequest, ParameterType.RequestBody);
+
+                var response = await client.ExecuteAsync(apiRequestRest);
+                if (!response.IsSuccessful)
+                {
+                    return StatusCode((int)response.StatusCode, new { success = false, message = "Không thể tạo mã QR từ VietQR." });
+                }
+
+                // Xử lý phản hồi từ API VietQR
+                var dataResult = JsonConvert.DeserializeObject<APIResponse>(response.Content);
+                if (dataResult == null || dataResult.data == null || string.IsNullOrEmpty(dataResult.data.qrDataURL))
+                {
+                    return BadRequest(new { success = false, message = "Dữ liệu phản hồi không hợp lệ từ VietQR." });
+                }
+
+                //  Lưu URL mã QR vào database
+                transaction.QRCodeUrl = dataResult.data.qrDataURL;
+                _context.transactions.Update(transaction);
+                await _context.SaveChangesAsync();
+
+                //  Trả về URL của mã QR để frontend hiển thị
+                return Ok(new { success = true, qrCodeUrl = dataResult.data.qrDataURL });
             }
             catch (Exception ex)
             {
                 return StatusCode(500, new { success = false, message = ex.Message });
             }
         }
-        */
+
+        [HttpGet("get-banks")]
+        public async Task<IActionResult> GetBankList()
+        {
+            try
+            {
+                var client = new HttpClient();
+                var response = await client.GetAsync("https://api.vietqr.io/v2/banks");
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return StatusCode((int)response.StatusCode, new { success = false, message = "Không thể lấy danh sách ngân hàng từ VietQR." });
+                }
+
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                var bankData = JsonConvert.DeserializeObject<Bank>(jsonResponse);
+
+                if (bankData == null || bankData.data == null)
+                {
+                    return BadRequest(new { success = false, message = "Dữ liệu ngân hàng không hợp lệ." });
+                }
+
+                // Trả về danh sách ngân hàng JSON
+                return Ok(bankData.data);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { success = false, message = ex.Message });
+            }
+        }
+
         [HttpPost("CreateTransaction")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateTransaction([FromBody] transaction newTransaction)
@@ -128,23 +166,141 @@ namespace QLCH.Controllers
                 // Thiết lập giá trị mặc định nếu chưa có
                 newTransaction.CreatedAt = DateTime.Now; // Gán thời gian hiện tại
                 newTransaction.Status = string.IsNullOrEmpty(newTransaction.Status) ? "Pending" : newTransaction.Status;
-          
+            
                 // Lưu vào database
                 _context.transactions.Add(newTransaction);
                 await _context.SaveChangesAsync();
-
+              
                 return Ok(new
                 {
                     success = true,
                     message = "Transaction created successfully.",
-                    data = newTransaction
+                    transactionId = newTransaction.TransactionId
                 });
+            
+
             }
             catch (Exception ex)
             {
                 // Xử lý lỗi bất ngờ
                 return StatusCode(500, new { success = false, message = $"Internal server error: {ex.Message}" });
             }
+        }
+
+
+        [HttpPost("save")]
+        public async Task<IActionResult> SaveAccount([FromBody] Thongtintaikhoan request)
+        {
+            var token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            var claimsPrincipal = _getClaimsFromToken.laytoken(token);
+
+            var storeId = claimsPrincipal.Claims.FirstOrDefault(c => c.Type == "StoreId")?.Value;
+
+            if (string.IsNullOrEmpty(storeId))
+            {
+                return Unauthorized();
+            }
+
+            try
+            {
+                if (string.IsNullOrEmpty(request.BankAccount) || request.AcqId <= 0)
+                {
+                    return BadRequest(new { success = false, message = "Dữ liệu không hợp lệ." });
+                }
+                request.StoreId = int.Parse(storeId);
+                var existingAccount = _context.Thongtintaikhoan.FirstOrDefault(a => a.StoreId == request.StoreId);
+                if (existingAccount != null)
+                {
+                    return BadRequest(new { success = false, message = "Cửa hàng đã có tài khoản ngân hàng!" });
+                }
+              
+                var account = new Thongtintaikhoan
+                {
+                    BankAccount = request.BankAccount,
+                    AccountName = request.AccountName,
+                    AcqId = request.AcqId,
+                    ShortName = request.ShortName,
+                    StoreId = request.StoreId
+                };
+
+                _context.Thongtintaikhoan.Add(account);
+                await _context.SaveChangesAsync();
+
+                return Ok(new { success = true, message = "Lưu thông tin tài khoản thành công!" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { success = false, message = ex.Message });
+            }
+        }
+        [HttpPut("update/{bankid}")]
+        public async Task<IActionResult> UpdateAccount(int bankid, [FromBody] Thongtintaikhoan request)
+        {
+            var token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            var claimsPrincipal = _getClaimsFromToken.laytoken(token);
+            var storeId = claimsPrincipal.Claims.FirstOrDefault(c => c.Type == "StoreId")?.Value;
+
+            if (string.IsNullOrEmpty(storeId))
+            {
+                return Unauthorized();
+            }
+
+            try
+            {
+                // Kiểm tra đầu vào hợp lệ
+                if (string.IsNullOrEmpty(request.BankAccount))
+                {
+                    return BadRequest(new { success = false, message = "Dữ liệu không hợp lệ." });
+                }
+
+                // Tìm tài khoản trong database
+                var existingAccount = await _context.Thongtintaikhoan.FirstOrDefaultAsync(a => a.bankid == bankid && a.StoreId == int.Parse(storeId));
+
+                if (existingAccount == null)
+                {
+                    return NotFound(new { success = false, message = "Không tìm thấy tài khoản ngân hàng cần cập nhật." });
+                }
+
+                // Cập nhật thông tin tài khoản
+                existingAccount.BankAccount = request.BankAccount;
+                existingAccount.AccountName = request.AccountName;
+                existingAccount.AcqId = request.AcqId;
+                existingAccount.ShortName = request.ShortName;
+
+                _context.Thongtintaikhoan.Update(existingAccount);
+                await _context.SaveChangesAsync();
+
+                return Ok(new { success = true, message = "Cập nhật thông tin tài khoản thành công!" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { success = false, message = ex.Message });
+            }
+        }
+
+        [HttpGet("Getinfobank")]
+        public async Task<ActionResult<NhanVien>> Getinfobank()
+        {
+
+            var token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            var claimsPrincipal = _getClaimsFromToken.laytoken(token);
+
+            var storeid = claimsPrincipal.Claims.FirstOrDefault(c => c.Type == "StoreId")?.Value;
+
+            if (string.IsNullOrEmpty(storeid))
+            {
+                return Unauthorized();
+            }
+
+            // Tìm sản phẩm theo id và StoreId
+            var sp = await _context.Thongtintaikhoan.Where(s => s.StoreId == int.Parse(storeid)).ToListAsync();
+            Console.WriteLine("thong tin tài khoản:" + sp);
+            if (sp == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(sp);
         }
 
         /*

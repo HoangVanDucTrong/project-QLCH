@@ -1,0 +1,7 @@
+2025-02-15 00:17:53.962 +07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7126/api/Thanhtoan/get-banks - null null
+2025-02-15 00:17:53.971 +07:00 [INF] Executing endpoint 'QLCH.Controllers.Thanhtoancontroller.GetBankList (QLCH)'
+2025-02-15 00:17:53.973 +07:00 [INF] Route matched with {action = "GetBankList", controller = "Thanhtoan"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetBankList() on controller QLCH.Controllers.Thanhtoancontroller (QLCH).
+2025-02-15 00:17:54.122 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[QLCH.Models.Datum, QLCH, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-02-15 00:17:54.124 +07:00 [INF] Executed action QLCH.Controllers.Thanhtoancontroller.GetBankList (QLCH) in 149.27ms
+2025-02-15 00:17:54.125 +07:00 [INF] Executed endpoint 'QLCH.Controllers.Thanhtoancontroller.GetBankList (QLCH)'
+2025-02-15 00:17:54.126 +07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7126/api/Thanhtoan/get-banks - 200 null application/json; charset=utf-8 164.1415ms
