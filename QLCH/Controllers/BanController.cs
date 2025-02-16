@@ -106,6 +106,12 @@ namespace QLCH.Controllers
 
 
             cl.StoreId = int.Parse(storeId);
+            bool isTableExists = await _context.bans
+      .AnyAsync(b => b.SoBan == cl.SoBan && b.StoreId == cl.StoreId);
+            if (isTableExists)
+            {
+                return BadRequest(new { message = "Số bàn đã tồn tại trong cửa hàng này!" });
+            }
 
             _context.bans.Add(cl);
             try

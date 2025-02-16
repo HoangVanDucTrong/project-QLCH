@@ -30,7 +30,11 @@ namespace QLCH_MVC.Controllers
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             var response = await _httpClient.SendAsync(request);
-           
+            if (response.StatusCode == System.Net.HttpStatusCode.NotFound) // ✅ Xử lý riêng lỗi 404
+            {
+                ViewBag.Message = "Không có nhân viên nào!";
+                return View(new List<NhanVien>()); // Trả về danh sách rỗng thay vì trang lỗi
+            }
             if (response.IsSuccessStatusCode)
             {
                 var jsonResponse = await response.Content.ReadAsStringAsync();

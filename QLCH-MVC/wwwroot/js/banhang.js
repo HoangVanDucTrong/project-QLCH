@@ -262,14 +262,19 @@ document.addEventListener("DOMContentLoaded", function () {
               //  console.log("Data type of transactionId:", typeof data.transactionId);
               //  console.log("Transaction ID:", data.transactionId);
                 if (data.success) {
-                    alert("Thanh toán thành công!");
+                  
                     var transactionId = data.transactionId;
-                    delete bills[currentTable]; // Xóa hóa đơn sau khi thanh toán
+                
                     fetch(`/Home/GenerateQrView?transactionId=${transactionId}`, {
                         method: "GET"
                     })
                         .then(response => response.text())
                         .then(html => {
+
+                            if (html.includes("Đã có lỗi xảy ra") || html.toLowerCase().includes("error")) {
+                                throw new Error("Nội dung trả về có lỗi, không hiển thị QR.");
+                            }
+
                             let qrContainer = document.getElementById("qrViewContainer");
 
                             // Xóa nội dung cũ trước khi thêm mới
@@ -288,14 +293,17 @@ document.addEventListener("DOMContentLoaded", function () {
                             qrContainer.style.display = "flex";
                             qrContainer.insertAdjacentHTML("beforeend", html);
                             qrContainer.appendChild(closeButton);
+
+                            delete bills[currentTable]; // Xóa hóa đơn sau khi thanh toán
+                            saveBillsToLocalStorage(); // Lưu lại trạng thái
+                            displayBill(); // Cập nhật giao diện
+                            updateTableStatus(); // Cập nhật trạng thái bàn
                         })
                         .catch(error => {
                             console.error("Error loading QR view:", error); 
-                            alert("Không thể tải mã QR!");
+                            alert("Bạn Chưa thêm tài khoản ngân hàng!");
                         });
-                    saveBillsToLocalStorage(); // Lưu lại trạng thái
-                    displayBill(); // Cập nhật giao diện
-                    updateTableStatus(); // Cập nhật trạng thái bàn
+                   
                 } else {
                     alert("Thanh toán thất bại: " + data.message);
                 }

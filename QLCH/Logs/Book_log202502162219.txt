@@ -1,0 +1,131 @@
+2025-02-16 22:19:21.007 +07:00 [INF] Request starting HTTP/1.1 POST https://localhost:7126/api/NhanVien/Postnhanvien - multipart/form-data; boundary="ffb84026-e45a-45de-9ddd-331ff3ac9496" 582212
+2025-02-16 22:19:21.020 +07:00 [INF] Executing endpoint 'QLCH.Controllers.NhanVienController.Postnhanvien (QLCH)'
+2025-02-16 22:19:21.027 +07:00 [INF] Route matched with {action = "Postnhanvien", controller = "NhanVien"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[QLCH.Models.NhanVien]] Postnhanvien(QLCH.Models.NhanVien, Microsoft.AspNetCore.Http.IFormFile) on controller QLCH.Controllers.NhanVienController (QLCH).
+2025-02-16 22:19:21.088 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__NV_SDT_0='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [NhanVien] AS [n]
+        WHERE [n].[SDT] = @__NV_SDT_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-02-16 22:19:21.211 +07:00 [INF] Executed DbCommand (25ms) [Parameters=[@p0='?' (Size = -1), @p1='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @p2='?' (DbType = DateTime2), @p3='?' (Size = 10), @p4='?' (DbType = Int32), @p5='?' (Size = 50)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [NhanVien] ([AnhNhanVien], [MucLuong], [NgayVaoLam], [SDT], [StoreId], [TenNV])
+OUTPUT INSERTED.[NVid]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2025-02-16 22:19:21.229 +07:00 [INF] Executing CreatedAtActionResult, writing value of type 'QLCH.Models.NhanVien'.
+2025-02-16 22:19:21.255 +07:00 [INF] Executed action QLCH.Controllers.NhanVienController.Postnhanvien (QLCH) in 226.2373ms
+2025-02-16 22:19:21.256 +07:00 [INF] Executed endpoint 'QLCH.Controllers.NhanVienController.Postnhanvien (QLCH)'
+2025-02-16 22:19:21.258 +07:00 [INF] Request finished HTTP/1.1 POST https://localhost:7126/api/NhanVien/Postnhanvien - 201 null application/json; charset=utf-8 251.3071ms
+2025-02-16 22:19:22.513 +07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7126/api/NhanVien/Getnhanvien - null null
+2025-02-16 22:19:22.516 +07:00 [INF] Executing endpoint 'QLCH.Controllers.NhanVienController.Getnhanvien (QLCH)'
+2025-02-16 22:19:22.517 +07:00 [INF] Route matched with {action = "Getnhanvien", controller = "NhanVien"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[QLCH.Models.NhanVien]]] Getnhanvien() on controller QLCH.Controllers.NhanVienController (QLCH).
+2025-02-16 22:19:22.527 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[@__storeId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [n].[NVid], [n].[AnhNhanVien], [n].[MucLuong], [n].[NgayVaoLam], [n].[SDT], [n].[StoreId], [n].[TenNV]
+FROM [NhanVien] AS [n]
+WHERE [n].[StoreId] = @__storeId_0
+2025-02-16 22:19:22.916 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[QLCH.Models.NhanVien, QLCH, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-02-16 22:19:22.922 +07:00 [INF] Executed action QLCH.Controllers.NhanVienController.Getnhanvien (QLCH) in 401.9255ms
+2025-02-16 22:19:22.923 +07:00 [INF] Executed endpoint 'QLCH.Controllers.NhanVienController.Getnhanvien (QLCH)'
+2025-02-16 22:19:22.923 +07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7126/api/NhanVien/Getnhanvien - 200 null application/json; charset=utf-8 410.1803ms
+2025-02-16 22:19:26.472 +07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7126/api/NhanVien/Getnhanvien - null null
+2025-02-16 22:19:26.475 +07:00 [INF] Executing endpoint 'QLCH.Controllers.NhanVienController.Getnhanvien (QLCH)'
+2025-02-16 22:19:26.476 +07:00 [INF] Route matched with {action = "Getnhanvien", controller = "NhanVien"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[QLCH.Models.NhanVien]]] Getnhanvien() on controller QLCH.Controllers.NhanVienController (QLCH).
+2025-02-16 22:19:26.480 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__storeId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [n].[NVid], [n].[AnhNhanVien], [n].[MucLuong], [n].[NgayVaoLam], [n].[SDT], [n].[StoreId], [n].[TenNV]
+FROM [NhanVien] AS [n]
+WHERE [n].[StoreId] = @__storeId_0
+2025-02-16 22:19:26.844 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[QLCH.Models.NhanVien, QLCH, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-02-16 22:19:26.851 +07:00 [INF] Executed action QLCH.Controllers.NhanVienController.Getnhanvien (QLCH) in 373.6752ms
+2025-02-16 22:19:26.852 +07:00 [INF] Executed endpoint 'QLCH.Controllers.NhanVienController.Getnhanvien (QLCH)'
+2025-02-16 22:19:26.853 +07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7126/api/NhanVien/Getnhanvien - 200 null application/json; charset=utf-8 380.8299ms
+2025-02-16 22:19:26.863 +07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7126/api/AccountStaff/checkAccountnv?NVid=4016 - null null
+2025-02-16 22:19:26.866 +07:00 [INF] Executing endpoint 'QLCH.Controllers.AccountStaff.checkAccountnv (QLCH)'
+2025-02-16 22:19:26.870 +07:00 [INF] Route matched with {action = "checkAccountnv", controller = "AccountStaff"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] checkAccountnv(Int32) on controller QLCH.Controllers.AccountStaff (QLCH).
+2025-02-16 22:19:26.883 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__NVid_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [t].[TaiKhoanId], [t].[DiaChi], [t].[MatKhau], [t].[NVid], [t].[QuocGia], [t].[Sdt], [t].[StoreId], [t].[TenDangNhap]
+FROM [TaiKhoanNhanVien] AS [t]
+WHERE [t].[NVid] = @__NVid_0
+2025-02-16 22:19:26.887 +07:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-02-16 22:19:26.892 +07:00 [INF] Executed action QLCH.Controllers.AccountStaff.checkAccountnv (QLCH) in 21.5871ms
+2025-02-16 22:19:26.893 +07:00 [INF] Executed endpoint 'QLCH.Controllers.AccountStaff.checkAccountnv (QLCH)'
+2025-02-16 22:19:26.894 +07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7126/api/AccountStaff/checkAccountnv?NVid=4016 - 200 null application/json; charset=utf-8 31.5562ms
+2025-02-16 22:19:35.750 +07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7126/api/NhanVien/Getnhanvien - null null
+2025-02-16 22:19:35.753 +07:00 [INF] Executing endpoint 'QLCH.Controllers.NhanVienController.Getnhanvien (QLCH)'
+2025-02-16 22:19:35.754 +07:00 [INF] Route matched with {action = "Getnhanvien", controller = "NhanVien"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[QLCH.Models.NhanVien]]] Getnhanvien() on controller QLCH.Controllers.NhanVienController (QLCH).
+2025-02-16 22:19:35.758 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__storeId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [n].[NVid], [n].[AnhNhanVien], [n].[MucLuong], [n].[NgayVaoLam], [n].[SDT], [n].[StoreId], [n].[TenNV]
+FROM [NhanVien] AS [n]
+WHERE [n].[StoreId] = @__storeId_0
+2025-02-16 22:19:36.137 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[QLCH.Models.NhanVien, QLCH, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-02-16 22:19:36.143 +07:00 [INF] Executed action QLCH.Controllers.NhanVienController.Getnhanvien (QLCH) in 388.1918ms
+2025-02-16 22:19:36.145 +07:00 [INF] Executed endpoint 'QLCH.Controllers.NhanVienController.Getnhanvien (QLCH)'
+2025-02-16 22:19:36.146 +07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7126/api/NhanVien/Getnhanvien - 200 null application/json; charset=utf-8 395.7342ms
+2025-02-16 22:19:38.926 +07:00 [INF] Request starting HTTP/1.1 DELETE https://localhost:7126/api/NhanVien/4016 - null null
+2025-02-16 22:19:38.929 +07:00 [INF] Executing endpoint 'QLCH.Controllers.NhanVienController.Deletenhanvien (QLCH)'
+2025-02-16 22:19:38.932 +07:00 [INF] Route matched with {action = "Deletenhanvien", controller = "NhanVien"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Deletenhanvien(Int32) on controller QLCH.Controllers.NhanVienController (QLCH).
+2025-02-16 22:19:38.957 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__8__locals1_id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [TaiKhoanNhanVien] AS [t]
+        WHERE [t].[NVid] = @__8__locals1_id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-02-16 22:19:38.964 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__8__locals1_id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [CaLamNhanVien] AS [c]
+        WHERE [c].[NVid] = @__8__locals1_id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-02-16 22:19:38.975 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__8__locals1_id_0='?' (DbType = Int32), @__Parse_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [n].[NVid], [n].[AnhNhanVien], [n].[MucLuong], [n].[NgayVaoLam], [n].[SDT], [n].[StoreId], [n].[TenNV]
+FROM [NhanVien] AS [n]
+WHERE [n].[NVid] = @__8__locals1_id_0 AND [n].[StoreId] = @__Parse_1
+2025-02-16 22:19:39.365 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+DELETE FROM [NhanVien]
+OUTPUT 1
+WHERE [NVid] = @p0;
+2025-02-16 22:19:39.385 +07:00 [INF] Executing StatusCodeResult, setting HTTP status code 204
+2025-02-16 22:19:39.386 +07:00 [INF] Executed action QLCH.Controllers.NhanVienController.Deletenhanvien (QLCH) in 451.7119ms
+2025-02-16 22:19:39.387 +07:00 [INF] Executed endpoint 'QLCH.Controllers.NhanVienController.Deletenhanvien (QLCH)'
+2025-02-16 22:19:39.388 +07:00 [INF] Request finished HTTP/1.1 DELETE https://localhost:7126/api/NhanVien/4016 - 204 null null 461.1843ms
+2025-02-16 22:19:40.595 +07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7126/api/NhanVien/Getnhanvien - null null
+2025-02-16 22:19:40.597 +07:00 [INF] Executing endpoint 'QLCH.Controllers.NhanVienController.Getnhanvien (QLCH)'
+2025-02-16 22:19:40.598 +07:00 [INF] Route matched with {action = "Getnhanvien", controller = "NhanVien"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[QLCH.Models.NhanVien]]] Getnhanvien() on controller QLCH.Controllers.NhanVienController (QLCH).
+2025-02-16 22:19:40.602 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__storeId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [n].[NVid], [n].[AnhNhanVien], [n].[MucLuong], [n].[NgayVaoLam], [n].[SDT], [n].[StoreId], [n].[TenNV]
+FROM [NhanVien] AS [n]
+WHERE [n].[StoreId] = @__storeId_0
+2025-02-16 22:19:40.605 +07:00 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ProblemDetails'.
+2025-02-16 22:19:40.607 +07:00 [INF] Executed action QLCH.Controllers.NhanVienController.Getnhanvien (QLCH) in 7.7619ms
+2025-02-16 22:19:40.608 +07:00 [INF] Executed endpoint 'QLCH.Controllers.NhanVienController.Getnhanvien (QLCH)'
+2025-02-16 22:19:40.609 +07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7126/api/NhanVien/Getnhanvien - 404 null application/problem+json; charset=utf-8 15.0301ms
+2025-02-16 22:19:46.439 +07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7126/api/NhanVien/Getnhanvien - null null
+2025-02-16 22:19:46.441 +07:00 [INF] Executing endpoint 'QLCH.Controllers.NhanVienController.Getnhanvien (QLCH)'
+2025-02-16 22:19:46.442 +07:00 [INF] Route matched with {action = "Getnhanvien", controller = "NhanVien"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[QLCH.Models.NhanVien]]] Getnhanvien() on controller QLCH.Controllers.NhanVienController (QLCH).
+2025-02-16 22:19:46.446 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__storeId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [n].[NVid], [n].[AnhNhanVien], [n].[MucLuong], [n].[NgayVaoLam], [n].[SDT], [n].[StoreId], [n].[TenNV]
+FROM [NhanVien] AS [n]
+WHERE [n].[StoreId] = @__storeId_0
+2025-02-16 22:19:46.449 +07:00 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ProblemDetails'.
+2025-02-16 22:19:46.451 +07:00 [INF] Executed action QLCH.Controllers.NhanVienController.Getnhanvien (QLCH) in 6.8123ms
+2025-02-16 22:19:46.451 +07:00 [INF] Executed endpoint 'QLCH.Controllers.NhanVienController.Getnhanvien (QLCH)'
+2025-02-16 22:19:46.452 +07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7126/api/NhanVien/Getnhanvien - 404 null application/problem+json; charset=utf-8 13.9309ms
+2025-02-16 22:19:50.290 +07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7126/api/NhanVien/Getnhanvien - null null
+2025-02-16 22:19:50.293 +07:00 [INF] Executing endpoint 'QLCH.Controllers.NhanVienController.Getnhanvien (QLCH)'
+2025-02-16 22:19:50.294 +07:00 [INF] Route matched with {action = "Getnhanvien", controller = "NhanVien"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[QLCH.Models.NhanVien]]] Getnhanvien() on controller QLCH.Controllers.NhanVienController (QLCH).
+2025-02-16 22:19:50.298 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__storeId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [n].[NVid], [n].[AnhNhanVien], [n].[MucLuong], [n].[NgayVaoLam], [n].[SDT], [n].[StoreId], [n].[TenNV]
+FROM [NhanVien] AS [n]
+WHERE [n].[StoreId] = @__storeId_0
+2025-02-16 22:19:50.301 +07:00 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ProblemDetails'.
+2025-02-16 22:19:50.303 +07:00 [INF] Executed action QLCH.Controllers.NhanVienController.Getnhanvien (QLCH) in 7.048ms
+2025-02-16 22:19:50.304 +07:00 [INF] Executed endpoint 'QLCH.Controllers.NhanVienController.Getnhanvien (QLCH)'
+2025-02-16 22:19:50.305 +07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7126/api/NhanVien/Getnhanvien - 404 null application/problem+json; charset=utf-8 14.9478ms

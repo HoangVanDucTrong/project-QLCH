@@ -193,7 +193,7 @@ namespace QLCH_MVC.Controllers
                     else
                     {
                         var errorContent = await response.Content.ReadAsStringAsync();
-                        return Json(new { success = false, message = $"Failed to create transaction: {errorContent}" });
+                        return Json(new { success = false, message = $"Đã có lỗi xảy ra: {errorContent}" });
                     }
                 }
             }
@@ -246,7 +246,7 @@ namespace QLCH_MVC.Controllers
                     else
                     {
                         var errorContent = await response.Content.ReadAsStringAsync();
-                        return BadRequest($"Failed to create QR code: {errorContent}");
+                        return BadRequest($"Đã có lỗi xảy ra: {errorContent}");
                     }
                 }
             }

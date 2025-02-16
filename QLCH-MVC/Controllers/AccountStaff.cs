@@ -25,46 +25,60 @@ namespace QLCH_MVC.Controllers
 
             var token = HttpContext.Session.GetString("JWTToken");
 
-            // Gửi yêu cầu đến API để lấy danh sách nhân viên
+            // Gửi yêu cầu lấy danh sách nhân viên từ API
             var request = new HttpRequestMessage(HttpMethod.Get, "api/NhanVien/Getnhanvien");
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             var response = await _httpClient.SendAsync(request);
-
-            if (response.IsSuccessStatusCode)
+            if (response.StatusCode == System.Net.HttpStatusCode.NotFound) // ✅ Xử lý riêng lỗi 404
             {
-                var jsonResponse = await response.Content.ReadAsStringAsync();
-                var nhanViens = JsonConvert.DeserializeObject<IEnumerable<NhanVien>>(jsonResponse);
-
-                // Duyệt qua từng nhân viên và gọi API checkAccountnv để kiểm tra trạng thái tài khoản
-                foreach (var nhanVien in nhanViens)
-                {
-                    var checkAccountRequest = new HttpRequestMessage(HttpMethod.Get, $"api/AccountStaff/checkAccountnv?NVid={nhanVien.NVid}");
-                    checkAccountRequest.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
-                    var checkAccountResponse = await _httpClient.SendAsync(checkAccountRequest);
-
-                    if (checkAccountResponse.IsSuccessStatusCode)
-                    {
-                        var jsonStatusResponse = await checkAccountResponse.Content.ReadAsStringAsync();
-                        var statusResponse = JsonConvert.DeserializeObject<dynamic>(jsonStatusResponse);
-                        nhanVien.AccountStatus = statusResponse?.status.ToString(); // Lưu trạng thái tài khoản vào nhân viên
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Error: {checkAccountResponse.StatusCode}");
-                        nhanVien.AccountStatus = "Error"; // Trạng thái lỗi nếu không thể kiểm tra
-                    }
-                }
-
-                return View(nhanViens); // Trả về View với danh sách nhân viên và trạng thái tài khoản
+                ViewBag.Message = "Không có nhân viên nào!";
+                return View(new List<NhanVien>()); // Trả về danh sách rỗng thay vì trang lỗi
             }
-            else
+            if (!response.IsSuccessStatusCode)
             {
                 Console.WriteLine($"Error: {response.StatusCode}");
                 return View("Error");
             }
+
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+            var nhanViens = JsonConvert.DeserializeObject<List<NhanVien>>(jsonResponse);
+
+            if (nhanViens == null || !nhanViens.Any())
+            {
+                ViewBag.Message = "Không có nhân viên nào!";
+                return View(new List<NhanVien>());
+            }
+
+            // ✅ Tạo danh sách các tác vụ kiểm tra tài khoản nhân viên (chạy song song)
+            var tasks = nhanViens.Select(async nhanVien =>
+            {
+                var checkAccountRequest = new HttpRequestMessage(HttpMethod.Get, $"api/AccountStaff/checkAccountnv?NVid={nhanVien.NVid}");
+                checkAccountRequest.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                var checkAccountResponse = await _httpClient.SendAsync(checkAccountRequest);
+
+                if (checkAccountResponse.IsSuccessStatusCode)
+                {
+                    var jsonStatusResponse = await checkAccountResponse.Content.ReadAsStringAsync();
+                    var statusResponse = JsonConvert.DeserializeObject<dynamic>(jsonStatusResponse);
+                    nhanVien.AccountStatus = statusResponse?.status.ToString(); // ✅ Lưu trạng thái tài khoản
+                }
+                else if (checkAccountResponse.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    nhanVien.AccountStatus = "Chưa có tài khoản"; // ✅ Nếu 404 thì ghi rõ
+                }
+                else
+                {
+                    nhanVien.AccountStatus = "Lỗi khi kiểm tra"; // ✅ Các lỗi khác
+                }
+            });
+
+            await Task.WhenAll(tasks); // ✅ Đợi tất cả request hoàn thành
+
+            return View(nhanViens); // Trả về View với danh sách nhân viên và trạng thái tài khoản
         }
+
         [HttpPost]
         public async Task<IActionResult> CreateEmployeeAccount(TaiKhoanNhanVien model)
         {

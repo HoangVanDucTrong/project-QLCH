@@ -1,28 +1,36 @@
 ﻿@model IEnumerable<NhanVien>
+
 <link rel="stylesheet" href="~/css/Account.css">
+
 <div class="containerNV">
     <h1>Danh Sách Nhân Viên</h1>
-    <div class="employee-list">
-        <!-- Nhân viên 1 -->
-        @foreach (var nv in Model)
-        {
-            <div class="employee-card" onclick="showEmployeeInfo('@nv.NVid', '@nv.TenNV', '@nv.SDT', '@nv.NgayVaoLam','@nv.AnhNhanVien')">
-                <img src="data:image/jpeg;base64,@nv.AnhNhanVien" alt="Employee Image" class="employee-img">
-                <div class="employee-info">
-                    <h3 class="employee-name">@nv.TenNV</h3>
-                    <p class="employee-account">
-                        Tài khoản:
-                        <span class="status @((nv.AccountStatus.Trim() == "Hoạt động") ? "active" : "inactive")">
-                            @nv.AccountStatus
-                        </span>
 
-                    </p>
-
+    @if (ViewBag.Message != null)
+    {
+        <div class="alert alert-warning">@ViewBag.Message</div>
+    }
+    else
+    {
+        <div class="employee-list">
+            @foreach (var nv in Model)
+            {
+                <div class="employee-card" onclick="showEmployeeInfo('@nv.NVid', '@nv.TenNV', '@nv.SDT', '@nv.NgayVaoLam', '@nv.AnhNhanVien')">
+                    <img src="data:image/jpeg;base64,@nv.AnhNhanVien" alt="Employee Image" class="employee-img">
+                    <div class="employee-info">
+                        <h3 class="employee-name">@nv.TenNV</h3>
+                        <p class="employee-account">
+                            Tài khoản:
+                            <span class="status @((nv.AccountStatus.Trim() == "Hoạt động") ? "active" : "inactive")">
+                                @nv.AccountStatus
+                            </span>
+                        </p>
+                    </div>
                 </div>
-            </div>
-        }
-    </div>
+            }
+        </div>
+    }
 </div>
+
 @Html.Partial("_AccountFormNvPartial", new QLCH_MVC.Models.NhanVien())
 <script>
 

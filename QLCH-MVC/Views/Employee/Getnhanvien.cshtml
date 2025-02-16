@@ -2,6 +2,12 @@
  
     <script src="~/js/nhanvien.js"></script>
 <div class="table-container">
+    @if (ViewBag.Message != null)
+    {
+        <div class="alert alert-warning">@ViewBag.Message</div>
+        <button class="add-btn" onclick="toggleForm()">+</button>
+    }  else
+    {
     <div class="table-header">
         Employee Table
     </div>
@@ -51,7 +57,7 @@
         </tbody>
     </table>
     <button class="add-btn" onclick="toggleForm()">+</button>
-
+    }
     <div class="modal" id="deleteModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">

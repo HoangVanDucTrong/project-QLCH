@@ -55,7 +55,7 @@ namespace QLCH.Controllers
                 var bankInfo = _context.Thongtintaikhoan.FirstOrDefault(b => b.StoreId == storeId);
                 if (bankInfo == null || string.IsNullOrEmpty(bankInfo.BankAccount))
                 {
-                    return NotFound(new { success = false, message = "Bank account information not found." });
+                    return NotFound(new {  message = "Cửa hàng của bạn chưa thêm tài khoản ngân hàng!" });
                 }
 
                 // ✅ Chuẩn bị dữ liệu gửi lên VietQR API
