@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿@{
     Layout = null;
 }
@@ -70,3 +71,77 @@
 
 
 </html>
+=======
+﻿@{
+    Layout = null;
+}
+@model QLCH_MVC.Models.RegisterRequestDTO
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="~/css/register.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="left-section">
+
+            <div class="text-content">
+                <h1>Quản lý cửa hàng<br>Cùng tài khoản của bạn</h1>
+                <p>Hỗ trợ đăng ký 0398610485</p>
+            </div>
+
+        </div>
+        <div class="right-section">
+            <div class="form-container">
+
+
+                <form class="form"  method="post" asp-action="Register">
+                    <p class="title">Register </p>
+                    <p class="message">Signup now and get full access to our app. </p>
+
+                    <label>
+                        <input type="email" asp-for="Username" placeholder="Nhập email" class="input" required/>
+                        <span asp-validation-for="Username" class="text-danger"></span>
+                    </label>
+                    <label>
+                        <input type="password" asp-for="Password" placeholder="Nhập mật khẩu" class="input" required/>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </label>
+                    <label>
+                        <input type="password" asp-for="ConfirmPassword" placeholder="Nhập lại mật khẩu" class="input" required/>
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </label>
+                    <label>
+                        <input type="tel" asp-for="Sdt" placeholder="Nhập số điện thoại" class="input" required/>
+                        <span asp-validation-for="Sdt" class="text-danger"></span>
+                    </label>
+                    <label>
+                        <input type="text" asp-for="DiaChi" placeholder="Nhập địa chỉ" class="input" required/>
+                        <span asp-validation-for="DiaChi" class="text-danger"></span>
+                    </label>
+                    <label>
+                        <input type="text" asp-for="QuocGia" placeholder="Nhập quốc gia" class="input" required/>
+                        <span asp-validation-for="QuocGia" class="text-danger"></span>
+                    </label>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="terms" required>
+                        <label for="terms">Tôi đã đọc và đồng ý <a href="#">Điều khoản và chính sách sử dụng</a> của THLMANAGE</label>
+                    </div>
+
+                    <button class="submit">Đăng ký</button>
+                    <p class="signin">Bạn đã có tài khoản? <a asp-controller="Account" asp-action="Register">Đăng nhập</a> </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+
+
+</html>
+>>>>>>> 2cd039424233f099f062a952f82ef6ddcda03b12

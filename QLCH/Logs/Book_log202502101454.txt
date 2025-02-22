@@ -1,0 +1,7 @@
+2025-02-10 14:54:30.407 +07:00 [INF] Request starting HTTP/1.1 POST https://localhost:7126/api/Thanhtoan/stores/createqr - application/json; charset=utf-8 46
+2025-02-10 14:54:30.424 +07:00 [INF] Executing endpoint 'QLCH.Controllers.Thanhtoancontroller.CreateQrForStore (QLCH)'
+2025-02-10 14:54:30.428 +07:00 [INF] Route matched with {action = "CreateQrForStore", controller = "Thanhtoan"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult CreateQrForStore(QLCH.Models.CreateTransactionRequest) on controller QLCH.Controllers.Thanhtoancontroller (QLCH).
+2025-02-10 14:54:30.440 +07:00 [INF] Executing BadRequestObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ValidationProblemDetails'.
+2025-02-10 14:54:30.480 +07:00 [INF] Executed action QLCH.Controllers.Thanhtoancontroller.CreateQrForStore (QLCH) in 48.0033ms
+2025-02-10 14:54:30.483 +07:00 [INF] Executed endpoint 'QLCH.Controllers.Thanhtoancontroller.CreateQrForStore (QLCH)'
+2025-02-10 14:54:30.486 +07:00 [INF] Request finished HTTP/1.1 POST https://localhost:7126/api/Thanhtoan/stores/createqr - 400 null application/problem+json; charset=utf-8 78.7757ms

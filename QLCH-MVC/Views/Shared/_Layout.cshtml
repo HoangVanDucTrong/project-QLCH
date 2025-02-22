@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿@{
     var roles = ViewBag.UserRoles as string[] ?? new string[0];
 }
@@ -239,3 +240,247 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+=======
+﻿@{
+    var roles = ViewBag.UserRoles as string[] ?? new string[0];
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="~/css/index.css">
+
+    <title>Home</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="sidebar">
+            <div class="logo">
+                <span>THL</span><span class="manage">MANAGE</span>
+            </div>
+
+            <nav>
+                <ul style="margin-left: 10px;">
+                    <li style="margin-left: 20px;margin-top:20px ;" class="has-submenu">
+                        <h5>
+                            MANAGE
+                        </h5>
+                    </li>
+                    @if (roles.Contains("Admin") || roles.Contains("Employee"))
+                    {
+                        <li style="margin-left: 5px;">
+                            <a asp-controller="Home" asp-action="Index">
+                                <i class="fas fa-home"></i> Home
+                            </a>
+                        </li>
+                    }
+
+                    <!-- Hiển thị Item Management chỉ cho Admin -->
+                    @if (roles.Contains("Admin"))
+                    {
+                        <li style="margin-left: 5px;">
+                            <a href="../1.QuanLy_MatHang/QLMH.html">
+                                <i class="fas fa-box"></i> Item management
+                            </a>
+                        </li>
+                    }
+
+                    <!-- Employee management chỉ hiển thị cho Admin -->
+                    <li class="has-submenu">
+                        <a href=""><i class="fas fa-users"></i> Employee management <h2 style="margin-left:13px;">▾</h2></a>
+                        <ul class="submenu">
+                            @if (roles.Contains("Admin"))
+                            {
+                                <li><a asp-controller="Employee" asp-action="Getnhanvien">Staff List</a></li>
+                            }
+                            @if (roles.Contains("Admin") || roles.Contains("Employee"))
+                            {
+                                <li><a asp-controller="CaLamNhanVien" asp-action="GetCaLam">Shift Management</a></li>
+                            }
+                            @if (roles.Contains("Admin"))
+                            {
+                                <li><a asp-controller="AccountStaff" asp-action="AccountNv">Create an employee account</a></li>
+                            }
+                        </ul>
+                    </li>
+
+                    <!-- Order management chỉ hiển thị cho Admin và Employee -->
+                    @if (roles.Contains("Admin") || roles.Contains("Employee"))
+                    {
+                        <li class="has-submenu">
+                            <a href="#"><i class="fas fa-user-friends"></i> Order management <h2 style="margin-left:15px;">▾</h2></a>
+                            <ul class="submenu">
+                                <li><a href="~/../../3.KhachHang/trangthaikhachhang.html">Order status</a></li>
+                          
+                            </ul>
+                        </li>
+                    }
+
+                    <!-- Revenue Report chỉ hiển thị cho Admin -->
+                    @if (roles.Contains("Admin"))
+                    {
+                        <li style="margin-left: 5px;">
+                            <a href="../4.QuanLy_DoanhThu/DoanhThu.html">
+                                <i class="fas fa-chart-bar"></i> Revenue Report
+                            </a>
+                        </li>
+                    }
+                    <li style="margin-left: 20px;margin-top:20px ;" class="has-submenu">
+                        <h5>
+                            ACCOUNT PAGES
+                        </h5>
+                    </li>
+                    <li style="margin-left: 5px;">
+                        <a href="../4.QuanLy_DoanhThu/DoanhThu.html">
+                            <i class="fa-solid fa-user"></i>
+
+                            </i>Profile
+                        </a>
+                    </li>
+                    <li style="margin-left: 5px;">
+                        <a href="../4.QuanLy_DoanhThu/DoanhThu.html">
+                            <i class="fa-solid fa-right-to-bracket"></i>
+                            </i>Sign in
+                        </a>
+                    </li>
+
+                </ul>
+
+            </nav>
+            <hr style="width: 250px; height: 1px; border-width:0; background-color: silver; bottom:60px; position: absolute;">
+            <li class="setting-li" style="margin-right: 20px;"><a href="../5.QuanLy_Setting/Setting.html"><i class="fas fa-cogs"></i> Setting</a></li>
+        </div>
+
+        <div class="content">
+            <div class="contentheader">
+                <a id="rehome" href="#">Home</a>
+                <div id="contentright">
+                    <div class="group">
+                        <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><g><path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path></g></svg>
+                        <input placeholder="Search" type="search" class="input">
+                    </div>
+                    <button id="btn">Sign in</button>
+                    <button id="btn-message" class="button-message">
+                        <div class="content-avatar">
+                            <div class="status-user"></div>
+                            <div class="avatar">
+                                <svg class="user-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,12.5c-3.04,0-5.5,1.73-5.5,3.5s2.46,3.5,5.5,3.5,5.5-1.73,5.5-3.5-2.46-3.5-5.5-3.5Zm0-.5c1.66,0,3-1.34,3-3s-1.34-3-3-3-3,1.34-3,3,1.34,3,3,3Z"></path></svg>
+                            </div>
+                        </div>
+                        <div class="notice-content">
+                            <div class="lable-message">Kiot Viet<span class="number-message"></span></div>
+
+                        </div>
+                    </button>
+                    <button class="Btn">
+
+                        <div class="sign"><svg viewBox="0 0 512 512"><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path></svg></div>
+
+                        <div class="text">
+                            <a href="javascript:void(0);"
+                               onclick="logout()"
+                               style="text-decoration: none; color:black">Logout</a>
+                        </div>
+
+                    </button>
+                </div>
+            </div>
+            @RenderBody()
+        </div>
+    </div>
+
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        document.querySelectorAll('.has-submenu > a').forEach(item => {
+            item.addEventListener('click', function (event) {
+                event.preventDefault();
+                const parent = this.parentElement;
+                parent.classList.toggle('active');
+
+                const submenu = parent.querySelector('.submenu');
+                if (parent.classList.contains('active')) {
+                    submenu.style.maxHeight = submenu.scrollHeight + 'px';
+                } else {
+                    submenu.style.maxHeight = null;
+                }
+            });
+        });
+        function logout() {
+            fetch('/Account/Logout', {
+                method: 'POST', // Gửi yêu cầu POST
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Content-Type': 'application/json',
+                },
+                body: null // Không có nội dung gửi
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // Chuyển hướng về trang login
+                        window.location.href = '/Account/Login';
+                    } else {
+                        alert('Logout failed. Please try again.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error during logout:', error);
+                    alert('An error occurred.');
+                });
+        }
+
+        let deleteId = null;
+
+        function showDeleteModal(id) {
+            deleteId = id;
+            $('#deleteModal').modal('show');
+        }
+
+        document.getElementById('confirmDeleteButton').addEventListener('click', async function () {
+            const button = this;
+            button.textContent = 'Đang xóa...';
+            button.disabled = true;
+            try {
+                const response = await fetch(`/Employee/Deletenhanvien/${deleteId}`, { method: 'DELETE' });
+                if (response.ok) {
+                    alert("Xóa thành công!");
+                    location.reload();
+                } else {
+                    alert("Không thể xóa nhân viên! Kiểm tra lại.");
+                }
+            } catch (error) {
+                console.error("Lỗi:", error);
+                alert("Đã xảy ra lỗi khi xóa!");
+            } finally {
+                button.textContent = 'Xóa';
+                button.disabled = false;
+                $('#deleteModal').modal('hide');
+            }
+        });
+
+        function hidedele() {
+            $('#deleteModal').modal('hide');
+        }
+        
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+>>>>>>> 2cd039424233f099f062a952f82ef6ddcda03b12

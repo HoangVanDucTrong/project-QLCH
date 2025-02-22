@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿
 .banhang {
     margin-top: 20px;
@@ -380,3 +381,362 @@ select {
     cursor: pointer;
     border-radius: 5px;
 }
+=======
+﻿
+.banhang {
+    margin-top: 20px;
+    overflow: hidden;
+
+}
+.header {
+    background: linear-gradient(90deg, rgba(255, 0, 132, 1) 0%, rgb(217, 99, 20) 100%);
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .header .title {
+        font-size: 20px;
+    }
+
+    .header .user {
+        font-size: 14px;
+    }
+
+.containerH {
+    display: flex;
+    flex-direction: row;
+    height: calc(100vh - 50px);
+}
+
+.order-section {
+    width: 40%;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    height: 87vh;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+    .order-section h3 {
+        margin: 0 0 20px 0;
+    }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+.headerbill {
+    display: flex;
+    gap: 50px;
+    color: #dc416f;
+}
+
+.table-wrapper {
+    flex-grow: 1;
+    overflow-y: auto; /* Cho phép cuộn */
+    margin-bottom: 15px; /* Khoảng cách dưới cùng */
+    display: block;
+    scrollbar-width: none;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    position: sticky; /* Giữ cố định hàng đầu */
+    top: 0; /* Vị trí cố định ở đầu container cuộn */
+    z-index: 1; /* Đảm bảo nó luôn trên cùng */
+    background-color: #d73e4e;
+    color: #fef6e4;
+    font-weight: bold;
+}
+
+tbody tr {
+    border-bottom: 1px solid #ddd;
+}
+
+
+.delete-btn {
+    color: #e74c3c;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+    .delete-btn:hover {
+        text-decoration: underline;
+    }
+
+.total-row {
+    font-weight: bold;
+    background-color: #f9f9f9;
+    margin-top: 15px;
+}
+
+.tables-section {
+    width: 60%;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: flex-start;
+}
+
+.dele {
+    color: #dc416f;
+}
+
+.table {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #f4d03f;
+}
+
+.status-section {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 15px;
+    width: 100%; /* Trải rộng toàn bộ chiều ngang */
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+    .status .color-box {
+        width: 15px;
+        height: 15px;
+        border-radius: 3px;
+    }
+
+    .status .available {
+        background-color: #f4d03f;
+    }
+
+    .status .unavailable {
+        background-color: rgb(216, 9, 9);
+    }
+
+.menu-button {
+    background-color: #dd1652;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+    .menu-button:hover {
+        background-color: rgb(236, 119, 119);
+    }
+.table.available {
+    background-color: #f4d03f;
+    color: white;
+}
+
+.table.in-use {
+    background-color: #f44336; /* Màu đỏ cho bàn đang sử dụng */
+    color: white;
+}
+
+.table.empty {
+    background-color: rgb(216, 9, 9);
+    color: #fef6e4;
+}
+
+.table:hover {
+    border-color: #0078d4;
+}
+
+.footerbill {
+    gap: 10px;
+    margin-top: auto;
+    display: flex;
+    position: sticky;
+    bottom: 0;
+}
+
+.btnthanhtoan {
+    background-color: #dc416f;
+    color: white;
+    text-align: center;
+    padding: 10px 10px;
+    width: 70%;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    .btnthanhtoan:hover {
+        background-color: rgb(236, 119, 119);
+    }
+
+.in {
+    background-color: #dd1652;
+    width: 80px;
+    border-radius: 5px;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+}
+
+    .in:hover {
+        background-color: rgb(236, 119, 119);
+    }
+
+.total {
+    font-size: 18px;
+}
+.title input {
+    width: 250px;
+    height: 25px;
+    border-radius: 6px;
+}
+
+select {
+    height: 30px;
+    border-radius: 5px;
+    background-color: #c6333f;
+    color: #fef6e4;
+    padding: 3px;
+}
+
+
+/* Menu ẩn mặc định */
+.menu {
+    position: fixed;
+    top: 0;
+    right: -540px; /* Ẩn menu ngoài màn hình */
+    width: 500px;
+    height: 100%;
+    background-color: #f4f4f4;
+    box-shadow: -3px 0 5px rgba(0, 0, 0, 0.2);
+    transition: right 0.3s ease-in-out; /* Hiệu ứng trượt */
+    z-index: 1000;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+    .menu.active {
+        right: 0; /* Menu xuất hiện */
+    }
+
+/* Menu Header */
+.menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    color: #dc416f;
+}
+
+    .menu-header h2 {
+        margin: 0;
+    }
+
+.close-button {
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #e74c3c;
+}
+
+    .close-button:hover {
+        color: #c0392b;
+    }
+
+/* Menu Items */
+.menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+    .menu ul li {
+        border-bottom: 1px solid #ddd;
+        position: relative; /* Để định vị dấu cộng */
+        display: flex;
+        align-items: center;
+        justify-content: space-between; /* Căn chỉnh các thành phần cách đều */
+        padding: 15px 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+
+        .menu ul li:hover::after {
+            color: #c0490e; /* Thay đổi màu dấu cộng khi hover */
+        }
+
+        .menu ul li:hover {
+            background-color: #f0f0f0;
+        }
+
+.menu-item-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.quantity-input {
+    width: 50px;
+    text-align: center;
+    margin: 0 5px;
+}
+
+.increase-button, .decrease-button {
+    background-color: #dc2651;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 25px; /* Khoảng cách giữa các nút và ô nhập */
+}
+
+#addproduct {
+    font-size: x-large;
+    color: #f20038;
+    font-weight: bold;
+}
+
+    #addproduct:hover {
+        color: #8b0c32;
+    }
+
+.item-name {
+    flex: 2; /* Tăng không gian cho tên món */
+    font-weight: bold;
+}
+
+.menu ul li span {
+    flex: 1;
+}
+>>>>>>> 2cd039424233f099f062a952f82ef6ddcda03b12

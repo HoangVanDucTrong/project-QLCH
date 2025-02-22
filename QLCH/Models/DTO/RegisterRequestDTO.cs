@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿using System.ComponentModel.DataAnnotations;
 using RequiredAttribute = System.ComponentModel.DataAnnotations.RequiredAttribute;
 namespace QLCH.Models.DTO
@@ -20,3 +21,27 @@ namespace QLCH.Models.DTO
     }
 
 }
+=======
+﻿using System.ComponentModel.DataAnnotations;
+using RequiredAttribute = System.ComponentModel.DataAnnotations.RequiredAttribute;
+namespace QLCH.Models.DTO
+{
+    public class RegisterRequestDTO
+    {
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        public string Username { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+
+        public string[]? Roles { get; set; }
+
+        public string Sdt { get; set; }
+        public string DiaChi { get; set; }
+        public string QuocGia { get; set; }
+    }
+
+}
+>>>>>>> 2cd039424233f099f062a952f82ef6ddcda03b12

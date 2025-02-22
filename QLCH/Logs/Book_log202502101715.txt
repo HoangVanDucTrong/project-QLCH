@@ -1,0 +1,44 @@
+2025-02-10 17:15:04.892 +07:00 [INF] Request starting HTTP/2 POST https://localhost:7126/api/Store/Login - application/json 72
+2025-02-10 17:15:04.924 +07:00 [INF] Executing endpoint 'QLCH.Controllers.StoreController.Login (QLCH)'
+2025-02-10 17:15:04.927 +07:00 [INF] Route matched with {action = "Login", controller = "Store"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(QLCH.Models.DTO.LoginRequestDTO) on controller QLCH.Controllers.StoreController (QLCH).
+2025-02-10 17:15:04.972 +07:00 [INF] Executed DbCommand (12ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DiaChi], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[QuocGia], [a].[Sdt], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @__normalizedEmail_0
+2025-02-10 17:15:05.111 +07:00 [INF] Executed DbCommand (16ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-02-10 17:15:05.122 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[@__user_Email_0='?' (Size = 30)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [s].[StoreId], [s].[DiaChi], [s].[Email], [s].[Pass], [s].[QuocGia], [s].[Sdt]
+FROM [Stores] AS [s]
+WHERE [s].[Email] = @__user_Email_0
+2025-02-10 17:15:05.130 +07:00 [INF] Executing OkObjectResult, writing value of type 'QLCH.Models.DTO.LoginResponseDTO'.
+2025-02-10 17:15:05.133 +07:00 [INF] Executed action QLCH.Controllers.StoreController.Login (QLCH) in 203.4061ms
+2025-02-10 17:15:05.137 +07:00 [INF] Executed endpoint 'QLCH.Controllers.StoreController.Login (QLCH)'
+2025-02-10 17:15:05.139 +07:00 [INF] Request finished HTTP/2 POST https://localhost:7126/api/Store/Login - 200 null application/json; charset=utf-8 247.5193ms
+2025-02-10 17:15:27.709 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7126/api/Ban/Getban - null null
+2025-02-10 17:15:27.715 +07:00 [INF] Executing endpoint 'QLCH.Controllers.BanController.GetBan (QLCH)'
+2025-02-10 17:15:27.733 +07:00 [INF] Route matched with {action = "GetBan", controller = "Ban"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[QLCH.Models.Bans]]] GetBan() on controller QLCH.Controllers.BanController (QLCH).
+2025-02-10 17:15:27.738 +07:00 [INF] StoreIdClaim: 20
+2025-02-10 17:15:27.753 +07:00 [INF] Executed DbCommand (11ms) [Parameters=[@__storeId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BanId], [b].[IsInUse], [b].[SoBan], [b].[StoreId]
+FROM [Bans] AS [b]
+WHERE [b].[StoreId] = @__storeId_0
+2025-02-10 17:15:27.758 +07:00 [INF] Successfully retrieved products.
+2025-02-10 17:15:27.763 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[QLCH.Models.Bans, QLCH, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-02-10 17:15:27.767 +07:00 [INF] Executed action QLCH.Controllers.BanController.GetBan (QLCH) in 29.3133ms
+2025-02-10 17:15:27.770 +07:00 [INF] Executed endpoint 'QLCH.Controllers.BanController.GetBan (QLCH)'
+2025-02-10 17:15:27.773 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7126/api/Ban/Getban - 200 null application/json; charset=utf-8 63.5576ms
+2025-02-10 17:15:57.070 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7126/api/QR/store/products?banId=1&storeId=20 - null null
+2025-02-10 17:15:57.117 +07:00 [INF] Executing endpoint 'QRController.GetProducts (QLCH)'
+2025-02-10 17:15:57.127 +07:00 [INF] Route matched with {action = "GetProducts", controller = "QR"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetProducts(Int32, Int32) on controller QRController (QLCH).
+2025-02-10 17:15:57.160 +07:00 [INF] Executed DbCommand (10ms) [Parameters=[@__storeId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[SanPhamId], [s].[DanhMucId], [s].[Gia], [s].[ImageBase64], [s].[MoTa], [s].[StoreId], [s].[Ten]
+FROM [SanPhams] AS [s]
+WHERE [s].[StoreId] = @__storeId_0
+2025-02-10 17:15:57.240 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[QLCH.Models.SanPham, QLCH, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-02-10 17:15:57.285 +07:00 [INF] Executed action QRController.GetProducts (QLCH) in 155.5454ms
+2025-02-10 17:15:57.288 +07:00 [INF] Executed endpoint 'QRController.GetProducts (QLCH)'
+2025-02-10 17:15:57.291 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7126/api/QR/store/products?banId=1&storeId=20 - 200 null application/json; charset=utf-8 221.1224ms
