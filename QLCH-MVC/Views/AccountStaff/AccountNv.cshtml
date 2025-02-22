@@ -1,0 +1,50 @@
+﻿@model IEnumerable<NhanVien>
+<link rel="stylesheet" href="~/css/Account.css">
+<div class="containerNV">
+    <h1>Danh Sách Nhân Viên</h1>
+    <div class="employee-list">
+        <!-- Nhân viên 1 -->
+        @foreach (var nv in Model)
+        {
+            <div class="employee-card" onclick="showEmployeeInfo('@nv.NVid', '@nv.TenNV', '@nv.SDT', '@nv.NgayVaoLam','@nv.AnhNhanVien')">
+                <img src="data:image/jpeg;base64,@nv.AnhNhanVien" alt="Employee Image" class="employee-img">
+                <div class="employee-info">
+                    <h3 class="employee-name">@nv.TenNV</h3>
+                    <p class="employee-account">
+                        Tài khoản:
+                        <span class="status @((nv.AccountStatus.Trim() == "Hoạt động") ? "active" : "inactive")">
+                            @nv.AccountStatus
+                        </span>
+
+                    </p>
+
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@Html.Partial("_AccountFormNvPartial", new QLCH_MVC.Models.NhanVien())
+<script>
+
+
+    function hideForm() {
+        document.getElementById("accountForm").style.display = "none";
+    }
+
+    function showEmployeeInfo(nvId, nvName, nvPhone, nvJoinDate, nvImage) {
+        // Hiển thị form khi nhấp vào nhân viên
+        document.getElementById('employeeName').innerText = nvName;
+        document.getElementById('employeePhone').innerText = nvPhone;
+        var joinDate = new Date(nvJoinDate);
+        var formattedDate = joinDate.toLocaleDateString();
+        document.getElementById('employeeJoinDate').innerText = formattedDate;
+
+        // Có thể thêm ảnh nhân viên vào form nếu có
+        document.getElementById('image').src = "data:image/jpeg;base64," + nvImage;
+        document.getElementById('NVid').value = nvId;
+        // Di chuyển form đến vị trí hiển thị (nếu cần)
+        document.getElementById("accountForm").style.display = "block";
+    }
+
+
+</script>

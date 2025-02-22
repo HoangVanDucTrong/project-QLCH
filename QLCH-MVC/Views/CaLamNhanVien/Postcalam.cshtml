@@ -1,0 +1,255 @@
+﻿@model IEnumerable<NhanVien>
+    <link rel="stylesheet" href="~/css/thamcalam.css">
+    <script src="~/js/calam.js"></script>
+    <h4>*Di chuyển con trỏ chuột vào tên nhân viên và Thực hiện thao tác kéo thả nhân viên vào các ô ca làm bên dưới để tạo lịch làm.</h4>
+<div class="nv-container">
+    <button class="arrow-btn prev-btn" onclick="scrollLeftFunction()">←</button>
+    @foreach (var employee in Model)
+    {
+        <div class="nv">
+            <div class="pic">
+                <img src="data:image/jpeg;base64,@employee.AnhNhanVien" alt="Post Image" />
+                <h2 id="employee-@employee.NVid" draggable="true" ondragstart="onDragStart(event)">@employee.TenNV</h2>
+
+            </div>
+        </div>
+    }
+    <button class="arrow-btn next-btn" onclick="scrollRight()">→</button>
+</div>
+
+<div class="filter-container">
+    <label for="start-date">Từ ngày:</label>
+    <input type="date" id="start-date">
+
+    <label for="end-date">Đến ngày:</label>
+    <input type="date" id="end-date">
+
+    <!-- Chọn khung giờ cho Sáng -->
+    <label for="morning-shift">Khung giờ Sáng:</label>
+    <select id="morning-shift" onchange="toggleCustomInput('morning')">
+        <option value="">-- Chọn khung giờ --</option>
+        <option value="08:00-12:00">08:00 - 12:00</option>
+        <option value="07:00-11:00">07:00 - 11:00</option>
+        <option value="06:00-10:00">06:00 - 10:00</option>
+        <option value="custom">Nhập giờ tùy chọn</option>
+    </select>
+    <input type="text" id="morning-custom" placeholder="Nhập khung giờ (hh:mm-hh:mm)" style="display: none;">
+
+    <!-- Chọn khung giờ cho Chiều -->
+    <label for="afternoon-shift">Khung giờ Chiều:</label>
+    <select id="afternoon-shift" onchange="toggleCustomInput('afternoon')">
+        <option value="">-- Chọn khung giờ --</option>
+        <option value="13:00-17:00">13:00 - 17:00</option>
+        <option value="12:00-16:00">12:00 - 16:00</option>
+        <option value="14:00-18:00">14:00 - 18:00</option>
+        <option value="custom">Nhập giờ tùy chọn</option>
+    </select>
+    <input type="text" id="afternoon-custom" placeholder="Nhập khung giờ (hh:mm-hh:mm)" style="display: none;">
+
+    <!-- Chọn khung giờ cho Tối -->
+    <label for="night-shift">Khung giờ Tối:</label>
+    <select id="night-shift" onchange="toggleCustomInput('night')">
+        <option value="">-- Chọn khung giờ --</option>
+        <option value="18:00-22:00">18:00 - 22:00</option>
+        <option value="17:00-21:00">17:00 - 21:00</option>
+        <option value="19:00-23:00">19:00 - 23:00</option>
+        <option value="custom">Nhập giờ tùy chọn</option>
+    </select>
+    <input type="text" id="night-custom" placeholder="Nhập khung giờ (hh:mm-hh:mm)" style="display: none;">
+</div>
+    <table>
+        <thead>
+            <tr>
+                <th>Ca  Làm</th> <!-- Ô trống để khxông trùng với Sáng/Chiều/Tối -->
+                <th>Thứ 2</th>
+                <th>Thứ 3</th>
+                <th>Thứ 4</th>
+                <th>Thứ 5</th>
+                <th>Thứ 6</th>
+                <th>Thứ 7</th>
+                <th>Chủ Nhật</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Sáng -->
+            <tr>
+                <td class="time-header">Sáng</td>
+            @for (int i = 0; i < 7; i++)
+            {
+                <td id="morning-@i" ondrop="onDrop(event)" ondragover=" onDragOver(event)"></td>
+            }
+            </tr>
+
+            <!-- Chiều -->
+            <tr>
+                <td class="time-header">Chiều</td>
+            @for (int i = 0; i < 7; i++)
+            {
+                <td id="afternoon-@i" ondrop="onDrop(event)" ondragover="onDragOver(event)"></td>
+            }
+            </tr>
+
+            <!-- Tối -->
+            <tr>
+                <td class="time-header">Tối</td>
+            @for (int i = 0; i < 7; i++)
+            {
+                <td id="night-@i" ondrop="onDrop(event)" ondragover="onDragOver(event)"></td>
+            }
+            </tr>
+        </tbody>
+    </table>
+    <button id="addcalam">Hoàn Tất</button>
+
+<script>
+
+    let currentIndex = 0;
+    const itemsPerPage = 5;
+    const items = document.querySelectorAll('.nv .pic');
+    const totalItems = items.length;
+
+    function scrollLeftFunction() {
+        if (currentIndex > 0) {
+            currentIndex--;
+
+            updateVisibleItems();
+        }
+    }
+
+    function scrollRight() {
+        if (currentIndex < totalItems - itemsPerPage) {
+            currentIndex++;
+
+            updateVisibleItems();
+        }
+    }
+
+    function updateVisibleItems() {
+        const start = currentIndex;
+        const end = currentIndex + itemsPerPage;
+
+        items.forEach((item, index) => {
+            if (index >= start && index < end) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const items = document.querySelectorAll('.nv-container .nv .pic');
+        const totalItems = items.length;
+
+        updateVisibleItems();
+    });
+
+
+
+    document.getElementById('addcalam').addEventListener('click', async function () {
+        const startDate = document.getElementById('start-date').value;
+        const endDate = document.getElementById('end-date').value;
+
+        if (!startDate || !endDate) {
+            alert('Vui lòng chọn đầy đủ Từ ngày và Đến ngày!');
+            return;
+        }
+
+        const morningShift = document.getElementById('morning-shift').value === 'custom'
+            ? document.getElementById('morning-custom').value
+            : document.getElementById('morning-shift').value;
+
+        const afternoonShift = document.getElementById('afternoon-shift').value === 'custom'
+            ? document.getElementById('afternoon-custom').value
+            : document.getElementById('afternoon-shift').value;
+
+        const nightShift = document.getElementById('night-shift').value === 'custom'
+            ? document.getElementById('night-custom').value
+            : document.getElementById('night-shift').value;
+
+        if (!morningShift || !afternoonShift || !nightShift) {
+            alert('Vui lòng chọn hoặc nhập đầy đủ khung giờ!');
+            return;
+        }
+
+        const tableRows = document.querySelectorAll('tbody tr');
+        const caLamList = [];
+
+        tableRows.forEach((row, index) => {
+            const shift = index === 0 ? 'Sáng' : index === 1 ? 'Chiều' : 'Tối';
+            const timeRange = index === 0 ? morningShift : index === 1 ? afternoonShift : nightShift;
+
+            row.querySelectorAll('td:not(.time-header)').forEach((cell, dayIndex) => {
+                const employeeDivs = cell.querySelectorAll('.employee-item');
+                employeeDivs.forEach(div => {
+                    const employeeId = parseInt(div.getAttribute('data-id'));
+
+
+                    if (!employeeId) {
+                        console.error('Không tìm thấy NVid từ ID:', div.id);
+                    }
+
+                    const employeeName = div.querySelector('.employee-name').textContent;
+                    const gioBatDau = `${timeRange.split('-')[0]}:00`; // Thêm phần giây
+                    const gioKetThuc = `${timeRange.split('-')[1]}:00`; // Thêm phần giây
+
+                    // Thêm thông tin ca làm vào danh sách
+                    caLamList.push({
+                        NVid: employeeId, // Sử dụng employeeId đã kiểm tra
+                        NgayLam: getDateByDay(startDate, dayIndex), // Tính ngày làm dựa vào ngày bắt đầu và thứ
+                        GioBatDau: gioBatDau, // Định dạng hh:mm:ss
+                        GioKetThuc: gioKetThuc, // Định dạng hh:mm:ss
+                        GhiChu: '', // Thêm ghi chú nếu cần
+                        calam: shift
+                    });
+                });
+
+            });
+
+        });
+
+        if (caLamList.length === 0) {
+            alert('Không có nhân viên nào được thêm vào lịch làm!');
+            return;
+        }
+
+        console.log('Danh sách ca làm trước khi gửi:', caLamList);
+        try {
+         
+            const response = await fetch('/CaLamNhanVien/PostCaLam', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                
+                body: JSON.stringify(caLamList)
+            });
+
+            if (response.ok) {
+                alert('Thêm lịch làm thành công!');
+                window.location.href = '/CaLamNhanVien/GetCalam';
+            } else {
+                const error = await response.text();
+                alert(`Lỗi: ${error}`);
+            }
+        } catch (error) {
+            console.error('Lỗi:', error);
+            alert('Đã xảy ra lỗi khi gửi dữ liệu!');
+        }
+    });
+
+    // Hàm tính ngày làm dựa vào ngày bắt đầu và thứ
+    function getDateByDay(startDate, dayIndex) {
+        if (!startDate) {
+            console.error('Ngày bắt đầu không hợp lệ:', startDate);
+            return null;
+        }
+
+        const date = new Date(startDate); // Ngày bắt đầu (ví dụ: 30/12/2024)
+        date.setDate(date.getDate() + dayIndex); // Thêm số ngày tương ứng với dayIndex
+      
+        return date.toISOString().split('T')[0]; // Trả về định dạng yyyy-MM-dd
+    }
+
+
+</script>

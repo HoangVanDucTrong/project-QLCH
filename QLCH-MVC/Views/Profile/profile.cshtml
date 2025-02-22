@@ -1,0 +1,137 @@
+﻿@model ThongtinCuahang
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Management</title>
+    <style>
+        .containerprofile {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 15px;
+        }
+
+        .avatarprofile {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid #d33;
+        }
+
+        .title {
+            font-size: 1.5em;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .info {
+            font-size: small;
+            margin-top: 5px;
+        }
+
+        .section {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+            .section li {
+            list-style-type: circle;
+            padding-top: 4px;
+            margin-left: -10px;
+        }
+
+        .section h3 {
+            margin: 0 0 10px 0;
+            color: #444;
+        }
+
+        .section p {
+            margin-left: 10px;
+        }
+
+        .password-section button, .add-bank-btn {
+            background-color: #fd2d57;
+            color: rgb(246, 236, 236);
+            border: none;
+            padding: 8px 9px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+            .password-section button.logout-btn {
+                background: #d33;
+            }
+    </style>
+</head>
+<body>
+    <div class="containerprofile">
+        <div class="header">
+            <img src="../Pages/hepdat.jpg" alt="Avatar" class="avatarprofile">
+            <div>
+                <div class="title">Admin User</div>
+
+                <div class="info">Last Login: 2025-02-14</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>Thông Tin Cửa Hàng</h3>
+              @foreach (var store in Model.Stores)
+                {
+            <ul>
+                <li>Email:@store.Email</li>
+                <li>Số Điện Thoại:@store.Sdt</li>
+                <li>Địa Chỉ:@store.DiaChi</li>
+                <li>Quốc gia:@store.QuocGia</li>
+            </ul>
+                }
+        </div>
+      <div class="section">
+                <h3>Thông Tin Ngân Hàng</h3>
+
+                @if (ViewBag.BankNotFound == true || Model.thongtinnganhangs == null || !Model.thongtinnganhangs.Any())
+                {
+                    <p>Cửa hàng chưa thêm tài khoản ngân hàng.</p>
+                    <a asp-controller="Profile" asp-action="addaccountBank">
+                        <button class="add-bank-btn">Thêm tài khoản ngân hàng</button>
+                    </a>
+                }
+                else
+                {
+                    @foreach (var bank in Model.thongtinnganhangs)
+                    {
+                        <div class="section">
+                            <p>Bank: @bank.ShortName</p>
+                            <p>Account Number: @bank.BankAccount</p>
+                            <p>Account Name: @bank.AccountName</p>
+                        <a asp-controller="Profile" asp-action="EditAccountBank">  <button class="add-bank-btn">Chỉnh sửa</button></a>
+                        </div>
+                    }
+                }
+            </div>
+        
+      
+
+        <div class="section password-section">
+            <h3>Mật Khẩu</h3>
+            <button class="logout-btn">Change Password</button>
+            <a asp-area="" asp-controller="Account" asp-action="ForgotPassword" class="forgot-password"><button class="logout-btn">Forgot Password</button></a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,108 @@
+﻿@model QLCH_MVC.Models.NhanVien
+<style>
+
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(to right, #ececec, #f8f9fa);
+        font-family: Arial, sans-serif;
+        margin: 0;
+    }
+
+    form {
+        width: 90%; /* Chiếm 90% chiều rộng màn hình */
+        /*max-width: 600px;  Nhưng không vượt quá 600px */
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+    }
+
+
+        form:hover {
+            transform: scale(1.02); /* Hiệu ứng phóng to nhẹ */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Tiêu đề */
+        form h2 {
+            text-align: center;
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Input và Label */
+        form label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        form input[type="text"],
+        form input[type="date"],
+        form input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+            form input[type="text"]:focus,
+            form input[type="date"]:focus,
+            form input[type="file"]:focus {
+                border-color: #4CAF50;
+                outline: none;
+                box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+            }
+
+        /* Nút */
+        form button[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+            form button[type="submit"]:hover {
+                background-color: #45a049;
+            }
+</style>
+<body>
+    <form method="post" asp-action="Putnhanvien" enctype="multipart/form-data">
+        <h2>Update Employee</h2>
+
+        <input type="hidden" name="id" value="@Model.NVid" />
+
+        <label for="TenNV">Employee Name:</label>
+        <input type="text" id="TenNV" name="TenNV" value="@Model.TenNV" placeholder="Enter employee name" required />
+
+        <label for="SDT">Phone Number:</label>
+        <input type="text" id="SDT" name="SDT" value="@Model.SDT" placeholder="Enter phone number" required />
+
+        <label for="NgayVaoLam">Date Hired:</label>
+        <input type="date" id="NgayVaoLam" name="NgayVaoLam" value="@Model.NgayVaoLam.ToString("yyyy-MM-dd")" required />
+
+        <label for="MucLuong">Salary:</label>
+        <input type="text" id="MucLuong" name="MucLuong" value="@Model.MucLuong" placeholder="Enter salary" required />
+
+        <label for="employeeImage">Update Image:</label>
+        <input type="file" id="employeeImage" name="ImageURL" accept="image/*" />
+
+        <button type="submit">Update Employee</button>
+    </form>
+
+</body>

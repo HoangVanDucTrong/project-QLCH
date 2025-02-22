@@ -1,0 +1,27 @@
+2025-02-22 22:16:52.073 +07:00 [WRN] No store type was specified for the decimal property 'DonGia' on entity type 'NhapHang'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-02-22 22:16:52.125 +07:00 [WRN] No store type was specified for the decimal property 'ThanhTien' on entity type 'NhapHang'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-02-22 22:16:52.126 +07:00 [WRN] No store type was specified for the decimal property 'Amount' on entity type 'transaction'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-02-22 22:16:53.197 +07:00 [INF] Executed DbCommand (149ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-02-22 22:16:53.304 +07:00 [INF] Executed DbCommand (24ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-02-22 22:16:53.517 +07:00 [INF] User profile is available. Using 'C:\Users\LongTran\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-02-22 22:16:53.756 +07:00 [INF] Now listening on: https://localhost:7126
+2025-02-22 22:16:53.757 +07:00 [INF] Now listening on: http://localhost:5289
+2025-02-22 22:16:53.759 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-02-22 22:16:53.760 +07:00 [INF] Hosting environment: Development
+2025-02-22 22:16:53.760 +07:00 [INF] Content root path: D:\FILE CNTT\YersinTai_nang\project-QLCH-master\project-QLCH-master\QLCH
+2025-02-22 22:16:57.031 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7126/swagger/index.html - null null
+2025-02-22 22:16:57.309 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7126/swagger/index.html - 200 null text/html;charset=utf-8 286.9418ms
+2025-02-22 22:16:57.325 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7126/swagger/index.js - null null
+2025-02-22 22:16:57.325 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7126/_framework/aspnetcore-browser-refresh.js - null null
+2025-02-22 22:16:57.325 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7126/_vs/browserLink - null null
+2025-02-22 22:16:57.359 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7126/swagger/index.js - 200 null application/javascript;charset=utf-8 34.8306ms
+2025-02-22 22:16:57.367 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7126/_framework/aspnetcore-browser-refresh.js - 200 13744 application/javascript; charset=utf-8 42.7016ms
+2025-02-22 22:16:57.438 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7126/_vs/browserLink - 200 null text/javascript; charset=UTF-8 112.6805ms
+2025-02-22 22:16:57.496 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7126/swagger/v1/swagger.json - null null
+2025-02-22 22:16:58.105 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7126/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 609.6373ms

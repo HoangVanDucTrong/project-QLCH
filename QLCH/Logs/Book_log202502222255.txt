@@ -1,0 +1,13 @@
+2025-02-22 22:55:45.233 +07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7126/api/Sanpham/Getsanpham - null null
+2025-02-22 22:55:45.241 +07:00 [INF] Executing endpoint 'QLCH.Controllers.Sanphamcontroller.Getsanpham (QLCH)'
+2025-02-22 22:55:45.243 +07:00 [INF] Route matched with {action = "Getsanpham", controller = "Sanpham"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[QLCH.Models.SanPham]]] Getsanpham() on controller QLCH.Controllers.Sanphamcontroller (QLCH).
+2025-02-22 22:55:45.246 +07:00 [INF] StoreIdClaim: 1021
+2025-02-22 22:55:45.256 +07:00 [INF] Executed DbCommand (8ms) [Parameters=[@__storeId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[SanPhamId], [s].[DanhMucId], [s].[Gia], [s].[ImageBase64], [s].[MoTa], [s].[StoreId], [s].[Ten]
+FROM [SanPhams] AS [s]
+WHERE [s].[StoreId] = @__storeId_0
+2025-02-22 22:55:45.277 +07:00 [INF] Successfully retrieved products.
+2025-02-22 22:55:45.279 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[QLCH.Models.SanPham, QLCH, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-02-22 22:55:45.282 +07:00 [INF] Executed action QLCH.Controllers.Sanphamcontroller.Getsanpham (QLCH) in 36.3676ms
+2025-02-22 22:55:45.284 +07:00 [INF] Executed endpoint 'QLCH.Controllers.Sanphamcontroller.Getsanpham (QLCH)'
+2025-02-22 22:55:45.287 +07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7126/api/Sanpham/Getsanpham - 200 null application/json; charset=utf-8 54.2466ms

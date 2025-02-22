@@ -1,0 +1,20 @@
+2025-02-22 22:30:48.769 +07:00 [WRN] No store type was specified for the decimal property 'DonGia' on entity type 'NhapHang'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-02-22 22:30:48.809 +07:00 [WRN] No store type was specified for the decimal property 'ThanhTien' on entity type 'NhapHang'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-02-22 22:30:48.811 +07:00 [WRN] No store type was specified for the decimal property 'Amount' on entity type 'transaction'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-02-22 22:30:49.715 +07:00 [INF] Executed DbCommand (61ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-02-22 22:30:49.809 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-02-22 22:30:50.005 +07:00 [INF] User profile is available. Using 'C:\Users\LongTran\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-02-22 22:30:50.703 +07:00 [INF] Now listening on: https://localhost:7126
+2025-02-22 22:30:50.721 +07:00 [INF] Now listening on: http://localhost:5289
+2025-02-22 22:30:50.725 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-02-22 22:30:50.727 +07:00 [INF] Hosting environment: Development
+2025-02-22 22:30:50.727 +07:00 [INF] Content root path: D:\FILE CNTT\YersinTai_nang\project-QLCH-master\project-QLCH-master\QLCH
+2025-02-22 22:30:59.887 +07:00 [WRN] No store type was specified for the decimal property 'DonGia' on entity type 'NhapHang'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-02-22 22:30:59.963 +07:00 [WRN] No store type was specified for the decimal property 'ThanhTien' on entity type 'NhapHang'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-02-22 22:30:59.966 +07:00 [WRN] No store type was specified for the decimal property 'Amount' on entity type 'transaction'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.

@@ -1,0 +1,11 @@
+﻿<link rel="stylesheet" href="~/css/success.css">
+
+<div class="success">
+    <p>Tài khoản nhân viên đã được tạo!</p>
+
+    <!-- Form để gửi yêu cầu POST khi nhấn Quay lại -->
+    <form action="@Url.Action("AccountNv", "AccountStaff")" method="get">
+        @Html.AntiForgeryToken() <!-- Bảo vệ CSRF -->
+        <button type="submit">Quay lại</button>
+    </form>
+</div>

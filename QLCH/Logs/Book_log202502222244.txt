@@ -1,0 +1,138 @@
+2025-02-22 22:44:01.375 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7126/swagger/index.html - null null
+2025-02-22 22:44:01.800 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7126/swagger/index.html - 200 null text/html;charset=utf-8 427.3909ms
+2025-02-22 22:44:01.838 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7126/_framework/aspnetcore-browser-refresh.js - null null
+2025-02-22 22:44:01.840 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7126/swagger/index.js - null null
+2025-02-22 22:44:01.842 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7126/_vs/browserLink - null null
+2025-02-22 22:44:01.874 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7126/swagger/index.js - 200 null application/javascript;charset=utf-8 34.0853ms
+2025-02-22 22:44:01.891 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7126/_framework/aspnetcore-browser-refresh.js - 200 13744 application/javascript; charset=utf-8 54.1851ms
+2025-02-22 22:44:01.976 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7126/_vs/browserLink - 200 null text/javascript; charset=UTF-8 135.9435ms
+2025-02-22 22:44:02.075 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7126/swagger/v1/swagger.json - null null
+2025-02-22 22:44:02.429 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7126/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 354.0631ms
+2025-02-22 22:44:05.976 +07:00 [INF] Request starting HTTP/1.1 POST https://localhost:7126/api/Store/Login - application/json; charset=utf-8 61
+2025-02-22 22:44:06.046 +07:00 [INF] Executing endpoint 'QLCH.Controllers.StoreController.Login (QLCH)'
+2025-02-22 22:44:06.073 +07:00 [INF] Route matched with {action = "Login", controller = "Store"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(QLCH.Models.DTO.LoginRequestDTO) on controller QLCH.Controllers.StoreController (QLCH).
+2025-02-22 22:44:06.286 +07:00 [INF] Executed DbCommand (9ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DiaChi], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[QuocGia], [a].[Sdt], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @__normalizedEmail_0
+2025-02-22 22:44:06.643 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-02-22 22:44:06.668 +07:00 [INF] Executed DbCommand (7ms) [Parameters=[@__user_Email_0='?' (Size = 30)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [s].[StoreId], [s].[DiaChi], [s].[Email], [s].[Pass], [s].[QuocGia], [s].[Sdt]
+FROM [Stores] AS [s]
+WHERE [s].[Email] = @__user_Email_0
+2025-02-22 22:44:06.745 +07:00 [INF] Executing OkObjectResult, writing value of type 'QLCH.Models.DTO.LoginResponseDTO'.
+2025-02-22 22:44:06.779 +07:00 [INF] Executed action QLCH.Controllers.StoreController.Login (QLCH) in 695.5485ms
+2025-02-22 22:44:06.782 +07:00 [INF] Executed endpoint 'QLCH.Controllers.StoreController.Login (QLCH)'
+2025-02-22 22:44:06.795 +07:00 [INF] Request finished HTTP/1.1 POST https://localhost:7126/api/Store/Login - 200 null application/json; charset=utf-8 819.36ms
+2025-02-22 22:44:06.829 +07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7126/api/Sanpham/Getsanpham - null null
+2025-02-22 22:44:06.901 +07:00 [INF] Executing endpoint 'QLCH.Controllers.Sanphamcontroller.Getsanpham (QLCH)'
+2025-02-22 22:44:06.908 +07:00 [INF] Route matched with {action = "Getsanpham", controller = "Sanpham"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[QLCH.Models.SanPham]]] Getsanpham() on controller QLCH.Controllers.Sanphamcontroller (QLCH).
+2025-02-22 22:44:06.925 +07:00 [INF] StoreIdClaim: 1021
+2025-02-22 22:44:06.957 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[@__storeId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[SanPhamId], [s].[DanhMucId], [s].[Gia], [s].[ImageBase64], [s].[MoTa], [s].[StoreId], [s].[Ten]
+FROM [SanPhams] AS [s]
+WHERE [s].[StoreId] = @__storeId_0
+2025-02-22 22:44:07.030 +07:00 [INF] Successfully retrieved products.
+2025-02-22 22:44:07.034 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[QLCH.Models.SanPham, QLCH, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-02-22 22:44:07.049 +07:00 [INF] Executed action QLCH.Controllers.Sanphamcontroller.Getsanpham (QLCH) in 138.4609ms
+2025-02-22 22:44:07.051 +07:00 [INF] Executed endpoint 'QLCH.Controllers.Sanphamcontroller.Getsanpham (QLCH)'
+2025-02-22 22:44:07.053 +07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7126/api/Sanpham/Getsanpham - 200 null application/json; charset=utf-8 224.0236ms
+2025-02-22 22:44:07.063 +07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7126/api/Ban/Getban - null null
+2025-02-22 22:44:07.071 +07:00 [INF] Executing endpoint 'QLCH.Controllers.BanController.GetBan (QLCH)'
+2025-02-22 22:44:07.113 +07:00 [INF] Route matched with {action = "GetBan", controller = "Ban"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[QLCH.Models.Bans]]] GetBan() on controller QLCH.Controllers.BanController (QLCH).
+2025-02-22 22:44:07.169 +07:00 [INF] StoreIdClaim: 1021
+2025-02-22 22:44:07.183 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__storeId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BanId], [b].[IsInUse], [b].[SoBan], [b].[StoreId]
+FROM [Bans] AS [b]
+WHERE [b].[StoreId] = @__storeId_0
+2025-02-22 22:44:07.207 +07:00 [INF] Successfully retrieved products.
+2025-02-22 22:44:07.208 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[QLCH.Models.Bans, QLCH, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-02-22 22:44:07.213 +07:00 [INF] Executed action QLCH.Controllers.BanController.GetBan (QLCH) in 62.3298ms
+2025-02-22 22:44:07.218 +07:00 [INF] Executed endpoint 'QLCH.Controllers.BanController.GetBan (QLCH)'
+2025-02-22 22:44:07.221 +07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7126/api/Ban/Getban - 200 null application/json; charset=utf-8 157.4752ms
+2025-02-22 22:44:08.689 +07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7126/api/Sanpham/Getsanpham - null null
+2025-02-22 22:44:08.696 +07:00 [INF] Executing endpoint 'QLCH.Controllers.Sanphamcontroller.Getsanpham (QLCH)'
+2025-02-22 22:44:08.697 +07:00 [INF] Route matched with {action = "Getsanpham", controller = "Sanpham"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[QLCH.Models.SanPham]]] Getsanpham() on controller QLCH.Controllers.Sanphamcontroller (QLCH).
+2025-02-22 22:44:08.702 +07:00 [INF] StoreIdClaim: 1021
+2025-02-22 22:44:08.706 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__storeId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[SanPhamId], [s].[DanhMucId], [s].[Gia], [s].[ImageBase64], [s].[MoTa], [s].[StoreId], [s].[Ten]
+FROM [SanPhams] AS [s]
+WHERE [s].[StoreId] = @__storeId_0
+2025-02-22 22:44:08.734 +07:00 [INF] Successfully retrieved products.
+2025-02-22 22:44:08.735 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[QLCH.Models.SanPham, QLCH, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-02-22 22:44:08.737 +07:00 [INF] Executed action QLCH.Controllers.Sanphamcontroller.Getsanpham (QLCH) in 36.1177ms
+2025-02-22 22:44:08.739 +07:00 [INF] Executed endpoint 'QLCH.Controllers.Sanphamcontroller.Getsanpham (QLCH)'
+2025-02-22 22:44:08.741 +07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7126/api/Sanpham/Getsanpham - 200 null application/json; charset=utf-8 51.4446ms
+2025-02-22 22:44:13.021 +07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7126/api/Sanpham/Getsanpham - null null
+2025-02-22 22:44:13.024 +07:00 [INF] Executing endpoint 'QLCH.Controllers.Sanphamcontroller.Getsanpham (QLCH)'
+2025-02-22 22:44:13.025 +07:00 [INF] Route matched with {action = "Getsanpham", controller = "Sanpham"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[QLCH.Models.SanPham]]] Getsanpham() on controller QLCH.Controllers.Sanphamcontroller (QLCH).
+2025-02-22 22:44:13.027 +07:00 [INF] StoreIdClaim: 1021
+2025-02-22 22:44:13.033 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__storeId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[SanPhamId], [s].[DanhMucId], [s].[Gia], [s].[ImageBase64], [s].[MoTa], [s].[StoreId], [s].[Ten]
+FROM [SanPhams] AS [s]
+WHERE [s].[StoreId] = @__storeId_0
+2025-02-22 22:44:13.071 +07:00 [INF] Successfully retrieved products.
+2025-02-22 22:44:13.072 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[QLCH.Models.SanPham, QLCH, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-02-22 22:44:13.074 +07:00 [INF] Executed action QLCH.Controllers.Sanphamcontroller.Getsanpham (QLCH) in 47.2995ms
+2025-02-22 22:44:13.075 +07:00 [INF] Executed endpoint 'QLCH.Controllers.Sanphamcontroller.Getsanpham (QLCH)'
+2025-02-22 22:44:13.077 +07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7126/api/Sanpham/Getsanpham - 200 null application/json; charset=utf-8 55.8765ms
+2025-02-22 22:44:24.547 +07:00 [INF] Request starting HTTP/1.1 DELETE https://localhost:7126/api/Sanpham/2030 - null null
+2025-02-22 22:44:24.551 +07:00 [INF] Executing endpoint 'QLCH.Controllers.Sanphamcontroller.DeleteSanpham (QLCH)'
+2025-02-22 22:44:24.559 +07:00 [INF] Route matched with {action = "DeleteSanpham", controller = "Sanpham"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] DeleteSanpham(Int32) on controller QLCH.Controllers.Sanphamcontroller (QLCH).
+2025-02-22 22:44:24.586 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__id_0='?' (DbType = Int32), @__Parse_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [s].[SanPhamId], [s].[DanhMucId], [s].[Gia], [s].[ImageBase64], [s].[MoTa], [s].[StoreId], [s].[Ten]
+FROM [SanPhams] AS [s]
+WHERE [s].[SanPhamId] = @__id_0 AND [s].[StoreId] = @__Parse_1
+2025-02-22 22:44:24.710 +07:00 [INF] Executed DbCommand (7ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+DELETE FROM [SanPhams]
+OUTPUT 1
+WHERE [SanPhamId] = @p0;
+2025-02-22 22:44:24.736 +07:00 [INF] Executing StatusCodeResult, setting HTTP status code 204
+2025-02-22 22:44:24.737 +07:00 [INF] Executed action QLCH.Controllers.Sanphamcontroller.DeleteSanpham (QLCH) in 173.4587ms
+2025-02-22 22:44:24.738 +07:00 [INF] Executed endpoint 'QLCH.Controllers.Sanphamcontroller.DeleteSanpham (QLCH)'
+2025-02-22 22:44:24.741 +07:00 [INF] Request finished HTTP/1.1 DELETE https://localhost:7126/api/Sanpham/2030 - 204 null null 194.3714ms
+2025-02-22 22:44:25.818 +07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7126/api/Sanpham/Getsanpham - null null
+2025-02-22 22:44:25.821 +07:00 [INF] Executing endpoint 'QLCH.Controllers.Sanphamcontroller.Getsanpham (QLCH)'
+2025-02-22 22:44:25.822 +07:00 [INF] Route matched with {action = "Getsanpham", controller = "Sanpham"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[QLCH.Models.SanPham]]] Getsanpham() on controller QLCH.Controllers.Sanphamcontroller (QLCH).
+2025-02-22 22:44:25.830 +07:00 [INF] StoreIdClaim: 1021
+2025-02-22 22:44:25.835 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__storeId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[SanPhamId], [s].[DanhMucId], [s].[Gia], [s].[ImageBase64], [s].[MoTa], [s].[StoreId], [s].[Ten]
+FROM [SanPhams] AS [s]
+WHERE [s].[StoreId] = @__storeId_0
+2025-02-22 22:44:25.851 +07:00 [INF] Successfully retrieved products.
+2025-02-22 22:44:25.852 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[QLCH.Models.SanPham, QLCH, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-02-22 22:44:25.856 +07:00 [INF] Executed action QLCH.Controllers.Sanphamcontroller.Getsanpham (QLCH) in 26.6163ms
+2025-02-22 22:44:25.859 +07:00 [INF] Executed endpoint 'QLCH.Controllers.Sanphamcontroller.Getsanpham (QLCH)'
+2025-02-22 22:44:25.866 +07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7126/api/Sanpham/Getsanpham - 200 null application/json; charset=utf-8 47.6337ms
+2025-02-22 22:44:43.629 +07:00 [INF] Request starting HTTP/1.1 POST https://localhost:7126/api/Sanpham - multipart/form-data; boundary="a493e441-fab2-4b42-a3bc-2caed8474df0" 15078
+2025-02-22 22:44:43.634 +07:00 [INF] Executing endpoint 'QLCH.Controllers.Sanphamcontroller.Postsanpham (QLCH)'
+2025-02-22 22:44:43.645 +07:00 [INF] Route matched with {action = "Postsanpham", controller = "Sanpham"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[QLCH.Models.SanPham]] Postsanpham(QLCH.Models.SanPham, Microsoft.AspNetCore.Http.IFormFile) on controller QLCH.Controllers.Sanphamcontroller (QLCH).
+2025-02-22 22:44:43.758 +07:00 [INF] Executed DbCommand (22ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = Int32), @p2='?' (Size = -1), @p3='?' (Size = 30), @p4='?' (DbType = Int32), @p5='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [SanPhams] ([DanhMucId], [Gia], [ImageBase64], [MoTa], [StoreId], [Ten])
+OUTPUT INSERTED.[SanPhamId]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2025-02-22 22:44:43.788 +07:00 [INF] Executing CreatedAtActionResult, writing value of type 'QLCH.Models.SanPham'.
+2025-02-22 22:44:43.822 +07:00 [INF] Executed action QLCH.Controllers.Sanphamcontroller.Postsanpham (QLCH) in 171.8154ms
+2025-02-22 22:44:43.831 +07:00 [INF] Executed endpoint 'QLCH.Controllers.Sanphamcontroller.Postsanpham (QLCH)'
+2025-02-22 22:44:43.834 +07:00 [INF] Request finished HTTP/1.1 POST https://localhost:7126/api/Sanpham - 201 null application/json; charset=utf-8 204.8186ms
+2025-02-22 22:44:45.268 +07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7126/api/Sanpham/Getsanpham - null null
+2025-02-22 22:44:45.271 +07:00 [INF] Executing endpoint 'QLCH.Controllers.Sanphamcontroller.Getsanpham (QLCH)'
+2025-02-22 22:44:45.273 +07:00 [INF] Route matched with {action = "Getsanpham", controller = "Sanpham"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[QLCH.Models.SanPham]]] Getsanpham() on controller QLCH.Controllers.Sanphamcontroller (QLCH).
+2025-02-22 22:44:45.280 +07:00 [INF] StoreIdClaim: 1021
+2025-02-22 22:44:45.286 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__storeId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[SanPhamId], [s].[DanhMucId], [s].[Gia], [s].[ImageBase64], [s].[MoTa], [s].[StoreId], [s].[Ten]
+FROM [SanPhams] AS [s]
+WHERE [s].[StoreId] = @__storeId_0
+2025-02-22 22:44:45.318 +07:00 [INF] Successfully retrieved products.
+2025-02-22 22:44:45.318 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[QLCH.Models.SanPham, QLCH, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-02-22 22:44:45.322 +07:00 [INF] Executed action QLCH.Controllers.Sanphamcontroller.Getsanpham (QLCH) in 43.6026ms
+2025-02-22 22:44:45.328 +07:00 [INF] Executed endpoint 'QLCH.Controllers.Sanphamcontroller.Getsanpham (QLCH)'
+2025-02-22 22:44:45.330 +07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7126/api/Sanpham/Getsanpham - 200 null application/json; charset=utf-8 62.0706ms

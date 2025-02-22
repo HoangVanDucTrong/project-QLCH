@@ -1,0 +1,11 @@
+﻿@if (!string.IsNullOrEmpty(Model))
+{
+    <div style="text-align: center;">
+        <h3>Mã QR của giao dịch</h3>
+        <img src="@Model" alt="QR Code" style="max-width: 100%; height: auto;" />
+    </div>
+}
+else
+{
+    <p>Không thể tạo mã QR.</p>
+}

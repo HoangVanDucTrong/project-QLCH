@@ -1,0 +1,99 @@
+﻿@model QLCH.Models.ThongTinTaiKhoanViewModel
+@using QLCH.Models
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Bank Account</title>
+    <style>
+        .Bank {
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .containeraddbank {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 350px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        label {
+            font-weight: 600;
+        }
+
+        #accountName, #bankId {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .btnaddaccount {
+            background-color: #fd2d57;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 7px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="Bank">
+        <div class="containeraddbank">
+            <h2>Thêm Tài Khoản Ngân Hàng</h2>
+
+
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+                TempData.Remove("ErrorMessage");
+            }
+            <form asp-action="UpdateAccount" method="post">
+                <div class="form-group">
+                    <label for="bankId">Chọn Ngân Hàng</label>
+                    <select id="bankId" name="AcqId" class="form-control">
+                        <option value="">-- Chọn ngân hàng --</option>
+                        @foreach (var bank in ViewBag.Banks as List<Bank>)
+                        {
+                            <option value="@bank.bin">@bank.shortName-@bank.name</option>
+                        }
+                    </select>
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.AcqId)</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="accountName">Tên Tài Khoản</label>
+                    <input type="text" id="accountName" name="AccountName" class="form-control" placeholder="Nhập tên tài khoản" required>
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.AccountName)</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="bankAccount">Số Tài Khoản Ngân Hàng</label>
+                    <input type="text" id="bankAccount" name="BankAccount" class="form-control" placeholder="Nhập số tài khoản" required>
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.BankAccount)</span>
+                </div>
+
+                <button class="btnaddaccount" type="submit" class="btn btn-primary">Lưu</button>
+            </form>
+        </div>
+
+        </di>
+</body>
+
+</html>

@@ -1,0 +1,127 @@
+﻿@model SanPhamBanViewModel
+<link rel="stylesheet" href="~/css/Home.css">
+<div class="banhang">
+    <div class="header">
+      
+    </div>
+
+
+    <div class="containerH">
+        <div class="order-section">
+            <div class="headerbill">
+                <h3>Đơn hàng</h3>
+                <h3 id="currentTableDisplay"></h3>
+                <select>
+                    <option value="1">Mang về </option>x
+                </select>
+
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Mặt hàng</th>
+                            <th>SL</th>
+                            <th>Thành tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3"><b>Tổng cộng:</b></td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <div class="footerbill"> <button class="btnthanhtoan" id="thanhtoan">Thanh toán:</button><button class="in">In</button></div>
+
+        </div>
+
+        <div class="tables-section">
+            <!-- Trạng thái bàn -->
+            <div class="status-section">
+                <div class="status">
+                    <div class="color-box available"></div>
+                    <span>Còn trống</span>
+                </div>
+                <div class="status">
+                    <div class="color-box unavailable"></div>
+                    <span>Đang sử dụng</span>
+                </div>
+                <button class="menu-button" id="menuButton">Thực đơn</button>
+            </div>
+            @if (ViewBag.ErrorMessage != null)
+           {
+  
+                   
+                <div class="" style="color:crimson;font-size:larger;font-style:italic;">
+                    @ViewBag.ErrorMessage
+                </div>
+            }
+            else
+            {
+                <!-- Danh sách bàn -->
+                @foreach (var ban in Model.Bans)
+                {
+                    <div class="table" data-table-id="@ban.BanId">
+                        Bàn @ban.SoBan
+                    </div>
+                }
+            }
+        </div>
+
+    </div>
+</div>
+
+    <!-- Menu chạy từ bên phải -->
+<div class="menu" id="menu">
+    <div class="menu-header">
+        <h2>Thực đơn</h2>
+          <div class="title">
+            <input id="searchInput" placeholder="Tìm hàng hóa">
+        </div>
+        <button class="close-button" id="closeButton">✖</button>
+    </div>
+    <ul>
+           @if (ViewBag.ErrorMessage != null)
+        {
+            <li>
+                @ViewBag.ErrorMessage
+            </li>
+        }
+        else
+        {
+        
+            @foreach (var sanpham in Model.SanPhams)
+            {
+                <li>
+                    <img src="data:image/jpeg;base64,@sanpham.ImageBase64" alt="Món 1" class="menu-item-image">
+
+                    <span class="item-name">@sanpham.Ten</span>
+                    <span class="item-price">@sanpham.Gia</span>
+                    <div class="quantity-controls">
+                        <div>
+                            <button class="decrease-button">-</button>
+                            <input type="number" value="1" min="0" class="quantity-input">
+                            <button class="increase-button">+</button>
+                        </div>
+                        <div id="addproduct">+</div>
+                    </div>
+                </li>
+            }
+        }
+       
+        
+    </ul>
+</div>
+<div>
+    <!-- Container để hiển thị QR View -->
+    <div id="qrViewContainer"></div>
+</div>
+<script src="~/js/banhang.js"></script>
