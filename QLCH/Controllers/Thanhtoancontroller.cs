@@ -139,7 +139,6 @@ namespace QLCH.Controllers
         }
 
         [HttpPost("CreateTransaction")]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateTransaction([FromBody] transaction newTransaction)
         {
             var token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
@@ -153,7 +152,17 @@ namespace QLCH.Controllers
             }
             if (newTransaction == null)
             {
-                return BadRequest(new { success = false, message = "Transaction data is required." });
+                return BadRequest(new { success = false, message = "Dữ liệu giao dịch bị thiếu." });
+            }
+
+            if (newTransaction.Amount <= 0)
+            {
+                return BadRequest(new { success = false, message = "Số tiền giao dịch không hợp lệ." });
+            }
+
+            if (newTransaction.BanId <= 0)
+            {
+                return BadRequest(new { success = false, message = "Số bàn không hợp lệ." });
             }
 
             try
@@ -166,7 +175,15 @@ namespace QLCH.Controllers
                 // Thiết lập giá trị mặc định nếu chưa có
                 newTransaction.CreatedAt = DateTime.Now; // Gán thời gian hiện tại
                 newTransaction.Status = string.IsNullOrEmpty(newTransaction.Status) ? "Pending" : newTransaction.Status;
-            
+                var table = await _context.bans.FirstOrDefaultAsync(b => b.BanId == newTransaction.BanId && b.StoreId == newTransaction.StoreId);
+                if (table != null)
+                {
+                    table.IsInUse = "Nocontent"; // Đánh dấu bàn đã có khách
+                }
+                else
+                {
+                    return BadRequest(new { success = false, message = "Bàn không tồn tại hoặc không thuộc cửa hàng này." });
+                }
                 // Lưu vào database
                 _context.transactions.Add(newTransaction);
                 await _context.SaveChangesAsync();
@@ -180,11 +197,11 @@ namespace QLCH.Controllers
             
 
             }
-            catch (Exception ex)
-            {
-                // Xử lý lỗi bất ngờ
-                return StatusCode(500, new { success = false, message = $"Internal server error: {ex.Message}" });
-            }
+                catch (Exception ex)
+                {
+                    // Xử lý lỗi bất ngờ
+                    return StatusCode(500, new { success = false, message = $"Internal server error: {ex.Message}" });
+                }
         }
 
 
@@ -302,6 +319,46 @@ namespace QLCH.Controllers
 
             return Ok(sp);
         }
+        [HttpGet("GetOrderDetails/{banId}")]
+        public async Task<IActionResult> GetOrderDetails(int banId)
+        {
+            if (banId <= 0)
+            {
+                return BadRequest(new { success = false, message = "banId không hợp lệ." });
+            }
+
+            var orderDetails = await _context.ChiTietDonHangs
+                .Where(o => o.BanId == banId)
+                .OrderByDescending(o => o.NgayTao)
+                .Select(o => new
+                {
+                    o.CTDHId,
+                    o.BanId,
+                    o.NgayTao,
+                    o.ImageCheckBank, // ✅ Lấy ảnh đã upload
+                    o.StoreId, // Nếu cần StoreId để xử lý
+                    Products = _context.sanPhamDonHangs
+                        .Where(sp => sp.CTDHId == o.CTDHId)
+                        .Join(_context.SanPhams,
+                              sp => sp.SanPhamId,
+                              p => p.SanPhamId,
+                              (sp, p) => new
+                              {
+                                  p.Ten,
+                                  sp.SoLuong,
+                                  p.ImageBase64, // Ảnh sản phẩm
+                                  sp.TongTien
+                              }).ToList()
+                }).FirstOrDefaultAsync();
+
+            if (orderDetails == null)
+            {
+                return NotFound(new { success = false, message = "Không tìm thấy đơn hàng." });
+            }
+            Console.WriteLine("Order Details Trước khi trả về: " + JsonConvert.SerializeObject(orderDetails));
+            return Ok(orderDetails);
+        }
+
 
         /*
         [HttpPost("api/payment/notify")]

@@ -1,5 +1,4 @@
 ﻿
-
 function dongModal() {
     document.getElementById("qrModal").style.display = "none";
 }
@@ -136,6 +135,58 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem("bills", JSON.stringify(bills));
     }
 
+        function printInvoice() {
+            if (!currentTable || !bills[currentTable] || bills[currentTable].items.length === 0) {
+                alert("Không có hóa đơn để in!");
+                return;
+            }
+
+            let bill = bills[currentTable]; // Lấy hóa đơn hiện tại
+            let billContent = document.getElementById("billContent");
+            let totalBillAmount = document.getElementById("totalBillAmount");
+            let qrContainer = document.getElementById("qrCodeContainer");
+            let printableBill = document.getElementById("printableBill");
+            printableBill.style.display = "block";
+          
+            // Xóa nội dung cũ của hóa đơn trước khi in
+            billContent.innerHTML = "";
+
+            // **Duyệt qua danh sách món ăn và thêm vào bảng in**
+            bill.items.forEach(item => {
+                let row = document.createElement("tr");
+                row.innerHTML = `
+                <td>${item.name}</td>
+                <td>${item.quantity}</td>
+                <td>${item.totalPrice.toLocaleString()}đ</td>
+            `;
+                billContent.appendChild(row);
+            });
+
+            // Cập nhật tổng tiền
+            totalBillAmount.textContent = bill.total.toLocaleString() + "đ";
+
+            // 🚀 Nếu QR đã được tạo, hiển thị QR trong hóa đơn in
+            if (savedQRCode.trim() !== "") {
+                qrContainer.innerHTML = savedQRCode;
+            } else {
+                qrContainer.innerHTML = "<p>Không có QR Code!</p>";
+            }
+
+            // 🚀 In ngay lập tức
+            setTimeout(() => {
+                window.print();
+
+                // 🚀 **Xóa hóa đơn sau khi in xong**
+                setTimeout(() => {
+                    delete bills[currentTable];
+                    saveBillsToLocalStorage();
+                    displayBill();
+                    updateTableStatus();
+                }, 1000); // Chờ 1 giây để đảm bảo in hoàn tất trước khi xóa
+            }, 500);
+        }
+
+
     // Hiển thị bill
     function displayBill() {
         if (!currentTable) return;
@@ -143,33 +194,52 @@ document.addEventListener("DOMContentLoaded", function () {
         const bill = bills[currentTable] || { items: [], total: 0 };
         tableBody.innerHTML = ""; // Xóa danh sách cũ
 
+        let billContent = document.getElementById("billContent");
+        billContent.innerHTML = ""; // Xóa nội dung cũ
+
+        // Hiển thị số bàn
+        document.getElementById("tableNumber").textContent = currentTable;
+
         bill.items.forEach(item => {
             const row = document.createElement("tr");
             row.innerHTML = `
-                <td class="delete-btn">x</td>
-                <td>${item.name}</td>
-                <td>${item.quantity}</td>
-                <td>${item.totalPrice.toLocaleString()}đ</td>
-            `;
+            <td>${item.name}</td>
+            <td>${item.quantity}</td>
+            <td>${item.totalPrice.toLocaleString()}đ</td>
+        `;
+
+            // Thêm vào bảng hiển thị
+            billContent.appendChild(row);
+
+            // Cập nhật bảng hiển thị gốc
+            const mainRow = document.createElement("tr");
+            mainRow.innerHTML = `
+            <td class="delete-btn">x</td>
+            <td>${item.name}</td>
+            <td>${item.quantity}</td>
+            <td>${item.totalPrice.toLocaleString()}đ</td>
+        `;
 
             // Sự kiện xóa món
-            row.querySelector(".delete-btn").addEventListener("click", function () {
+            mainRow.querySelector(".delete-btn").addEventListener("click", function () {
                 const index = bill.items.indexOf(item);
                 if (index > -1) {
                     bill.items.splice(index, 1);
-                    updateTotalAmount(); // Cập nhật tổng tiền
-                    updateTableStatus();
-                    saveBillsToLocalStorage(); // Lưu lại trạng thái
-                    displayBill(); // Hiển thị lại bill
+                    updateTotalAmount();
+                    saveBillsToLocalStorage();
+                    displayBill(); // Hiển thị lại hóa đơn mới
+                    updateTableStatuslocal(); // 🛑 Cập nhật trạng thái bàn sau khi xóa
                 }
             });
 
-            tableBody.appendChild(row);
+            tableBody.appendChild(mainRow);
         });
 
+        document.getElementById("totalBillAmount").textContent = bill.total.toLocaleString() + "đ";
         totalAmountCell.textContent = bill.total.toLocaleString() + "đ";
         btnThanhToan.textContent = `Thanh toán: ${bill.total.toLocaleString()}đ`;
     }
+
 
     // Cập nhật tổng tiền
     function updateTotalAmount() {
@@ -180,17 +250,64 @@ document.addEventListener("DOMContentLoaded", function () {
         bills[currentTable] = bill;
     }
     function updateTableStatus() {
-        tableElements.forEach(table => {
-            const tableId = table.dataset.tableId;
-            if (bills[tableId] && bills[tableId].items.length > 0) {
-                table.classList.add("in-use"); // Thêm class màu đỏ
-                table.classList.remove("available"); // Xóa class màu xanh
+        document.querySelectorAll(".table").forEach(table => {
+            const isInUse = table.dataset.isInUse === "true"; // Lấy trạng thái từ backend
+            if (isInUse) {
+                table.classList.add("in-use-table");
+                table.classList.remove("available");
             } else {
-                table.classList.add("available"); // Thêm class màu xanh
-                table.classList.remove("in-use"); // Xóa class màu đỏ
+                table.classList.add("available");
+                table.classList.remove("in-use-table");
+            }
+        });
+
+        // Sau khi cập nhật trạng thái từ backend, cập nhật từ `bills` trong localStorage
+        setTimeout(updateTableStatuslocal, 200); // Đảm bảo gọi sau khi `updateTableStatus()` chạy
+    }
+
+    function updateTableStatuslocal() {
+        document.querySelectorAll(".table").forEach(table => {
+            const tableId = table.dataset.soban;
+            const isInUseFromServer = table.dataset.isInUse === "true"; // Lấy trạng thái từ backend
+
+            // Nếu bàn có món trong `bills`, giữ trạng thái "in-use"
+            if (bills[tableId] && bills[tableId].items.length > 0) {
+                table.classList.add("in-use");
+                table.classList.remove("available");
+            } else {
+                // 🛑 Chỉ đặt về "available" nếu backend KHÔNG đánh dấu bàn là đang sử dụng
+                if (!isInUseFromServer) {
+                    table.classList.add("available");
+                    table.classList.remove("in-use");
+                }
             }
         });
     }
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("https://localhost:7126/tableHub", {
+            skipNegotiation: true, // 🛑 Bỏ qua bước mặc định, chỉ dùng WebSockets
+            transport: signalR.HttpTransportType.WebSockets
+        })
+        .configureLogging(signalR.LogLevel.Information)
+        .build();
+
+    // Bắt đầu kết nối
+    connection.start()
+        .then(() => console.log("✅ Kết nối SignalR thành công!"))
+        .catch(err => console.error("❌ Lỗi kết nối SignalR:", err.toString()));
+
+    // Nhận tín hiệu từ server khi trạng thái bàn thay đổi
+    connection.on("ReceiveTableUpdate", (banId, isInUse) => {
+        console.log(`🚀 Bàn ${banId} cập nhật trạng thái: ${isInUse}`);
+
+        // Cập nhật UI bàn tương ứng
+        const tableElement = document.querySelector(`.table[data-table-id="${banId}"]`);
+        if (tableElement) {
+            tableElement.dataset.isInUse = isInUse;
+            updateTableStatus();
+        }
+    });
+
     // Thêm món vào bill
     document.querySelector(".menu ul").addEventListener("click", function (event) {
         if (event.target && event.target.id === "addproduct") {
@@ -220,26 +337,27 @@ document.addEventListener("DOMContentLoaded", function () {
             updateTotalAmount(); // Cập nhật tổng cộng
             saveBillsToLocalStorage();
             displayBill(); // Hiển thị lại bill
-            updateTableStatus(); // Cập nhật trạng thái bàn
+        
+            updateTableStatuslocal();
         }
     });
 
     // Gắn sự kiện chọn bàn
     tableElements.forEach(table => {
         table.addEventListener("click", function () {
-            currentTable = this.dataset.tableId; // Lấy ID bàn từ thuộc tính data-table-id
+            currentTable = this.dataset.soban; // Lấy ID bàn từ thuộc tính data-table-id
             currentTableDisplay.textContent = `Bàn: ${currentTable}`; // Hiển thị bàn
             displayBill(); // Hiển thị bill của bàn
         });
     });
-
+  
     const thanhtoan = document.getElementById("thanhtoan");
-
     thanhtoan.addEventListener("click", function () {
         if (!currentTable || !bills[currentTable] || bills[currentTable].items.length === 0) {
             alert("Không có hóa đơn để thanh toán!");
             return;
         }
+        const banid = parseInt(document.getElementById("ban").dataset.tableId, 10);
 
         const bill = bills[currentTable];
 
@@ -253,6 +371,7 @@ document.addEventListener("DOMContentLoaded", function () {
             
                 Amount: bill.total,    // Tổng số tiền cần thanh toán
                 Note: `Thanh toán bàn ${currentTable}`,
+                BanId: banid, 
                 QRCodeUrl: ''
             })
         })
@@ -279,6 +398,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
                             // Xóa nội dung cũ trước khi thêm mới
                             qrContainer.innerHTML = "";
+                            let qrWrapper = document.createElement("div");
+                            qrWrapper.classList.add("qr-container");
+                            savedQRCode = html;
+                            // Thêm QR vào `qrWrapper`
+                            let qrCodeDiv = document.createElement("div");
+                            qrCodeDiv.innerHTML = html;
+                            qrWrapper.appendChild(qrCodeDiv);
+
+                            let printButton = document.createElement("button");
+                            printButton.innerHTML = "🖨️ In hóa đơn";
+                            printButton.classList.add("prinbutton"); // Thêm class cho CSS
+                            printButton.onclick = function () {
+                                printInvoice();
+                            };
+                            qrWrapper.appendChild(printButton);
 
                             // Thêm nút đóng (✖)
                             let closeButton = document.createElement("button");
@@ -287,17 +421,22 @@ document.addEventListener("DOMContentLoaded", function () {
                             closeButton.onclick = function () {
                                 qrContainer.style.display = "none";
                                 qrContainer.innerHTML = ""; // Xóa nội dung QR khi đóng
+                                delete bills[currentTable]; // Xóa hóa đơn sau khi thanh toán
+                                let printableBill = document.getElementById("printableBill");
+                                printableBill.style.display = "none";
+                                saveBillsToLocalStorage(); // Lưu lại trạng thái
+                                displayBill(); // Cập nhật giao diện
+                                updateTableStatus(); // Cập nhật trạng thái bàn
                             };
-
+                            qrContainer.appendChild(closeButton);
                             // Hiển thị QR
                             qrContainer.style.display = "flex";
-                            qrContainer.insertAdjacentHTML("beforeend", html);
-                            qrContainer.appendChild(closeButton);
-
-                            delete bills[currentTable]; // Xóa hóa đơn sau khi thanh toán
-                            saveBillsToLocalStorage(); // Lưu lại trạng thái
-                            displayBill(); // Cập nhật giao diện
-                            updateTableStatus(); // Cập nhật trạng thái bàn
+                            qrContainer.style.justifyContent = "center"; // Căn giữa toàn bộ QR
+                            qrContainer.style.alignItems = "center";
+                            qrContainer.appendChild(qrWrapper);
+                   
+                       
+                     
                         })
                         .catch(error => {
                             console.error("Error loading QR view:", error); 
@@ -313,7 +452,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 alert("Đã xảy ra lỗi khi thanh toán!");
             });
     });
-
 
     updateTableStatus();
 });

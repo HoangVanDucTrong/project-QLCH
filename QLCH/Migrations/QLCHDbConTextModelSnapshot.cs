@@ -51,17 +51,15 @@ namespace QLCH.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "004c7e80 - 7dfc - 44be - 8952 - 2c7130898655",
-                            ConcurrencyStamp = "004c7e80 - 7dfc - 44be - 8952 - 2c7130898655",
-                            Name = "Read",
-                            NormalizedName = "READ"
+                            Id = "admin-role-id",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "71e282d3-76ca-485e-b094-eff019287fa5",
-                            ConcurrencyStamp = "71e282d3-76ca-485e-b094-eff019287fa5",
-                            Name = "Write",
-                            NormalizedName = "WRITE"
+                            Id = "employee-role-id",
+                            Name = "Employee",
+                            NormalizedName = "EMPLOYEE"
                         });
                 });
 
@@ -248,20 +246,64 @@ namespace QLCH.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("QLCH.Models.Ban", b =>
+            modelBuilder.Entity("QLCH.Models.Bans", b =>
                 {
-                    b.Property<int>("BanId")
+                    b.Property<int?>("BanId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BanId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("BanId"));
+
+                    b.Property<string>("IsInUse")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SoBan")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("StoreId")
                         .HasColumnType("int");
 
                     b.HasKey("BanId");
 
                     b.ToTable("Bans");
+                });
+
+            modelBuilder.Entity("QLCH.Models.CaLamNhanVien", b =>
+                {
+                    b.Property<int?>("CaLamId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("CaLamId"));
+
+                    b.Property<string>("GhiChu")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<TimeSpan>("GioBatDau")
+                        .HasColumnType("time");
+
+                    b.Property<TimeSpan>("GioKetThuc")
+                        .HasColumnType("time");
+
+                    b.Property<int>("NVid")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("NgayLam")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("StoreId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Thu")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("calam")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CaLamId");
+
+                    b.ToTable("CaLamNhanVien");
                 });
 
             modelBuilder.Entity("QLCH.Models.ChiTietDonHang", b =>
@@ -272,26 +314,24 @@ namespace QLCH.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CTDHId"));
 
-                    b.Property<int>("DonHangId")
+                    b.Property<int>("BanId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Gia")
+                    b.Property<int?>("DonHangId")
                         .HasColumnType("int");
+
+                    b.Property<string>("ImageCheckBank")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("NgayTao")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("SanPhamId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SoLuong")
+                    b.Property<int>("StoreId")
                         .HasColumnType("int");
 
                     b.HasKey("CTDHId");
 
                     b.HasIndex("DonHangId");
-
-                    b.HasIndex("SanPhamId");
 
                     b.ToTable("ChiTietDonHangs");
                 });
@@ -378,11 +418,11 @@ namespace QLCH.Migrations
 
             modelBuilder.Entity("QLCH.Models.NhanVien", b =>
                 {
-                    b.Property<int>("NVid")
+                    b.Property<int?>("NVid")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NVid"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("NVid"));
 
                     b.Property<string>("AnhNhanVien")
                         .HasColumnType("nvarchar(max)");
@@ -395,8 +435,8 @@ namespace QLCH.Migrations
 
                     b.Property<string>("SDT")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<int?>("StoreId")
                         .HasColumnType("int");
@@ -411,6 +451,42 @@ namespace QLCH.Migrations
                     b.ToTable("NhanVien");
                 });
 
+            modelBuilder.Entity("QLCH.Models.NhapHang", b =>
+                {
+                    b.Property<int?>("NHid")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("NHid"));
+
+                    b.Property<decimal>("DonGia")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("DonVi")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("NgayNhapHang")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("StoreId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TenHangHoa")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("ThanhTien")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("soluong")
+                        .HasColumnType("int");
+
+                    b.HasKey("NHid");
+
+                    b.ToTable("NhapHang");
+                });
+
             modelBuilder.Entity("QLCH.Models.QR", b =>
                 {
                     b.Property<int>("QRId")
@@ -419,7 +495,7 @@ namespace QLCH.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("QRId"));
 
-                    b.Property<int>("BanId")
+                    b.Property<int?>("BanId")
                         .HasColumnType("int");
 
                     b.Property<string>("DuLieuMaQR")
@@ -470,6 +546,79 @@ namespace QLCH.Migrations
                     b.ToTable("SanPhams");
                 });
 
+            modelBuilder.Entity("QLCH.Models.SanPhamDonHang", b =>
+                {
+                    b.Property<int>("SPDHId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SPDHId"));
+
+                    b.Property<int>("CTDHId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("GhiChu")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Gia")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("SanPhamId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SoLuong")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Tensp")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("TongTien")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("SPDHId");
+
+                    b.HasIndex("CTDHId");
+
+                    b.ToTable("SanPhamDonHang");
+                });
+
+            modelBuilder.Entity("QLCH.Models.TaiKhoanNhanVien", b =>
+                {
+                    b.Property<int?>("TaiKhoanId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("TaiKhoanId"));
+
+                    b.Property<string>("DiaChi")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MatKhau")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("NVid")
+                        .HasColumnType("int");
+
+                    b.Property<string>("QuocGia")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Sdt")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StoreId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TenDangNhap")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TaiKhoanId");
+
+                    b.ToTable("TaiKhoanNhanVien");
+                });
+
             modelBuilder.Entity("QLCH.Models.ThanhToan", b =>
                 {
                     b.Property<int>("ThanhToanId")
@@ -502,6 +651,65 @@ namespace QLCH.Migrations
                     b.HasIndex("DonHangId");
 
                     b.ToTable("ThanhToans");
+                });
+
+            modelBuilder.Entity("QLCH.Models.Thongtintaikhoan", b =>
+                {
+                    b.Property<int?>("bankid")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("bankid"));
+
+                    b.Property<string>("AccountName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("AcqId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("BankAccount")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("BankAccount");
+
+                    b.Property<string>("ShortName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StoreId")
+                        .HasColumnType("int");
+
+                    b.HasKey("bankid");
+
+                    b.ToTable("Thongtintaikhoan");
+                });
+
+            modelBuilder.Entity("QLCH.Models.resetpassword.PasswordResetCode", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Expiration")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsUsed")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("passwordResetCodes");
                 });
 
             modelBuilder.Entity("QLCH.Models.store", b =>
@@ -540,6 +748,39 @@ namespace QLCH.Migrations
                     b.HasKey("StoreId");
 
                     b.ToTable("Stores");
+                });
+
+            modelBuilder.Entity("QLCH.Models.transaction", b =>
+                {
+                    b.Property<int?>("TransactionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("TransactionId"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Note")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("QRCodeUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("StoreId")
+                        .HasColumnType("int");
+
+                    b.HasKey("TransactionId");
+
+                    b.ToTable("transactions");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -595,21 +836,9 @@ namespace QLCH.Migrations
 
             modelBuilder.Entity("QLCH.Models.ChiTietDonHang", b =>
                 {
-                    b.HasOne("QLCH.Models.DonHang", "DonHang")
+                    b.HasOne("QLCH.Models.DonHang", null)
                         .WithMany("ChiTietDonHangs")
-                        .HasForeignKey("DonHangId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("QLCH.Models.SanPham", "SanPham")
-                        .WithMany()
-                        .HasForeignKey("SanPhamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("DonHang");
-
-                    b.Navigation("SanPham");
+                        .HasForeignKey("DonHangId");
                 });
 
             modelBuilder.Entity("QLCH.Models.DonHang", b =>
@@ -625,13 +854,11 @@ namespace QLCH.Migrations
 
             modelBuilder.Entity("QLCH.Models.QR", b =>
                 {
-                    b.HasOne("QLCH.Models.Ban", "Ban")
+                    b.HasOne("QLCH.Models.Bans", "bans")
                         .WithMany()
-                        .HasForeignKey("BanId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BanId");
 
-                    b.Navigation("Ban");
+                    b.Navigation("bans");
                 });
 
             modelBuilder.Entity("QLCH.Models.SanPham", b =>
@@ -643,6 +870,17 @@ namespace QLCH.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("QLCH.Models.SanPhamDonHang", b =>
+                {
+                    b.HasOne("QLCH.Models.ChiTietDonHang", "ChiTietDonHang")
+                        .WithMany("SanPhamDonHangs")
+                        .HasForeignKey("CTDHId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ChiTietDonHang");
+                });
+
             modelBuilder.Entity("QLCH.Models.ThanhToan", b =>
                 {
                     b.HasOne("QLCH.Models.DonHang", "DonHang")
@@ -652,6 +890,11 @@ namespace QLCH.Migrations
                         .IsRequired();
 
                     b.Navigation("DonHang");
+                });
+
+            modelBuilder.Entity("QLCH.Models.ChiTietDonHang", b =>
+                {
+                    b.Navigation("SanPhamDonHangs");
                 });
 
             modelBuilder.Entity("QLCH.Models.DanhMuc", b =>

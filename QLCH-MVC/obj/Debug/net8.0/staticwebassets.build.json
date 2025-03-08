@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "+U5irqWhxfmzl44MlPPiskMsXuWcZQORrxZGKT8JQ3o=",
+  "Hash": "Fxwxoy87cfLrOUnVJprM1OdSfcq64Tw+wrxj0JMO+KY=",
   "Source": "QLCH-MVC",
   "BasePath": "_content/QLCH-MVC",
   "Mode": "Default",
@@ -207,6 +207,25 @@
       "OriginalItemSpec": "wwwroot\\css\\register.css"
     },
     {
+      "Identity": "D:\\Dự An\\QLCH\\QLCH-MVC\\wwwroot\\css\\Sanphamclient.css",
+      "SourceId": "QLCH-MVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Dự An\\QLCH\\QLCH-MVC\\wwwroot\\",
+      "BasePath": "_content/QLCH-MVC",
+      "RelativePath": "css/Sanphamclient.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\Sanphamclient.css"
+    },
+    {
       "Identity": "D:\\Dự An\\QLCH\\QLCH-MVC\\wwwroot\\css\\site.css",
       "SourceId": "QLCH-MVC",
       "SourceType": "Discovered",
@@ -302,6 +321,25 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
+      "Identity": "D:\\Dự An\\QLCH\\QLCH-MVC\\wwwroot\\js\\Ban.js",
+      "SourceId": "QLCH-MVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Dự An\\QLCH\\QLCH-MVC\\wwwroot\\",
+      "BasePath": "_content/QLCH-MVC",
+      "RelativePath": "js/Ban.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\Ban.js"
+    },
+    {
       "Identity": "D:\\Dự An\\QLCH\\QLCH-MVC\\wwwroot\\js\\banhang.js",
       "SourceId": "QLCH-MVC",
       "SourceType": "Discovered",
@@ -340,6 +378,25 @@
       "OriginalItemSpec": "wwwroot\\js\\calam.js"
     },
     {
+      "Identity": "D:\\Dự An\\QLCH\\QLCH-MVC\\wwwroot\\js\\donhang.js",
+      "SourceId": "QLCH-MVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Dự An\\QLCH\\QLCH-MVC\\wwwroot\\",
+      "BasePath": "_content/QLCH-MVC",
+      "RelativePath": "js/donhang.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\donhang.js"
+    },
+    {
       "Identity": "D:\\Dự An\\QLCH\\QLCH-MVC\\wwwroot\\js\\nhanvien.js",
       "SourceId": "QLCH-MVC",
       "SourceType": "Discovered",
@@ -357,6 +414,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\nhanvien.js"
+    },
+    {
+      "Identity": "D:\\Dự An\\QLCH\\QLCH-MVC\\wwwroot\\js\\Sanphamclient.js",
+      "SourceId": "QLCH-MVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Dự An\\QLCH\\QLCH-MVC\\wwwroot\\",
+      "BasePath": "_content/QLCH-MVC",
+      "RelativePath": "js/Sanphamclient.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\Sanphamclient.js"
     },
     {
       "Identity": "D:\\Dự An\\QLCH\\QLCH-MVC\\wwwroot\\js\\site.js",

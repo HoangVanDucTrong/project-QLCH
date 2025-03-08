@@ -196,15 +196,16 @@ namespace QLCH.Controllers
         {
             var token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
             var claimsPrincipal = _laytoken.laytoken(token);
-
-
-
             var storeId = claimsPrincipal.Claims.FirstOrDefault(c => c.Type == "StoreId")?.Value;
 
             if (string.IsNullOrEmpty(storeId))
             {
                 return Unauthorized();
             }
+
+            // Xóa các bản ghi liên quan trong bảng SanPhamDonHang trước
+            var relatedOrders = _context.sanPhamDonHangs.Where(s => s.SanPhamId == id);
+            _context.sanPhamDonHangs.RemoveRange(relatedOrders);
 
             var sp = await _context.SanPhams
                 .Where(s => s.SanPhamId == id && s.StoreId == int.Parse(storeId))
@@ -220,6 +221,7 @@ namespace QLCH.Controllers
 
             return NoContent();
         }
+
         [HttpGet("api/sanpham/search")]
         public async Task<IActionResult> SearchSanPham(string query)
         {

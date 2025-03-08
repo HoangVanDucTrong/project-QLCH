@@ -1,0 +1,520 @@
+﻿@{
+    Layout = null;
+}
+@model SanPhamViewModel
+
+
+@{
+    ViewBag.Title = "Danh sách sản phẩm";
+}
+
+<head>
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<style>
+    .containerspclient {
+        flex-direction: column;
+        padding: 10px;
+        gap: 20px;
+    }
+
+    h2 {
+        color: red;
+    }
+
+    .product-list, .cart {
+        width: 100%;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+    }
+
+    .product-item {
+        height: 150px;
+        align-items: flex-start;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid #eee;
+        padding: 10px 0;
+    }
+
+        .product-item:last-child {
+            border-bottom: none;
+        }
+
+    .cart-shopping {
+        font-size: 20px;
+        margin-right: 5%;
+        margin-bottom: 55px;
+        align-self: flex-end;
+        cursor: pointer;
+        color: #4CAF50;
+    }
+
+    /* Cart */
+    .cart {
+        background-color: #f9f9f9;
+    }
+
+        .cart h1 {
+            text-align: center;
+        }
+
+        .cart ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .cart li {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+        }
+
+    .checkout-btn {
+        width: 100%;
+        padding: 12px;
+        background-color: #af4c5f;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+        .checkout-btn:hover {
+            background-color: #45a049;
+        }
+
+    .imgsp {
+        width: 100px;
+        height: 100px;
+    }
+
+    #qrViewContainer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5); /* Nền mờ */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        display: none;
+    }
+
+    .confirmation-dialog {
+        position: fixed; /* Hiển thị cố định trên màn hình */
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        z-index: 1001; /* Đảm bảo cao hơn QR Code */
+        width: 300px;
+        text-align: center;
+    }
+
+    .dialog-content button {
+        margin: 5px;
+        padding: 8px 16px;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+        .dialog-content button#confirmUpload {
+            background-color: green;
+            color: white;
+        }
+
+        .dialog-content button#cancelUpload {
+            background-color: red;
+            color: white;
+        }
+    .qr-close-btn {
+        position: absolute;
+        top: 35%;
+        right: 25%;
+        background: crimson;
+        color: white;
+        border: none;
+        font-size: 20px;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .qr-download-btn {
+        display: block;
+        margin-top: 15px;
+        padding: 10px 15px;
+        font-size: 16px;
+        background-color: #dd1652;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .qr-download-btn:hover {
+            background-color: rgb(236, 119, 119);
+        }
+</style>
+<!-- Lưu storeId vào một thẻ div ẩn -->
+<div id="storeData" data-store-id="@ViewBag.StoreId"></div>
+<div id="BanidData" data-ban-id="@ViewBag.banid"></div>
+<h2 style="text-align:center;">Danh sách sản phẩm</h2>
+<div class="containerspclient">
+    <!-- Danh sách sản phẩm -->
+    <div class="product-list">
+        <h3>Sản phẩm</h3>
+        @if (!string.IsNullOrEmpty(ViewBag.BanError))
+        {
+            <div style="color:crimson; font-size:larger; font-style:italic;">
+                @ViewBag.BanError
+            </div>
+        }
+        @if (Model.sanPhams.Any())
+        {
+            @foreach (var product in Model.sanPhams)
+            {
+                <div class="product-item" data-product-id="@product.SanPhamId" data-product-name="@product.Ten" data-product-price="@product.Gia">
+                    <div style="display: flex;gap:20px">
+                        <img class="imgsp" src="data:image/jpeg;base64,@product.ImageBase64" alt="Món 1" class="menu-item-image">
+                        <div style="margin-top:10px;">
+                        <strong>@product.Ten</strong><br />
+                        <small>Giá: @product.Gia.ToString("N0") VNĐ</small>
+                        </div>
+                    </div>
+                    <i class="fas fa-cart-plus cart-shopping" title="Thêm vào giỏ hàng"></i>
+                </div>
+            }
+        }
+    </div>
+
+    <!-- Giỏ hàng -->
+    <div class="cart">
+        <h1>🛒 Giỏ hàng</h1>
+        <ul id="cart-items"></ul>
+        <p><strong>Tổng cộng:</strong> <span id="cart-total">0</span> VNĐ</p>
+        <button id="thanhtoan" class="checkout-btn" >Thanh toán</button>
+    </div>
+</div>
+
+<div>
+    <!-- Container để hiển thị QR View -->
+    <div id="qrViewContainer">
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.4/signalr.min.js"></script>
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const cartItemsElement = document.getElementById("cart-items");
+        const cartTotalElement = document.getElementById("cart-total");
+        const thanhtoanButton = document.getElementById("thanhtoan");
+
+        // Lấy storeId từ thẻ div
+        const storeId = document.getElementById("storeData").dataset.storeId;
+       
+
+
+        // Giỏ hàng lưu trữ sản phẩm
+        let cart = [];
+
+        // Thêm sản phẩm vào giỏ hàng khi click vào icon
+        document.querySelectorAll(".cart-shopping").forEach(icon => {
+            icon.addEventListener("click", function () {
+                const productElement = this.closest(".product-item");
+                const productId = productElement.dataset.productId;
+                const productName = productElement.dataset.productName;
+                const productPrice = parseFloat(productElement.dataset.productPrice);
+
+                // Kiểm tra nếu sản phẩm đã có trong giỏ hàng
+                const existingProduct = cart.find(item => item.id === productId);
+
+                if (existingProduct) {
+                    existingProduct.quantity += 1;
+                } else {
+                    cart.push({
+                        id: productId,
+                        name: productName,
+                        price: productPrice,
+                        quantity: 1
+                    });
+                }
+
+                updateCartUI();
+            });
+        });
+        // Cập nhật giao diện giỏ hàng
+        function updateCartUI() {
+            cartItemsElement.innerHTML = "";
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                const li = document.createElement("li");
+
+                // Hiển thị sản phẩm và nút xóa (✖)
+                li.innerHTML = `
+                ${item.name} x ${item.quantity} - ${(item.price * item.quantity).toLocaleString()} VNĐ
+                <span class="remove-item" data-index="${index}" style="color: red; cursor: pointer; margin-left: 10px;">✖</span>
+            `;
+
+                cartItemsElement.appendChild(li);
+                total += item.price * item.quantity;
+            });
+
+            cartTotalElement.textContent = total.toLocaleString();
+
+            // Thêm sự kiện click cho nút xóa sản phẩm
+            const removeButtons = document.querySelectorAll(".remove-item");
+            removeButtons.forEach(button => {
+                button.addEventListener("click", function () {
+                    const index = parseInt(this.getAttribute("data-index"));
+                    cart.splice(index, 1); // Xóa sản phẩm khỏi mảng cart
+                    updateCartUI(); // Cập nhật lại giao diện
+                });
+            });
+        }
+
+
+        // Xử lý sự kiện "Thanh toán"
+        thanhtoanButton.addEventListener("click", function () {
+            if (cart.length === 0) {
+                alert("Giỏ hàng trống! Vui lòng thêm sản phẩm trước khi thanh toán.");
+                return;
+            }
+          
+        
+     
+            let banId = null;
+            const banidElement = document.getElementById("BanidData");
+            if (banidElement) {
+                banId = parseInt(banidElement.dataset.banId, 10);
+                if (banId) {
+                    console.log("Ban ID:", banId);
+                } else {
+                    console.error("Lỗi: banId không có giá trị!");
+                }
+            } else {
+                console.error("Lỗi: Không tìm thấy phần tử BanidData!");
+            }
+
+            // Lấy tổng
+            // Lấy tổng tiền từ giỏ hàng
+            const totalAmount = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+            // Tạo object chứa dữ liệu thanh toán bao gồm storeId
+            const transactionData = {
+                Amount: totalAmount,
+                Note: "Thanh toán đơn hàng",
+                BanId: parseInt(banId),
+                StoreId: parseInt(storeId),
+                QRCodeUrl: ''
+            };
+
+            // Gửi dữ liệu đến action Create
+            fetch("/Ban/Create", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(transactionData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        var transactionId = data.transactionId;
+                   
+                        fetch(`/Ban/GenerateQrView?transactionId=${transactionId}&storeId=${storeId}`, {
+                            method: "GET"
+                        })
+                            .then(response => response.text())
+                            .then(html => {
+
+                                if (html.includes("Đã có lỗi xảy ra") || html.toLowerCase().includes("error")) {
+                                    throw new Error("Nội dung trả về có lỗi, không hiển thị QR.");
+                                }
+
+                                let qrContainer = document.getElementById("qrViewContainer");
+
+                                // Xóa nội dung cũ trước khi thêm mới
+                                qrContainer.innerHTML = "";
+                                let qrWrapper = document.createElement("div");
+                                qrWrapper.classList.add("qr-container");
+                                savedQRCode = html;
+                                // Thêm QR vào `qrWrapper`
+                                let qrCodeDiv = document.createElement("div");
+                                qrCodeDiv.innerHTML = html;
+                                qrWrapper.appendChild(qrCodeDiv);
+                
+                                const downloadButton = document.createElement("button");
+                                downloadButton.innerHTML = "⬇️ Tải mã QR";
+                                downloadButton.classList.add("qr-download-btn");
+                                downloadButton.onclick = function () {
+                                    const qrImg = qrCodeDiv.querySelector("img");
+                                    if (qrImg) {
+                                        const link = document.createElement("a");
+                                        link.href = qrImg.src;
+                                        link.download = "QRCode.png";
+                                        link.click();
+                                        fetch(`/Ban/UpdateTableStatus?BanId=${banId}&Storeid=${storeId}`, {
+                                            method: "POST"
+                                        })
+                                            .then(response => response.json())
+                                            .then(data => {
+                                                if (data.success) {
+                                                    console.log("✅ Trạng thái bàn đã được cập nhật.");
+                                                } else {
+                                                    console.error("⚠️ Lỗi khi cập nhật trạng thái bàn:", data.message);
+                                                }
+                                            })
+                                            .catch(error => {
+                                                console.error("❌ Lỗi khi gọi API:", error);
+                                            });
+
+                                    } else {
+                                        alert("Không tìm thấy hình ảnh mã QR để tải xuống.");
+                                    }
+                                };
+                                qrWrapper.appendChild(downloadButton);
+
+
+                                let closeButton = document.createElement("button");
+                                closeButton.innerHTML = "✖";
+                                closeButton.classList.add("qr-close-btn");
+
+                                closeButton.onclick = function () {
+                                    // Hiển thị thông báo xác nhận
+                                    let confirmationDialog = document.createElement("div");
+                                    confirmationDialog.classList.add("confirmation-dialog");
+
+                                    confirmationDialog.innerHTML = `
+                                        <p>🛑 <b>Để xác nhận thanh toán, vui lòng upload bill để gửi đơn hàng về quầy!</b></p>
+                                        <input type="file" id="billUpload" accept="image/*">
+                                        <br>
+                                        <button id="confirmUpload">OK</button>
+                                        <button id="cancelUpload">Hủy</button>
+                                    `;
+
+                                    document.body.appendChild(confirmationDialog);
+
+                                    // Xử lý khi người dùng bấm "OK"
+                                    document.getElementById("confirmUpload").addEventListener("click", function () {
+                                        let fileInput = document.getElementById("billUpload");
+                                        if (fileInput.files.length === 0) {
+                                            alert("❌ Bạn chưa upload bill. Vui lòng tải ảnh hóa đơn lên!");
+                                            return;
+                                        }
+
+                                        let file = fileInput.files[0];
+                                        let reader = new FileReader();
+
+                                        reader.onloadend = function () {
+                                            let base64Image = reader.result.split(",")[1]; // Chuyển ảnh thành Base64
+
+                                            let orderRequest = {
+                                                StoreId: parseInt(storeId),
+                                                BanId: parseInt(banId),
+                                                TongTien: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+                                                ImageCheckBank: base64Image, // Ảnh bill dạng Base64
+                                                Products: cart.map(item => ({
+                                                    SanPhamId: item.id,
+                                                    SoLuong: item.quantity,
+                                                    Gia: item.price
+                                                }))
+                                            };
+
+                                            // Gửi đơn hàng đến server
+                                            fetch("/Ban/CreateOrder", {
+                                                method: "POST",
+                                                headers: {
+                                                    "Content-Type": "application/json"
+                                                },
+                                                body: JSON.stringify(orderRequest)
+                                            })
+                                                .then(response => response.json())
+                                                .then(data => {
+                                                    if (data.success) {
+                                                        alert("✅ Đơn hàng đã được gửi thành công!");
+
+                                                        // Ẩn QR và xóa nội dung
+                                                        qrContainer.style.display = "none";
+                                                        qrContainer.innerHTML = "";
+                                                        cart = [];
+                                                        updateCartUI();
+
+                                                        // Cập nhật trạng thái bàn sau khi xác nhận
+                                                        fetch(`/Ban/UpdateTableStatus?BanId=${banId}&Storeid=${storeId}`, {
+                                                            method: "POST"
+                                                        })
+                                                            .then(response => response.json())
+                                                            .then(data => {
+                                                                if (data.success) {
+                                                                    console.log("✅ Trạng thái bàn đã được cập nhật.");
+                                                                } else {
+                                                                    console.error("⚠️ Lỗi khi cập nhật trạng thái bàn:", data.message);
+                                                                }
+                                                            })
+                                                            .catch(error => {
+                                                                console.error("❌ Lỗi khi gọi API:", error);
+                                                            });
+
+                                                        // Xóa thông báo sau khi hoàn thành
+                                                        document.body.removeChild(confirmationDialog);
+                                                    } else {
+                                                        alert("❌ Lỗi khi gửi đơn hàng, vui lòng thử lại!");
+                                                    }
+                                                })
+                                                .catch(error => {
+                                                    console.error("❌ Lỗi khi gửi đơn hàng:", error);
+                                                    alert("❌ Lỗi khi gửi đơn hàng!");
+                                                });
+                                        };
+
+                                        reader.readAsDataURL(file);
+                                    });
+
+                                    // Xử lý khi người dùng bấm "Hủy"
+                                    document.getElementById("cancelUpload").addEventListener("click", function () {
+                                        document.body.removeChild(confirmationDialog); // Xóa thông báo mà không thực hiện hành động
+                                    });
+                                };
+
+                                qrContainer.appendChild(closeButton);
+                                // Hiển thị QR
+                                qrContainer.style.display = "flex";
+                                qrContainer.style.justifyContent = "center"; // Căn giữa toàn bộ QR
+                                qrContainer.style.alignItems = "center";
+                                qrContainer.appendChild(qrWrapper);
+
+
+
+                            })
+                            .catch(error => {
+                                console.error("Error loading QR view:", error);
+                                alert("Bạn Chưa thêm tài khoản ngân hàng!");
+                            });
+
+                    } else {
+                        alert("Thanh toán thất bại: " + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error("Lỗi khi gọi API:", error);
+                    alert("Đã xảy ra lỗi khi thanh toán!");
+                });
+        });
+    });
+</script>

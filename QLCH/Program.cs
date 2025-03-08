@@ -14,6 +14,40 @@ using System.Security.Claims;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddSignalR(options =>
+{
+    options.EnableDetailedErrors = true;
+});
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+        builder =>
+        {
+            builder
+                .AllowAnyOrigin() // 🛑 Cho phép tất cả các domain (CÓ THỂ GIỚI HẠN LẠI)
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+        });
+});
+var allowedOrigins = new string[]
+{
+    "https://e21d-2405-4802-a1d1-23d0-c84e-7bca-7cbe-5bc0.ngrok-free.app/",
+    "http://localhost:4200",
+    "*"
+};
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        policy =>
+        {
+            policy.SetIsOriginAllowed(_ => true) // ✅ Cho phép tất cả các domain
+                  .AllowAnyHeader()
+                  .AllowAnyMethod()
+                  .AllowCredentials();
+        });
+});
+
 var _logger = new LoggerConfiguration()
  .WriteTo.Console()// ghi ra console 
  .WriteTo.File("Logs/Book_log.txt", rollingInterval: RollingInterval.Minute)
@@ -110,11 +144,10 @@ builder.Services.AddAuthentication(options =>
 });
 builder.Services.AddAuthorization();
 builder.Services.AddControllersWithViews();
-
 var app = builder.Build();
 
-
-
+app.UseCors("AllowAllOrigins");
+app.UseCors("AllowNgrok");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -130,7 +163,7 @@ using (var scope = app.Services.CreateScope())
 app.UseAuthentication();
 app.UseAuthorization();
 
-
-
+app.MapHub<TableHub>("/tableHub");
+app.MapHub<NotificationHub>("/notificationHub");
 app.MapControllers();
 app.Run();

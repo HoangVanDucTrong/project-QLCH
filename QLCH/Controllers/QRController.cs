@@ -6,44 +6,56 @@ using System.Drawing;
 using System.IO;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
+using QLCH.Models.IRepository;
 [ApiController]
 [Route("api/[controller]")]
-[Authorize]
+
 public class QRController : ControllerBase
 {
   
     private readonly QLCHDbConText _context;
-
-    public QRController(QLCHDbConText context)
+    private readonly IGetClaimsFromToken _getClaimsFromToken;
+    public QRController(QLCHDbConText context, IGetClaimsFromToken getClaimsFromToken)
     {
         _context = context;
+        _getClaimsFromToken = getClaimsFromToken;
     }
 
-    [HttpPost]
+    [HttpGet("CreateQR")]
+    [Authorize]
     public IActionResult CreateQR(int banId)
     {
+      
+
+        if (banId <= 0)
+        {
+            return BadRequest(new { error = "ID bàn không hợp lệ" });
+        }
+        var token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+        var claimsPrincipal = _getClaimsFromToken.laytoken(token);
+
+        var storeId = claimsPrincipal.Claims.FirstOrDefault(c => c.Type == "StoreId")?.Value;
+
         var ban = _context.bans.Find(banId);
 
         if (ban == null)
         {
-            return NotFound("Ban không tồn tại");
+            return NotFound("Bàn không tồn tại");
+        }
+       ban.StoreId=int.Parse(storeId);
+        // Tạo dữ liệu QR
+        string qrData = $"https://85e1-2405-4802-a1d1-23d0-ec12-9295-b395-5a52.ngrok-free.app/Ban/ShowProducts?banid={banId}&storeid={storeId}";
+
+
+        // Kiểm tra nếu QR đã tồn tại trong DB
+        var existingQR = _context.QRs.FirstOrDefault(q => q.BanId == ban.BanId);
+        if (existingQR == null)
+        {
+            var qr = new QR { BanId = ban.BanId, DuLieuMaQR = qrData };
+            _context.QRs.Add(qr);
+            _context.SaveChanges();
         }
 
-        /*Tạo dữ liệu QR từ BanId*/
-        string qrData = $"BanId={ban.BanId}&StoreId={ban.StoreId}";
-        /*
-        string qrData = $"http://192.168.1.18:7126/store/products?banId={ban.BanId}&storeId={ban.StoreId}";*/
-
-
-        // Lưu dữ liệu vào cột DuLieuMaQR trong bảng QRs
-        var qr = new QR
-        {
-            BanId = ban.BanId,
-            DuLieuMaQR = qrData
-        };
-            
-        _context.QRs.Add(qr);
-        _context.SaveChanges();
         // Tạo mã QR
         using (QRCodeGenerator qrGenerator = new QRCodeGenerator())
         {
@@ -61,9 +73,19 @@ public class QRController : ControllerBase
             }
         }
     }
+
     [HttpGet("store/products")]
     public IActionResult GetProducts(int banId, int storeId)
     {
+        Console.WriteLine($"🔍 Nhận request: storeId={storeId}, banId={banId}");
+        // Kiểm tra xem bàn có hợp lệ không
+        var ban = _context.bans.FirstOrDefault(b => b.BanId == banId && b.StoreId == storeId);
+        if (ban == null)
+        {
+            return NotFound("Bàn không tồn tại trong cửa hàng này.");
+        }
+
+        // Lấy danh sách sản phẩm theo storeId
         var products = _context.SanPhams
                                .Where(p => p.StoreId == storeId)
                                .ToList();
@@ -73,7 +95,9 @@ public class QRController : ControllerBase
             return NotFound("Không có sản phẩm nào được tìm thấy cho cửa hàng này.");
         }
 
+        // Trả về danh sách sản phẩm
         return Ok(products);
     }
+
 
 }

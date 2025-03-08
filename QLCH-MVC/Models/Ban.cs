@@ -10,7 +10,5 @@ namespace QLCH_MVC.Models
         public int SoBan { get; set; }
 
         public string? IsInUse { get; set; }
-
-        public int? StoreId { get; set; }
     }
 }

@@ -26,7 +26,7 @@ namespace QLCH_MVC.Controllers
             ViewBag.UserRoles = roles;
 
             var token = HttpContext.Session.GetString("JWTToken");
-         
+
             if (string.IsNullOrEmpty(token))
             {
                 return RedirectToAction("Login", "Account");
@@ -44,38 +44,49 @@ namespace QLCH_MVC.Controllers
             banRequest.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
             var banResponse = await _httpClient.SendAsync(banRequest);
 
-            if (sanPhamResponse.IsSuccessStatusCode && banResponse.IsSuccessStatusCode)
+            var sanPhams = new List<SanPham>();
+            var bans = new List<Ban>();
+
+            bool hasBan = false;
+            bool hasSanPham = false;
+
+            // Kiểm tra dữ liệu bàn
+            if (banResponse.IsSuccessStatusCode)
+            {
+                var banJson = await banResponse.Content.ReadAsStringAsync();
+                bans = JsonConvert.DeserializeObject<List<Ban>>(banJson);
+                hasBan = bans.Any();
+            }
+
+            // Kiểm tra dữ liệu sản phẩm
+            if (sanPhamResponse.IsSuccessStatusCode)
             {
                 var sanPhamJson = await sanPhamResponse.Content.ReadAsStringAsync();
-                var sanPhams = JsonConvert.DeserializeObject<IEnumerable<SanPham>>(sanPhamJson);
-
-                var banJson = await banResponse.Content.ReadAsStringAsync();
-                var bans = JsonConvert.DeserializeObject<IEnumerable<Ban>>(banJson);
-
-                // Kết hợp dữ liệu vào ViewModel
-                var viewModel = new SanPhamBanViewModel
-                {
-                    SanPhams = sanPhams,
-                    Bans = bans
-                };
-
-                return View(viewModel);
+                sanPhams = JsonConvert.DeserializeObject<List<SanPham>>(sanPhamJson);
+                hasSanPham = sanPhams.Any();
             }
-            else if (sanPhamResponse.StatusCode == System.Net.HttpStatusCode.NotFound ||
-              banResponse.StatusCode == System.Net.HttpStatusCode.NotFound)
+
+            var viewModel = new SanPhamBanViewModel
             {
+                SanPhams = sanPhams,
+                Bans = bans
+            };
 
-                // Trả về View với thông báo lỗi
-                ViewBag.ErrorMessage = "Cửa hàng của bạn chưa có bàn hoặc sản phẩm! Hãy thêm ngay!";
-                return View();
-            }
-            else
+            // Xử lý lỗi từng loại
+            if (!hasBan)
             {
-                return View("Error");
+                ViewBag.BanError = "Cửa hàng của bạn chưa có bàn! Hãy thêm ngay!";
             }
+            if (!hasSanPham)
+            {
+                ViewBag.SanPhamError = "Cửa hàng của bạn chưa có sản phẩm! Hãy thêm ngay!";
+            }
+
+            return View(viewModel);
         }
 
-        public async Task<IActionResult> Getsanpham()
+
+        public async Task<IActionResult> Getsanpham()                                           
         {
             var userRoles = HttpContext.Session.GetString("UserRoles");
             var roles = userRoles?.Split(',') ?? new string[0];

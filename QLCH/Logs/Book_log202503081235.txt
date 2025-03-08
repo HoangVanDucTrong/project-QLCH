@@ -1,0 +1,166 @@
+2025-03-08 12:35:04.016 +07:00 [INF] Request starting HTTP/1.1 POST https://localhost:7126/api/Store/Login - application/json; charset=utf-8 63
+2025-03-08 12:35:04.085 +07:00 [INF] Executing endpoint 'QLCH.Controllers.StoreController.Login (QLCH)'
+2025-03-08 12:35:04.112 +07:00 [INF] Route matched with {action = "Login", controller = "Store"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(QLCH.Models.DTO.LoginRequestDTO) on controller QLCH.Controllers.StoreController (QLCH).
+2025-03-08 12:35:04.221 +07:00 [INF] Executed DbCommand (6ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DiaChi], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[QuocGia], [a].[Sdt], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @__normalizedEmail_0
+2025-03-08 12:35:04.389 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-03-08 12:35:04.400 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__user_Email_0='?' (Size = 30)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [s].[StoreId], [s].[DiaChi], [s].[Email], [s].[Pass], [s].[QuocGia], [s].[Sdt]
+FROM [Stores] AS [s]
+WHERE [s].[Email] = @__user_Email_0
+2025-03-08 12:35:04.449 +07:00 [INF] Executing OkObjectResult, writing value of type 'QLCH.Models.DTO.LoginResponseDTO'.
+2025-03-08 12:35:04.471 +07:00 [INF] Executed action QLCH.Controllers.StoreController.Login (QLCH) in 354.6312ms
+2025-03-08 12:35:04.472 +07:00 [INF] Executed endpoint 'QLCH.Controllers.StoreController.Login (QLCH)'
+2025-03-08 12:35:04.479 +07:00 [INF] Request finished HTTP/1.1 POST https://localhost:7126/api/Store/Login - 200 null application/json; charset=utf-8 464.1207ms
+2025-03-08 12:35:04.499 +07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7126/api/Sanpham/Getsanpham - null null
+2025-03-08 12:35:04.552 +07:00 [INF] Executing endpoint 'QLCH.Controllers.Sanphamcontroller.Getsanpham (QLCH)'
+2025-03-08 12:35:04.558 +07:00 [INF] Route matched with {action = "Getsanpham", controller = "Sanpham"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[QLCH.Models.SanPham]]] Getsanpham() on controller QLCH.Controllers.Sanphamcontroller (QLCH).
+2025-03-08 12:35:04.571 +07:00 [INF] StoreIdClaim: 20
+2025-03-08 12:35:04.592 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[@__storeId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[SanPhamId], [s].[DanhMucId], [s].[Gia], [s].[ImageBase64], [s].[MoTa], [s].[StoreId], [s].[Ten]
+FROM [SanPhams] AS [s]
+WHERE [s].[StoreId] = @__storeId_0
+2025-03-08 12:35:10.129 +07:00 [INF] Successfully retrieved products.
+2025-03-08 12:35:10.131 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[QLCH.Models.SanPham, QLCH, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-03-08 12:35:10.164 +07:00 [INF] Executed action QLCH.Controllers.Sanphamcontroller.Getsanpham (QLCH) in 5604.1162ms
+2025-03-08 12:35:10.165 +07:00 [INF] Executed endpoint 'QLCH.Controllers.Sanphamcontroller.Getsanpham (QLCH)'
+2025-03-08 12:35:10.167 +07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7126/api/Sanpham/Getsanpham - 200 null application/json; charset=utf-8 5667.6846ms
+2025-03-08 12:35:10.171 +07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7126/api/Ban/Getban - null null
+2025-03-08 12:35:10.177 +07:00 [INF] Executing endpoint 'QLCH.Controllers.BanController.GetBan (QLCH)'
+2025-03-08 12:35:10.182 +07:00 [INF] Route matched with {action = "GetBan", controller = "Ban"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[QLCH.Models.Bans]]] GetBan() on controller QLCH.Controllers.BanController (QLCH).
+2025-03-08 12:35:10.188 +07:00 [INF] StoreIdClaim: 20
+2025-03-08 12:35:10.199 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__storeId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BanId], [b].[IsInUse], [b].[SoBan], [b].[StoreId]
+FROM [Bans] AS [b]
+WHERE [b].[StoreId] = @__storeId_0
+2025-03-08 12:35:10.212 +07:00 [INF] Successfully retrieved products.
+2025-03-08 12:35:10.213 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[QLCH.Models.Bans, QLCH, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-03-08 12:35:10.216 +07:00 [INF] Executed action QLCH.Controllers.BanController.GetBan (QLCH) in 32.5043ms
+2025-03-08 12:35:10.218 +07:00 [INF] Executed endpoint 'QLCH.Controllers.BanController.GetBan (QLCH)'
+2025-03-08 12:35:10.219 +07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7126/api/Ban/Getban - 200 null application/json; charset=utf-8 47.8885ms
+2025-03-08 12:35:11.520 +07:00 [INF] Request starting HTTP/2 CONNECT https://localhost:7126/tableHub - null null
+2025-03-08 12:35:11.520 +07:00 [INF] Request starting HTTP/2 CONNECT https://localhost:7126/tableHub - null null
+2025-03-08 12:35:11.526 +07:00 [INF] CORS policy execution successful.
+2025-03-08 12:35:11.526 +07:00 [INF] CORS policy execution successful.
+2025-03-08 12:35:11.528 +07:00 [INF] No CORS policy found for the specified request.
+2025-03-08 12:35:11.528 +07:00 [INF] No CORS policy found for the specified request.
+2025-03-08 12:35:11.529 +07:00 [INF] Executing endpoint '/tableHub'
+2025-03-08 12:35:11.530 +07:00 [INF] Executing endpoint '/tableHub'
+2025-03-08 12:35:11.571 +07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7126/api/QR/store/products?banId=3&storeId=20 - null null
+2025-03-08 12:35:11.574 +07:00 [INF] Executing endpoint 'QRController.GetProducts (QLCH)'
+2025-03-08 12:35:11.578 +07:00 [INF] Route matched with {action = "GetProducts", controller = "QR"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetProducts(Int32, Int32) on controller QRController (QLCH).
+2025-03-08 12:35:11.601 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__banId_0='?' (DbType = Int32), @__storeId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BanId], [b].[IsInUse], [b].[SoBan], [b].[StoreId]
+FROM [Bans] AS [b]
+WHERE [b].[BanId] = @__banId_0 AND [b].[StoreId] = @__storeId_1
+2025-03-08 12:35:11.610 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__storeId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[SanPhamId], [s].[DanhMucId], [s].[Gia], [s].[ImageBase64], [s].[MoTa], [s].[StoreId], [s].[Ten]
+FROM [SanPhams] AS [s]
+WHERE [s].[StoreId] = @__storeId_0
+2025-03-08 12:35:11.653 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[QLCH.Models.SanPham, QLCH, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-03-08 12:35:11.670 +07:00 [INF] Executed action QRController.GetProducts (QLCH) in 90.4556ms
+2025-03-08 12:35:11.671 +07:00 [INF] Executed endpoint 'QRController.GetProducts (QLCH)'
+2025-03-08 12:35:11.672 +07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7126/api/QR/store/products?banId=3&storeId=20 - 200 null application/json; charset=utf-8 101.3919ms
+2025-03-08 12:35:17.966 +07:00 [INF] Request starting HTTP/1.1 POST https://localhost:7126/api/ThanhtoanClient/CreateTransaction - application/json; charset=utf-8 158
+2025-03-08 12:35:17.969 +07:00 [INF] Executing endpoint 'QLCH.Controllers.ThanhtoanClient.CreateTransaction (QLCH)'
+2025-03-08 12:35:17.972 +07:00 [INF] Route matched with {action = "CreateTransaction", controller = "ThanhtoanClient"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] CreateTransaction(QLCH.Models.transaction) on controller QLCH.Controllers.ThanhtoanClient (QLCH).
+2025-03-08 12:35:17.997 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__newTransaction_BanId_0='?' (DbType = Int32), @__newTransaction_StoreId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BanId], [b].[IsInUse], [b].[SoBan], [b].[StoreId]
+FROM [Bans] AS [b]
+WHERE [b].[BanId] = @__newTransaction_BanId_0 AND [b].[StoreId] = @__newTransaction_StoreId_1
+2025-03-08 12:35:18.126 +07:00 [INF] Executed DbCommand (11ms) [Parameters=[@p1='?' (DbType = Int32), @p0='?' (Size = 4000), @p2='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @p3='?' (DbType = DateTime2), @p4='?' (Size = 4000), @p5='?' (Size = 4000), @p6='?' (Size = 4000), @p7='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+UPDATE [Bans] SET [IsInUse] = @p0
+OUTPUT 1
+WHERE [BanId] = @p1;
+INSERT INTO [transactions] ([Amount], [CreatedAt], [Note], [QRCodeUrl], [Status], [StoreId])
+OUTPUT INSERTED.[TransactionId]
+VALUES (@p2, @p3, @p4, @p5, @p6, @p7);
+2025-03-08 12:35:18.156 +07:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType16`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-08 12:35:18.163 +07:00 [INF] Executed action QLCH.Controllers.ThanhtoanClient.CreateTransaction (QLCH) in 189.4594ms
+2025-03-08 12:35:18.164 +07:00 [INF] Executed endpoint 'QLCH.Controllers.ThanhtoanClient.CreateTransaction (QLCH)'
+2025-03-08 12:35:18.165 +07:00 [INF] Request finished HTTP/1.1 POST https://localhost:7126/api/ThanhtoanClient/CreateTransaction - 200 null application/json; charset=utf-8 199.0691ms
+2025-03-08 12:35:18.282 +07:00 [INF] Request starting HTTP/1.1 POST https://localhost:7126/api/ThanhtoanClient/CreateQrForStore - application/json; charset=utf-8 35
+2025-03-08 12:35:18.285 +07:00 [INF] Executing endpoint 'QLCH.Controllers.ThanhtoanClient.CreateQrForStore (QLCH)'
+2025-03-08 12:35:18.289 +07:00 [INF] Route matched with {action = "CreateQrForStore", controller = "ThanhtoanClient"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] CreateQrForStore(QLCH.Models.CreateTransactionRequest) on controller QLCH.Controllers.ThanhtoanClient (QLCH).
+2025-03-08 12:35:18.306 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__request_transactionId_0='?' (DbType = Int32), @__request_storeid_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [t].[TransactionId], [t].[Amount], [t].[CreatedAt], [t].[Note], [t].[QRCodeUrl], [t].[Status], [t].[StoreId]
+FROM [transactions] AS [t]
+WHERE [t].[TransactionId] = @__request_transactionId_0 AND [t].[StoreId] = @__request_storeid_1
+2025-03-08 12:35:18.315 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__request_storeid_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [t].[bankid], [t].[AccountName], [t].[AcqId], [t].[BankAccount], [t].[ShortName], [t].[StoreId]
+FROM [Thongtintaikhoan] AS [t]
+WHERE [t].[StoreId] = @__request_storeid_0
+2025-03-08 12:35:19.071 +07:00 [INF] Executed DbCommand (7ms) [Parameters=[@p6='?' (DbType = Int32), @p0='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @p1='?' (DbType = DateTime2), @p2='?' (Size = 4000), @p3='?' (Size = -1), @p4='?' (Size = 4000), @p5='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [transactions] SET [Amount] = @p0, [CreatedAt] = @p1, [Note] = @p2, [QRCodeUrl] = @p3, [Status] = @p4, [StoreId] = @p5
+OUTPUT 1
+WHERE [TransactionId] = @p6;
+2025-03-08 12:35:19.073 +07:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType15`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-08 12:35:19.077 +07:00 [INF] Executed action QLCH.Controllers.ThanhtoanClient.CreateQrForStore (QLCH) in 787.4922ms
+2025-03-08 12:35:19.078 +07:00 [INF] Executed endpoint 'QLCH.Controllers.ThanhtoanClient.CreateQrForStore (QLCH)'
+2025-03-08 12:35:19.079 +07:00 [INF] Request finished HTTP/1.1 POST https://localhost:7126/api/ThanhtoanClient/CreateQrForStore - 200 null application/json; charset=utf-8 796.8885ms
+2025-03-08 12:35:40.166 +07:00 [INF] Request starting HTTP/1.1 POST https://localhost:7126/api/ThanhtoanClient/CreateOrder - application/json; charset=utf-8 289656
+2025-03-08 12:35:40.168 +07:00 [INF] Executing endpoint 'QLCH.Controllers.ThanhtoanClient.CreateOrder (QLCH)'
+2025-03-08 12:35:40.172 +07:00 [INF] Route matched with {action = "CreateOrder", controller = "ThanhtoanClient"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] CreateOrder(QLCH.Models.OrderRequest) on controller QLCH.Controllers.ThanhtoanClient (QLCH).
+2025-03-08 12:35:40.226 +07:00 [INF] Executed DbCommand (23ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (Size = -1), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [ChiTietDonHangs] ([BanId], [ImageCheckBank], [NgayTao], [StoreId])
+OUTPUT INSERTED.[CTDHId]
+VALUES (@p0, @p1, @p2, @p3);
+2025-03-08 12:35:40.255 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @p2='?' (DbType = Int32), @p3='?' (DbType = Int32), @p4='?' (Precision = 18) (Scale = 2) (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [SanPhamDonHang] ([CTDHId], [Gia], [SanPhamId], [SoLuong], [TongTien])
+OUTPUT INSERTED.[SPDHId]
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2025-03-08 12:35:40.261 +07:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType18`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-08 12:35:40.264 +07:00 [INF] Executed action QLCH.Controllers.ThanhtoanClient.CreateOrder (QLCH) in 90.651ms
+2025-03-08 12:35:40.265 +07:00 [INF] Executed endpoint 'QLCH.Controllers.ThanhtoanClient.CreateOrder (QLCH)'
+2025-03-08 12:35:40.266 +07:00 [INF] Request finished HTTP/1.1 POST https://localhost:7126/api/ThanhtoanClient/CreateOrder - 200 null application/json; charset=utf-8 100.8583ms
+2025-03-08 12:35:41.450 +07:00 [INF] Request starting HTTP/1.1 POST https://localhost:7126/api/ThanhtoanClient/statusBan - application/json; charset=utf-8 24
+2025-03-08 12:35:41.453 +07:00 [INF] Executing endpoint 'QLCH.Controllers.ThanhtoanClient.statusBan (QLCH)'
+2025-03-08 12:35:41.458 +07:00 [INF] Route matched with {action = "statusBan", controller = "ThanhtoanClient"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] statusBan(QLCH.Controllers.TableStatusRequest) on controller QLCH.Controllers.ThanhtoanClient (QLCH).
+2025-03-08 12:35:41.472 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__request_BanId_0='?' (DbType = Int32), @__request_StoreId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BanId], [b].[IsInUse], [b].[SoBan], [b].[StoreId]
+FROM [Bans] AS [b]
+WHERE [b].[BanId] = @__request_BanId_0 AND [b].[StoreId] = @__request_StoreId_1
+2025-03-08 12:35:41.477 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@p1='?' (DbType = Int32), @p0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [Bans] SET [IsInUse] = @p0
+OUTPUT 1
+WHERE [BanId] = @p1;
+2025-03-08 12:35:41.480 +07:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-08 12:35:41.482 +07:00 [INF] Executed action QLCH.Controllers.ThanhtoanClient.statusBan (QLCH) in 22.7168ms
+2025-03-08 12:35:41.483 +07:00 [INF] Executed endpoint 'QLCH.Controllers.ThanhtoanClient.statusBan (QLCH)'
+2025-03-08 12:35:41.484 +07:00 [INF] Request finished HTTP/1.1 POST https://localhost:7126/api/ThanhtoanClient/statusBan - 200 null application/json; charset=utf-8 33.9805ms
+2025-03-08 12:35:43.873 +07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7126/api/Thanhtoan/GetOrderDetails/3 - null null
+2025-03-08 12:35:43.877 +07:00 [INF] Executing endpoint 'QLCH.Controllers.Thanhtoancontroller.GetOrderDetails (QLCH)'
+2025-03-08 12:35:43.880 +07:00 [INF] Route matched with {action = "GetOrderDetails", controller = "Thanhtoan"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetOrderDetails(Int32) on controller QLCH.Controllers.Thanhtoancontroller (QLCH).
+2025-03-08 12:35:43.938 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__banId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[CTDHId], [t].[BanId], [t].[NgayTao], [t].[ImageCheckBank], [t].[StoreId], [t0].[Ten], [t0].[SoLuong], [t0].[ImageBase64], [t0].[TongTien], [t0].[SPDHId], [t0].[SanPhamId]
+FROM (
+    SELECT TOP(1) [c].[CTDHId], [c].[BanId], [c].[NgayTao], [c].[ImageCheckBank], [c].[StoreId]
+    FROM [ChiTietDonHangs] AS [c]
+    WHERE [c].[BanId] = @__banId_0
+    ORDER BY [c].[NgayTao] DESC
+) AS [t]
+LEFT JOIN (
+    SELECT [s0].[Ten], [s].[SoLuong], [s0].[ImageBase64], [s].[TongTien], [s].[SPDHId], [s0].[SanPhamId], [s].[CTDHId]
+    FROM [SanPhamDonHang] AS [s]
+    INNER JOIN [SanPhams] AS [s0] ON [s].[SanPhamId] = [s0].[SanPhamId]
+) AS [t0] ON [t].[CTDHId] = [t0].[CTDHId]
+ORDER BY [t].[NgayTao] DESC, [t].[CTDHId], [t0].[SPDHId]
+2025-03-08 12:35:49.024 +07:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType19`6[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[<>f__AnonymousType20`4[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Decimal, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], QLCH, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-08 12:35:49.046 +07:00 [INF] Executed action QLCH.Controllers.Thanhtoancontroller.GetOrderDetails (QLCH) in 5163.6877ms
+2025-03-08 12:35:49.047 +07:00 [INF] Executed endpoint 'QLCH.Controllers.Thanhtoancontroller.GetOrderDetails (QLCH)'
+2025-03-08 12:35:49.048 +07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7126/api/Thanhtoan/GetOrderDetails/3 - 200 null application/json; charset=utf-8 5175.1169ms

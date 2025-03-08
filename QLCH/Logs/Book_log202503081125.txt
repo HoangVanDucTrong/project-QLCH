@@ -1,0 +1,4 @@
+2025-03-08 11:25:32.055 +07:00 [INF] Executed endpoint '/tableHub'
+2025-03-08 11:25:32.055 +07:00 [INF] Executed endpoint '/tableHub'
+2025-03-08 11:25:32.058 +07:00 [INF] Request finished HTTP/2 CONNECT https://localhost:7126/tableHub - 200 null null 134055.9339ms
+2025-03-08 11:25:32.058 +07:00 [INF] Request finished HTTP/2 CONNECT https://localhost:7126/tableHub - 200 null null 134055.9505ms

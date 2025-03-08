@@ -89,6 +89,10 @@
       "PackagePath": "staticwebassets\\css\\Home.css"
     },
     {
+      "Id": "D:\\Dự An\\QLCH\\QLCH-MVC\\wwwroot\\css\\Sanphamclient.css",
+      "PackagePath": "staticwebassets\\css\\Sanphamclient.css"
+    },
+    {
       "Id": "D:\\Dự An\\QLCH\\QLCH-MVC\\wwwroot\\css\\calamnhanvien.css",
       "PackagePath": "staticwebassets\\css\\calamnhanvien.css"
     },
@@ -125,12 +129,24 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "D:\\Dự An\\QLCH\\QLCH-MVC\\wwwroot\\js\\Ban.js",
+      "PackagePath": "staticwebassets\\js\\Ban.js"
+    },
+    {
+      "Id": "D:\\Dự An\\QLCH\\QLCH-MVC\\wwwroot\\js\\Sanphamclient.js",
+      "PackagePath": "staticwebassets\\js\\Sanphamclient.js"
+    },
+    {
       "Id": "D:\\Dự An\\QLCH\\QLCH-MVC\\wwwroot\\js\\banhang.js",
       "PackagePath": "staticwebassets\\js\\banhang.js"
     },
     {
       "Id": "D:\\Dự An\\QLCH\\QLCH-MVC\\wwwroot\\js\\calam.js",
       "PackagePath": "staticwebassets\\js\\calam.js"
+    },
+    {
+      "Id": "D:\\Dự An\\QLCH\\QLCH-MVC\\wwwroot\\js\\donhang.js",
+      "PackagePath": "staticwebassets\\js\\donhang.js"
     },
     {
       "Id": "D:\\Dự An\\QLCH\\QLCH-MVC\\wwwroot\\js\\nhanvien.js",

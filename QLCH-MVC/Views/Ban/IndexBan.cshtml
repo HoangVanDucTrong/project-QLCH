@@ -1,0 +1,91 @@
+﻿@model BanViewModel
+<link rel="stylesheet" href="~/css/Home.css">
+<script src="~/js/Ban.js"></script>
+<style>
+    .table-headeer {
+        background: linear-gradient(90deg, rgb(199, 0, 103) 0%, rgba(255, 103, 0, 1) 100%);
+        padding: 10px;
+        color: #fff;
+        margin-top: 10px;
+        font-size: 24px;
+    }
+
+    .tablee{
+        width: 80px;
+        height: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 10px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        cursor: pointer;
+        background-color: crimson ;
+        color: #fff;
+    }
+
+    #qrContainer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7); /* Nền mờ */
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        flex-direction: column;
+        text-align: center;
+    }
+
+        #qrContainer h3 {
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        #qrContainer button {
+            margin-top: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+        }
+
+            #qrContainer button:hover {
+                background-color: #45a049;
+            }
+</style>
+<div class="table-headeer">
+    Table
+</div>
+<div class="tables-section">
+    <!-- Trạng thái bàn -->
+    @if (!string.IsNullOrEmpty(ViewBag.BanError))
+    {
+        <div style="color:crimson; font-size:larger; font-style:italic;">
+            @ViewBag.BanError
+        </div>
+    }
+
+    @if (Model.Bans.Any())
+    {
+
+        @foreach (var ban in Model.Bans)
+        {
+            <div class="tablee" data-soban="@ban.SoBan" data-table-id="@ban.BanId" style="cursor: pointer; border: 1px solid #ccc; padding: 10px; margin: 5px;">
+                Bàn @ban.SoBan
+            </div>
+        }
+
+    }
+    <div id="qrContainer" style="display: none; margin-top: 20px;">
+        <h3>Mã QR của bàn</h3>
+        <!-- Ảnh QR sẽ được chèn vào đây -->
+    </div>
+    <button class="add-btn" onclick="toggleForm()">+</button>
+    @Html.Partial("_AddtablePartial", new QLCH_MVC.Models.Ban())
+</div>
+
+

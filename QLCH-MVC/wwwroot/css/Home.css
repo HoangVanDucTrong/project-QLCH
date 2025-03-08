@@ -151,7 +151,9 @@ tbody tr {
     .status .unavailable {
         background-color: rgb(216, 9, 9);
     }
-
+.status .unavailableTable {
+    background-color: saddlebrown;
+}
 .menu-button {
     background-color: #dd1652;
     color: white;
@@ -170,8 +172,13 @@ tbody tr {
     color: white;
 }
 
+.table.in-use-table {
+    background-color: saddlebrown;
+    color: white;
+}
+
 .table.in-use {
-    background-color: #f44336; /* Màu đỏ cho bàn đang sử dụng */
+    background-color: #f44336;
     color: white;
 }
 
@@ -197,7 +204,7 @@ tbody tr {
     color: white;
     text-align: center;
     padding: 10px 10px;
-    width: 70%;
+    width: 100%;
     border-radius: 5px;
     cursor: pointer;
 }
@@ -370,15 +377,72 @@ select {
     z-index: 1000;
     display: none;
 }
-.qr-close-btn {
+
+.prinbutton {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 33px;
+    right: 35%;
     background: crimson;
     color: white;
     border: none;
     font-size: 20px;
     padding: 5px 10px;
     cursor: pointer;
-    border-radius: 5px;
+    bottom: -50px;
 }
+#printableBill{
+    display:none;
+}
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    #printableBill, #printableBill * {
+        visibility: visible;
+    }
+
+    #printableBill {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        padding: 20px;
+        background: white;
+      
+    }
+
+    #qrCodeSection {
+        text-align: center;
+        margin-top: 20px;
+    }
+    #qrCodeContainer img {
+        width: 210px !important;
+        height: 210px !important;
+    }
+}
+.qr-container {
+    display: flex;
+    flex-direction: column; /* Xếp các phần tử theo chiều dọc */
+    align-items: center; /* Căn giữa nội dung */
+    text-align: center;
+    position: relative;
+    padding: 20px;
+}
+
+.qr-print-btn {
+    display: block;
+    margin-top: 15px;
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: #dd1652;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    bottom:-50px;
+}
+
+    .qr-print-btn:hover {
+        background-color: rgb(236, 119, 119);
+    }

@@ -7,6 +7,7 @@ namespace QLCH_MVC.Models
         [Key]
         public int? TransactionId { get; set; }
         public int? StoreId { get; set; }
+        public int? BanId { get; set; }
         public decimal Amount { get; set; }
         public string QRCodeUrl { get; set; }
         public string Status { get; set; }

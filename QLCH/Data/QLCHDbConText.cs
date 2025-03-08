@@ -16,9 +16,7 @@ namespace QLCH.Data
         public DbSet<DanhMuc> DanhMucs { get; set; }
         public DbSet<SanPham> SanPhams { get; set; }
         public DbSet<Client> Clients { get; set; }
-        public DbSet<DonHang> DonHangs { get; set; }
         public DbSet<ChiTietDonHang> ChiTietDonHangs { get; set; }
-        public DbSet<ThanhToan> ThanhToans { get; set; }
         public DbSet<QR> QRs { get; set; }
         public DbSet<NhanVien> NhanViens { get; set; }
         public DbSet<TaiKhoanNhanVien> taiKhoanNhanViens { get; set; }
@@ -28,6 +26,7 @@ namespace QLCH.Data
         public DbSet<PasswordResetCode> passwordResetCodes { get; set; }
         public DbSet<Thongtintaikhoan> Thongtintaikhoan { get; set; }
         public DbSet<transaction> transactions   { get; set; }
+        public DbSet<SanPhamDonHang> sanPhamDonHangs { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

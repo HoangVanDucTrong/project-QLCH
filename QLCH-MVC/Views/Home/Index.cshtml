@@ -40,7 +40,7 @@
                 </table>
             </div>
 
-            <div class="footerbill"> <button class="btnthanhtoan" id="thanhtoan">Thanh toán:</button><button class="in">In</button></div>
+            <div class="footerbill"> <button class="btnthanhtoan" id="thanhtoan">Thanh toán:</button></div>
 
         </div>
 
@@ -55,31 +55,34 @@
                     <div class="color-box unavailable"></div>
                     <span>Đang sử dụng</span>
                 </div>
+                <div class="status">
+                    <div class="color-box unavailableTable"></div>
+                    <span>Khách tại bàn sử dụng</span>
+                </div>
                 <button class="menu-button" id="menuButton">Thực đơn</button>
             </div>
-            @if (ViewBag.ErrorMessage != null)
-           {
-  
-                   
-                <div class="" style="color:crimson;font-size:larger;font-style:italic;">
-                    @ViewBag.ErrorMessage
+            @if (!string.IsNullOrEmpty(ViewBag.BanError))
+            {
+                <div style="color:crimson; font-size:larger; font-style:italic;">
+                    @ViewBag.BanError
                 </div>
             }
-            else
+
+            @if (Model.Bans.Any())
             {
-                <!-- Danh sách bàn -->
-                @foreach (var ban in Model.Bans)
-                {
-                    <div class="table" data-table-id="@ban.BanId">
-                        Bàn @ban.SoBan
-                    </div>
-                }
+                
+                    @foreach (var ban in Model.Bans)
+                    {
+                    <div id="ban" class="table" data-is-in-use="@ban.IsInUse" data-soban="@ban.SoBan" data-table-id="@ban.BanId">
+                            Bàn @ban.SoBan
+                        </div>
+                    }
+             
             }
         </div>
 
     </div>
 </div>
-
     <!-- Menu chạy từ bên phải -->
 <div class="menu" id="menu">
     <div class="menu-header">
@@ -90,15 +93,15 @@
         <button class="close-button" id="closeButton">✖</button>
     </div>
     <ul>
-           @if (ViewBag.ErrorMessage != null)
+        @if (!string.IsNullOrEmpty(ViewBag.SanPhamError))
         {
-            <li>
-                @ViewBag.ErrorMessage
-            </li>
+            <div style="color:crimson; font-size:larger; font-style:italic;">
+                @ViewBag.SanPhamError
+            </div>
         }
-        else
+
+        @if (Model.SanPhams.Any())
         {
-        
             @foreach (var sanpham in Model.SanPhams)
             {
                 <li>
@@ -121,8 +124,35 @@
         
     </ul>
 </div>
-<div>
+<div >
     <!-- Container để hiển thị QR View -->
-    <div id="qrViewContainer"></div>
+    <div id="qrViewContainer">
+       
+    </div>
 </div>
+<!-- Khu vực chứa hóa đơn + QR Code -->
+<div id="printableBill">
+    <h2>HÓA ĐƠN THANH TOÁN</h2>
+    <p>Bàn: <span id="tableNumber"></span></p>
+    <p>Hình thức: <span id="serviceType"></span></p>
+    <table>
+        <thead>
+            <tr>
+                <th>Mặt hàng</th>
+                <th>SL</th>
+                <th>Thành tiền</th>
+            </tr>
+        </thead>
+        <tbody id="billContent"></tbody>
+    </table>
+    <h3>Tổng tiền: <span id="totalBillAmount"></span></h3>
+
+    <!-- QR Code hiển thị dưới bill -->
+    <div id="qrCodeSection">
+        <h3>Quét mã để thanh toán</h3>
+        <div id="qrCodeContainer"></div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+
 <script src="~/js/banhang.js"></script>

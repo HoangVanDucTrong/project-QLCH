@@ -34,3 +34,10 @@ D:\Dự An\QLCH\QLCH-MVC\obj\Debug\net8.0\QLCH-MVC.csproj.CopyComplete
 D:\Dự An\QLCH\QLCH-MVC\bin\Debug\net8.0\Newtonsoft.Json.dll
 D:\Dự An\QLCH\QLCH-MVC\obj\Debug\net8.0\QLCH-MVC.sourcelink.json
 D:\Dự An\QLCH\QLCH-MVC\bin\Debug\net8.0\RestSharp.dll
+D:\Dự An\QLCH\QLCH-MVC\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\Dự An\QLCH\QLCH-MVC\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
+D:\Dự An\QLCH\QLCH-MVC\bin\Debug\net8.0\Microsoft.Extensions.Hosting.Abstractions.dll
+D:\Dự An\QLCH\QLCH-MVC\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+D:\Dự An\QLCH\QLCH-MVC\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
+D:\Dự An\QLCH\QLCH-MVC\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+D:\Dự An\QLCH\QLCH-MVC\bin\Debug\net8.0\System.Net.WebSockets.WebSocketProtocol.dll

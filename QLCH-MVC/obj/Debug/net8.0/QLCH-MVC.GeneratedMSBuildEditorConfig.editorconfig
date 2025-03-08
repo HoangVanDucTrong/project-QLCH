@@ -46,6 +46,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZXNldFBhc3N3b3JkV2l0aENvZGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Dự An/QLCH/QLCH-MVC/Views/Ban/IndexBan.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFuXEluZGV4QmFuLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Dự An/QLCH/QLCH-MVC/Views/Ban/ShowProducts.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFuXFNob3dQcm9kdWN0cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Dự An/QLCH/QLCH-MVC/Views/CaLamNhanVien/GetCaLam.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FMYW1OaGFuVmllblxHZXRDYUxhbS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -86,6 +94,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZVxwcm9maWxlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Dự An/QLCH/QLCH-MVC/Views/Revenue/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV2ZW51ZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Dự An/QLCH/QLCH-MVC/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -96,6 +108,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Dự An/QLCH/QLCH-MVC/Views/Shared/_AddEmployeePartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BZGRFbXBsb3llZVBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Dự An/QLCH/QLCH-MVC/Views/Shared/_AddtablePartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BZGR0YWJsZVBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Dự An/QLCH/QLCH-MVC/Views/Shared/_QRCodeClient.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9RUkNvZGVDbGllbnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Dự An/QLCH/QLCH-MVC/Views/Shared/_QrCodeView.cshtml]

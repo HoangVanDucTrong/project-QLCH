@@ -1,0 +1,83 @@
+﻿@model QLCH_MVC.Models.Ban
+
+<div class="form-popup" id="Tableform">
+    <h2>Add Table</h2>
+    <form method="post" asp-controller="Ban" asp-action="CreateBan" onsubmit="submitForm(event)" enctype="multipart/form-data">
+        <input type="text" name="soBan" id="soBan" placeholder="Số Bàn" required />
+        <button type="submit" class="btn">Add</button>
+    </form>
+
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        console.log("DOM đã tải xong.");
+
+        let formElement = document.querySelector("form");
+        if (!formElement) {
+            console.error("Không tìm thấy form!");
+            return;
+        }
+
+        formElement.addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            let soBanInput = document.querySelector("#soBan"); // Dùng ID thay vì name
+            if (!soBanInput) {
+                console.error("Không tìm thấy input soBan!");
+                return;
+            }
+
+            let soBan = soBanInput.value;
+            if (!soBan || soBan <= 0) {
+                Swal.fire({
+                    title: "Lỗi!",
+                    text: "Số bàn không hợp lệ!",
+                    icon: "error",
+                    confirmButtonText: "OK"
+                });
+                return;
+            }
+
+            let formData = new FormData();
+            formData.append("soBan", soBan);
+
+            try {
+                let response = await fetch("/Ban/CreateBan", {
+                    method: "POST",
+                    body: formData
+                });
+
+                let result = await response.json();
+                console.log("API Response:", result);
+
+                if (response.ok && result.success) {
+                    Swal.fire({
+                        title: "Thành công!",
+                        text: result.message,
+                        icon: "success",
+                        confirmButtonText: "OK"
+                    }).then(() => {
+                        window.location.reload();
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Lỗi!",
+                        text: result.message || "Lỗi không xác định!",
+                        icon: "error",
+                        confirmButtonText: "OK"
+                    });
+                }
+            } catch (error) {
+                console.error("Lỗi khi gọi API:", error);
+                Swal.fire({
+                    title: "Lỗi hệ thống!",
+                    text: "Không thể kết nối đến API.",
+                    icon: "error",
+                    confirmButtonText: "OK"
+                });
+            }
+        });
+    });
+</script>

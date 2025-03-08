@@ -12,5 +12,8 @@ namespace QLCH.Models
         public string? Status { get; set; }
         public DateTime? CreatedAt { get; set; }
         public string Note { get; set; }
+
+        [NotMapped] // Chỉ sử dụng trong code, không map vào DB
+        public int BanId { get; set; }
     }
 }

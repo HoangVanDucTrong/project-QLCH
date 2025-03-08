@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("QLCH-MVC")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9a90480838fdc61aab48312a33de6bb9f490a90e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bf8234e33671ebf2c70be3c335f7fcac8f4eb696")]
 [assembly: System.Reflection.AssemblyProductAttribute("QLCH-MVC")]
 [assembly: System.Reflection.AssemblyTitleAttribute("QLCH-MVC")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

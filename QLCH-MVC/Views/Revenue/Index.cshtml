@@ -1,0 +1,96 @@
+﻿@model List<RevenueData>
+<style>
+    .table-headerr {
+        background: linear-gradient(90deg, rgb(199, 0, 103) 0%, rgba(255, 103, 0, 1) 100%);
+        padding: 10px;
+        color: #fff;
+        margin-top: 10px;
+        font-size: 24px;
+    }
+
+    .filterType {
+        margin-top: 20px;
+        font-weight: 600;
+    }
+    #loc{
+        background-color: #dd1652;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        font-size: 14px;
+        cursor: pointer;
+    }
+</style>
+<div class="table-headerr">
+    Earnings Statistics
+</div>
+<!-- Dropdown chọn loại báo cáo -->
+<form method="get" action="@Url.Action("Index", "Revenue")">
+    <div class="filterType">
+    <label for="filterType">Chọn kiểu hiển thị:</label>
+    <select name="filterType" id="filterType" onchange="this.form.submit()">
+        <option value="daily" selected="@(ViewBag.FilterType == "daily" ? "selected" : null)">Theo ngày</option>
+        <option value="monthly" selected="@(ViewBag.FilterType == "monthly" ? "selected" : null)">Theo tháng</option>
+    </select>
+        <label for="fromDate">Từ ngày:</label>
+        <input type="date" name="fromDate" id="fromDate" value="@ViewBag.FromDate">
+
+        <label for="toDate">Đến ngày:</label>
+        <input type="date" name="toDate" id="toDate" value="@ViewBag.ToDate">
+        <button  id="loc"type="submit">Lọc</button>
+    </div>
+</form>
+
+<canvas id="revenueChart"></canvas>
+
+<script>
+    var labels = @Html.Raw(Json.Serialize(
+        ViewBag.FilterType == "daily"
+        ? Model.Select(x => x.Date?.ToString("dd MMM"))
+        : Model.Select(x => x.Month + "/" + x.Year)
+        ));
+
+    var data = @Html.Raw(Json.Serialize(Model.Select(x => x.TotalAmount)));
+
+    var ctx = document.getElementById('revenueChart').getContext('2d');
+    var revenueChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Revenue',
+                data: data,
+                backgroundColor: 'green'
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true }
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function (tooltipItem) {
+                            let value = tooltipItem.raw.toLocaleString("vi-VN");
+                            return `Revenue: ${value} VND`;
+                        }
+                    }
+                },
+                datalabels: {
+                    anchor: 'end',
+                    align: 'top',
+                    formatter: function (value) {
+                        return value.toLocaleString("vi-VN") + " VND";
+                    },
+                    color: 'black',
+                    font: {
+                        weight: 'bold'
+                    }
+                }
+            }
+        },
+        plugins: [ChartDataLabels]
+    });
+</script>

@@ -86,45 +86,50 @@ namespace QLCH.Controllers
 
             return Ok(sp);
         }
-        [HttpPost]
+        [HttpPost("PostBan")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<Bans>> PostBan([FromForm] Bans cl)
+        public async Task<IActionResult> PostBan([FromForm] Bans cl)
         {
-
-            var token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
-            var claimsPrincipal = _laytoken.laytoken(token);
-
-
-
-            var storeId = claimsPrincipal.Claims.FirstOrDefault(c => c.Type == "StoreId")?.Value;
-
-            if (string.IsNullOrEmpty(storeId))
-            {
-                return Unauthorized();
-            }
-
-
-
-            cl.StoreId = int.Parse(storeId);
-            bool isTableExists = await _context.bans
-      .AnyAsync(b => b.SoBan == cl.SoBan && b.StoreId == cl.StoreId);
-            if (isTableExists)
-            {
-                return BadRequest(new { message = "Số bàn đã tồn tại trong cửa hàng này!" });
-            }
-
-            _context.bans.Add(cl);
             try
             {
+                Console.WriteLine($"Received SoBan: {cl.SoBan}"); // Log giá trị nhận được
+
+                var token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+                var claimsPrincipal = _laytoken.laytoken(token);
+                var storeId = claimsPrincipal.Claims.FirstOrDefault(c => c.Type == "StoreId")?.Value;
+
+                if (string.IsNullOrEmpty(storeId))
+                {
+                    return Unauthorized(new { success = false, message = "Bạn không có quyền thực hiện thao tác này!" });
+                }
+
+                if (cl == null || cl.SoBan <= 0)
+                {
+                    return BadRequest(new { success = false, message = "Dữ liệu bàn không hợp lệ!" });
+                }
+
+                cl.StoreId = int.Parse(storeId);
+
+                bool isTableExists = await _context.bans
+                    .AnyAsync(b => b.SoBan == cl.SoBan && b.StoreId == cl.StoreId);
+
+                if (isTableExists)
+                {
+                    return BadRequest(new { success = false, message = "Số bàn đã tồn tại trong cửa hàng này!" });
+                }
+
+                _context.bans.Add(cl);
                 await _context.SaveChangesAsync();
+
+                return CreatedAtAction(nameof(PostBan), new { id = cl.BanId }, new { success = true, message = "Bàn đã được thêm thành công!", data = cl });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "Internal server error: " + ex.Message);
+                return StatusCode(500, new { success = false, message = "Lỗi hệ thống: " + ex.Message });
             }
-
-            return CreatedAtAction(nameof(GetBan), new { id = cl.BanId }, cl);
         }
+
+
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Putban(int id, [FromForm] Bans cl)
