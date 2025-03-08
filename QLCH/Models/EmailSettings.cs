@@ -1,3 +1,4 @@
+
 ﻿namespace QLCH.Models
 {
     public class EmailSettings

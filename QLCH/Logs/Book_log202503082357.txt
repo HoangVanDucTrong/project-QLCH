@@ -1,0 +1,30 @@
+2025-03-08 23:57:17.804 +07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7126/api/QR/store/products?banId=5&storeId=20 - null null
+2025-03-08 23:57:17.809 +07:00 [INF] Executing endpoint 'QRController.GetProducts (QLCH)'
+2025-03-08 23:57:17.810 +07:00 [INF] Route matched with {action = "GetProducts", controller = "QR"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetProducts(Int32, Int32) on controller QRController (QLCH).
+2025-03-08 23:57:17.814 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__banId_0='?' (DbType = Int32), @__storeId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BanId], [b].[IsInUse], [b].[SoBan], [b].[StoreId]
+FROM [Bans] AS [b]
+WHERE [b].[BanId] = @__banId_0 AND [b].[StoreId] = @__storeId_1
+2025-03-08 23:57:17.817 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__storeId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[SanPhamId], [s].[DanhMucId], [s].[Gia], [s].[ImageBase64], [s].[MoTa], [s].[StoreId], [s].[Ten]
+FROM [SanPhams] AS [s]
+WHERE [s].[StoreId] = @__storeId_0
+2025-03-08 23:57:17.861 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[QLCH.Models.SanPham, QLCH, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-03-08 23:57:17.876 +07:00 [INF] Executed action QRController.GetProducts (QLCH) in 65.2777ms
+2025-03-08 23:57:17.877 +07:00 [INF] Executed endpoint 'QRController.GetProducts (QLCH)'
+2025-03-08 23:57:17.878 +07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7126/api/QR/store/products?banId=5&storeId=20 - 200 null application/json; charset=utf-8 74.4637ms
+2025-03-08 23:57:20.343 +07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7126/api/QR/store/products?banId=5&storeId=20 - null null
+2025-03-08 23:57:20.345 +07:00 [INF] Executing endpoint 'QRController.GetProducts (QLCH)'
+2025-03-08 23:57:20.346 +07:00 [INF] Route matched with {action = "GetProducts", controller = "QR"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetProducts(Int32, Int32) on controller QRController (QLCH).
+2025-03-08 23:57:20.348 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__banId_0='?' (DbType = Int32), @__storeId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BanId], [b].[IsInUse], [b].[SoBan], [b].[StoreId]
+FROM [Bans] AS [b]
+WHERE [b].[BanId] = @__banId_0 AND [b].[StoreId] = @__storeId_1
+2025-03-08 23:57:20.350 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__storeId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[SanPhamId], [s].[DanhMucId], [s].[Gia], [s].[ImageBase64], [s].[MoTa], [s].[StoreId], [s].[Ten]
+FROM [SanPhams] AS [s]
+WHERE [s].[StoreId] = @__storeId_0
+2025-03-08 23:57:20.392 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[QLCH.Models.SanPham, QLCH, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-03-08 23:57:20.406 +07:00 [INF] Executed action QRController.GetProducts (QLCH) in 59.1571ms
+2025-03-08 23:57:20.407 +07:00 [INF] Executed endpoint 'QRController.GetProducts (QLCH)'
+2025-03-08 23:57:20.408 +07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7126/api/QR/store/products?banId=5&storeId=20 - 200 null application/json; charset=utf-8 65.546ms

@@ -1,3 +1,4 @@
+
 ﻿using Microsoft.AspNetCore.Mvc;
 using QLCH.Data;
 using QLCH.Models;
@@ -44,7 +45,7 @@ public class QRController : ControllerBase
         }
        ban.StoreId=int.Parse(storeId);
         // Tạo dữ liệu QR
-        string qrData = $"https://85e1-2405-4802-a1d1-23d0-ec12-9295-b395-5a52.ngrok-free.app/Ban/ShowProducts?banid={banId}&storeid={storeId}";
+        string qrData = $"https://f870-2405-4803-b1ba-600-20e6-783e-b0ab-222c.ngrok-free.app/Ban/ShowProducts?banid={banId}&storeid={storeId}";
 
 
         // Kiểm tra nếu QR đã tồn tại trong DB

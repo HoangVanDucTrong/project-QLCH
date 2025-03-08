@@ -1,0 +1,117 @@
+﻿@model IEnumerable<SanPham>
+<link rel="stylesheet" href="~/css/SanPham.css">
+
+<div class="table-container">
+    <div class="main-content">
+        <h2>Danh Sách Sản Phẩm</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Hình Ảnh</th>
+                    <th>Tên Sản Phẩm</th>
+                    <th>Giá</th>
+                    <th>Mô Tả</th>
+                    <th>Danh Mục</th>
+                    <th>Sửa</th>
+                    <th>Xóa</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    int index = 1;
+                    @foreach (var sanPham in Model)
+                    {   
+                        <tr>
+                            <td>@index</td>
+                            <td>
+                                @if (!string.IsNullOrEmpty(sanPham.ImageBase64))
+                                {
+                                    <img src="data:image/png;base64,@sanPham.ImageBase64" class="HinhAnhSanPham" alt="Ảnh Sản Phẩm" />
+                                }
+                                else
+                                {
+                                    <span>Không có ảnh</span>
+                                }
+                            </td>
+                            <td>@sanPham.Ten</td>
+                            <td><span class="price">@sanPham.Gia.ToString("N0") đ</span></td>
+                            <td>@sanPham.MoTa</td>
+                            <td>@sanPham.DanhMucId</td>
+                            <td><span class="edit-btn" onclick="editProduct(@sanPham.SanPhamId)"><i class="fa-solid fa-pen-to-square"></i></span></td>
+                            <td><span class="delete-btn" onclick="deleteProduct(@sanPham.SanPhamId)"><i class="fa-solid fa-trash"></i></span></td>
+
+                        </tr>
+                        index++;
+                    }
+                }
+                else
+                {
+                    <tr><td colspan="8">Không có sản phẩm nào</td></tr>
+                }
+            </tbody>
+        </table>
+
+        <!-- Form Thêm Sản Phẩm -->
+        <form id="addProductForm">
+            <h3>Thêm Sản Phẩm Mới</h3>
+            <label for="productName">Tên sản phẩm:</label>
+            <input type="text" id="productName" required>
+
+            <label for="productPrice">Giá:</label>
+            <input type="number" id="productPrice" required>
+
+            <label for="productDescription">Mô tả:</label>
+            <textarea id="productDescription" rows="3" required></textarea>
+
+            <label for="productCategory">Danh Mục:</label>
+            <input type="number" id="productCategory" required>
+
+            <label for="productImage">Hình ảnh:</label>
+            <input type="file" id="productImage" accept="image/*" onchange="previewImage(event)">
+            <div class="image-preview">
+                <img id="previewImg" src="" alt="Xem trước ảnh">
+            </div>
+            <button type="submit">Thêm</button>
+            <button type="button" class="cancel-btn" onclick="closeAddForm()">Hủy</button>
+        </form>
+        <button class="add-button">+</button>
+        <form id="editProductForm" class="product-form">
+            <h3>Chỉnh Sửa Sản Phẩm</h3>
+            <input type="hidden" id="editIndex">
+            <label for="editProductName">Tên sản phẩm:</label>
+            <input type="text" id="editProductName" required>
+
+            <label for="editProductPrice">Giá:</label>
+            <input type="number" id="editProductPrice" required>
+
+            <label for="editProductDescription">Mô tả:</label>
+            <textarea id="editProductDescription" rows="3" required></textarea>
+
+            <label for="editProductType">Loại Sản Phẩm:</label>
+            <input type="text" id="editProductType" required>
+
+            <label for="editProductImage">Hình ảnh sản phẩm:</label>
+            <input type="hidden" id="oldProductImage" name="oldProductImage" value="{{product.ImageBase64}}">
+            <input type="file" id="editProductImage"  onchange="editPreviewImage(event)">
+            <!-- Input ẩn để lưu base64 của ảnh cũ -->
+            <div class="image-preview" id="editImagePreview">
+                <img src="" alt="Xem trước ảnh" id="editPreviewImg">
+            </div>
+            <br>
+            <button type="submit" class="submit-btn">Lưu Thay Đổi</button>
+            <button type="button" class="cancel-btn" onclick="closeEditForm()">Hủy</button>
+        </form>
+        <div class="confirm-dialog">
+            <p>Bạn có chắc chắn muốn xóa sản phẩm này không?</p>
+            <button class="confirm-btn">Xóa</button>
+            <button type="button" class="cancel-btn" onclick="closeEditForm()">Hủy</button>
+        </div>
+        <div class="overlay" style="display: none;"></div>
+
+
+    </div>
+</div>
+<script src="@Url.Content("~/js/sanpham.js")"></script>
+

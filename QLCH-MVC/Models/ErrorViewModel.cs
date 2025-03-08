@@ -1,3 +1,4 @@
+
 namespace QLCH_MVC.Models
 {
     public class ErrorViewModel

@@ -1,3 +1,4 @@
+
 ﻿//phần nhân viên 
 function toggleForm() {
     var form = document.getElementById("employeeForm");
@@ -14,6 +15,3 @@ window.onclick = function (event) {
         form.style.display = "none";
     }
 }
-
-
-//kết thúc phần nhân viên 

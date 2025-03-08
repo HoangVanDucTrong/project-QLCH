@@ -1,0 +1,162 @@
+2025-03-08 23:48:15.852 +07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7126/api/NhanVien/Getnhanvien - null null
+2025-03-08 23:48:15.859 +07:00 [INF] Executing endpoint 'QLCH.Controllers.NhanVienController.Getnhanvien (QLCH)'
+2025-03-08 23:48:15.862 +07:00 [INF] Route matched with {action = "Getnhanvien", controller = "NhanVien"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[QLCH.Models.NhanVien]]] Getnhanvien() on controller QLCH.Controllers.NhanVienController (QLCH).
+2025-03-08 23:48:15.881 +07:00 [INF] Executed DbCommand (10ms) [Parameters=[@__storeId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [n].[NVid], [n].[AnhNhanVien], [n].[MucLuong], [n].[NgayVaoLam], [n].[SDT], [n].[StoreId], [n].[TenNV]
+FROM [NhanVien] AS [n]
+WHERE [n].[StoreId] = @__storeId_0
+2025-03-08 23:48:15.895 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[QLCH.Models.NhanVien, QLCH, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-03-08 23:48:15.902 +07:00 [INF] Executed action QLCH.Controllers.NhanVienController.Getnhanvien (QLCH) in 38.2292ms
+2025-03-08 23:48:15.903 +07:00 [INF] Executed endpoint 'QLCH.Controllers.NhanVienController.Getnhanvien (QLCH)'
+2025-03-08 23:48:15.904 +07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7126/api/NhanVien/Getnhanvien - 200 null application/json; charset=utf-8 52.1557ms
+2025-03-08 23:48:15.957 +07:00 [INF] Executed endpoint '/tableHub'
+2025-03-08 23:48:15.957 +07:00 [INF] Executed endpoint '/tableHub'
+2025-03-08 23:48:15.958 +07:00 [INF] Request finished HTTP/2 CONNECT https://localhost:7126/tableHub - 200 null null 36327.3291ms
+2025-03-08 23:48:15.959 +07:00 [INF] Request finished HTTP/2 CONNECT https://localhost:7126/tableHub - 200 null null 36328.1198ms
+2025-03-08 23:48:19.148 +07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7126/api/CaLamNV/GetCaLam - null null
+2025-03-08 23:48:19.151 +07:00 [INF] Executing endpoint 'QLCH.Controllers.CaLamNV.GetCaLam (QLCH)'
+2025-03-08 23:48:19.155 +07:00 [INF] Route matched with {action = "GetCaLam", controller = "CaLamNV"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[System.Object]]] GetCaLam() on controller QLCH.Controllers.CaLamNV (QLCH).
+2025-03-08 23:48:19.160 +07:00 [INF] StoreIdClaim: 20
+2025-03-08 23:48:19.173 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__startOfWeek_1='?' (DbType = DateTime2), @__endOfWeek_2='?' (DbType = DateTime2), @__storeId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CaLamId], [c].[NgayLam], [c].[GioBatDau], [c].[GioKetThuc], [c].[GhiChu], [c].[Thu], [c].[calam], [n].[TenNV] AS [TenNhanVien], [n].[SDT], [n].[StoreId], @__startOfWeek_1 AS [StartOfWeek], @__endOfWeek_2 AS [EndOfWeek]
+FROM [CaLamNhanVien] AS [c]
+INNER JOIN [NhanVien] AS [n] ON [c].[NVid] = [n].[NVid]
+WHERE [c].[StoreId] = @__storeId_0 AND [c].[NgayLam] >= @__startOfWeek_1 AND [c].[NgayLam] <= @__endOfWeek_2
+2025-03-08 23:48:19.176 +07:00 [INF] No work shifts found for StoreId: 20
+2025-03-08 23:48:19.178 +07:00 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ProblemDetails'.
+2025-03-08 23:48:19.190 +07:00 [INF] Executed action QLCH.Controllers.CaLamNV.GetCaLam (QLCH) in 33.4517ms
+2025-03-08 23:48:19.192 +07:00 [INF] Executed endpoint 'QLCH.Controllers.CaLamNV.GetCaLam (QLCH)'
+2025-03-08 23:48:19.193 +07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7126/api/CaLamNV/GetCaLam - 404 null application/problem+json; charset=utf-8 44.7856ms
+2025-03-08 23:48:21.825 +07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7126/api/NhanVien/Getnhanvien - null null
+2025-03-08 23:48:21.830 +07:00 [INF] Executing endpoint 'QLCH.Controllers.NhanVienController.Getnhanvien (QLCH)'
+2025-03-08 23:48:21.830 +07:00 [INF] Route matched with {action = "Getnhanvien", controller = "NhanVien"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[QLCH.Models.NhanVien]]] Getnhanvien() on controller QLCH.Controllers.NhanVienController (QLCH).
+2025-03-08 23:48:21.834 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__storeId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [n].[NVid], [n].[AnhNhanVien], [n].[MucLuong], [n].[NgayVaoLam], [n].[SDT], [n].[StoreId], [n].[TenNV]
+FROM [NhanVien] AS [n]
+WHERE [n].[StoreId] = @__storeId_0
+2025-03-08 23:48:21.838 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[QLCH.Models.NhanVien, QLCH, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-03-08 23:48:21.839 +07:00 [INF] Executed action QLCH.Controllers.NhanVienController.Getnhanvien (QLCH) in 7.6803ms
+2025-03-08 23:48:21.841 +07:00 [INF] Executed endpoint 'QLCH.Controllers.NhanVienController.Getnhanvien (QLCH)'
+2025-03-08 23:48:21.841 +07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7126/api/NhanVien/Getnhanvien - 200 null application/json; charset=utf-8 16.0602ms
+2025-03-08 23:48:34.948 +07:00 [INF] Request starting HTTP/1.1 POST https://localhost:7126/api/CaLamNV - application/json; charset=utf-8 null
+2025-03-08 23:48:34.951 +07:00 [INF] Executing endpoint 'QLCH.Controllers.CaLamNV.PostCaLam (QLCH)'
+2025-03-08 23:48:34.954 +07:00 [INF] Route matched with {action = "PostCaLam", controller = "CaLamNV"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[QLCH.Models.CaLamNhanVien]] PostCaLam(System.Collections.Generic.List`1[QLCH.Models.CaLamNhanVien]) on controller QLCH.Controllers.CaLamNV (QLCH).
+2025-03-08 23:48:34.990 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__Parse_0='?' (DbType = Int32), @__caLam_NVid_1='?' (DbType = Int32), @__caLam_NgayLam_2='?' (DbType = DateTime2), @__caLam_calam_3='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [CaLamNhanVien] AS [c]
+        WHERE [c].[StoreId] = @__Parse_0 AND [c].[NVid] = @__caLam_NVid_1 AND [c].[NgayLam] = @__caLam_NgayLam_2 AND [c].[calam] = @__caLam_calam_3) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-03-08 23:48:35.006 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__Parse_0='?' (DbType = Int32), @__caLam_NVid_1='?' (DbType = Int32), @__caLam_NgayLam_2='?' (DbType = DateTime2), @__caLam_calam_3='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [CaLamNhanVien] AS [c]
+        WHERE [c].[StoreId] = @__Parse_0 AND [c].[NVid] = @__caLam_NVid_1 AND [c].[NgayLam] = @__caLam_NgayLam_2 AND [c].[calam] = @__caLam_calam_3) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-03-08 23:48:35.027 +07:00 [INF] Executed DbCommand (7ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (DbType = Time), @p2='?' (DbType = Time), @p3='?' (DbType = Int32), @p4='?' (DbType = DateTime2), @p5='?' (DbType = Int32), @p6='?' (Size = 4000), @p7='?' (Size = 4000), @p8='?' (Size = 4000), @p9='?' (DbType = Time), @p10='?' (DbType = Time), @p11='?' (DbType = Int32), @p12='?' (DbType = DateTime2), @p13='?' (DbType = Int32), @p14='?' (Size = 4000), @p15='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+MERGE [CaLamNhanVien] USING (
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, 0),
+(@p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, 1)) AS i ([GhiChu], [GioBatDau], [GioKetThuc], [NVid], [NgayLam], [StoreId], [Thu], [calam], _Position) ON 1=0
+WHEN NOT MATCHED THEN
+INSERT ([GhiChu], [GioBatDau], [GioKetThuc], [NVid], [NgayLam], [StoreId], [Thu], [calam])
+VALUES (i.[GhiChu], i.[GioBatDau], i.[GioKetThuc], i.[NVid], i.[NgayLam], i.[StoreId], i.[Thu], i.[calam])
+OUTPUT INSERTED.[CaLamId], i._Position;
+2025-03-08 23:48:35.034 +07:00 [INF] Executing StatusCodeResult, setting HTTP status code 200
+2025-03-08 23:48:35.035 +07:00 [INF] Executed action QLCH.Controllers.CaLamNV.PostCaLam (QLCH) in 79.2062ms
+2025-03-08 23:48:35.036 +07:00 [INF] Executed endpoint 'QLCH.Controllers.CaLamNV.PostCaLam (QLCH)'
+2025-03-08 23:48:35.037 +07:00 [INF] Request finished HTTP/1.1 POST https://localhost:7126/api/CaLamNV - 200 0 null 88.527ms
+2025-03-08 23:48:35.044 +07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7126/api/CaLamNV/GetCaLam - null null
+2025-03-08 23:48:35.047 +07:00 [INF] Executing endpoint 'QLCH.Controllers.CaLamNV.GetCaLam (QLCH)'
+2025-03-08 23:48:35.048 +07:00 [INF] Route matched with {action = "GetCaLam", controller = "CaLamNV"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[System.Object]]] GetCaLam() on controller QLCH.Controllers.CaLamNV (QLCH).
+2025-03-08 23:48:35.050 +07:00 [INF] StoreIdClaim: 20
+2025-03-08 23:48:35.055 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__startOfWeek_1='?' (DbType = DateTime2), @__endOfWeek_2='?' (DbType = DateTime2), @__storeId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CaLamId], [c].[NgayLam], [c].[GioBatDau], [c].[GioKetThuc], [c].[GhiChu], [c].[Thu], [c].[calam], [n].[TenNV] AS [TenNhanVien], [n].[SDT], [n].[StoreId], @__startOfWeek_1 AS [StartOfWeek], @__endOfWeek_2 AS [EndOfWeek]
+FROM [CaLamNhanVien] AS [c]
+INNER JOIN [NhanVien] AS [n] ON [c].[NVid] = [n].[NVid]
+WHERE [c].[StoreId] = @__storeId_0 AND [c].[NgayLam] >= @__startOfWeek_1 AND [c].[NgayLam] <= @__endOfWeek_2
+2025-03-08 23:48:35.056 +07:00 [INF] No work shifts found for StoreId: 20
+2025-03-08 23:48:35.057 +07:00 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ProblemDetails'.
+2025-03-08 23:48:35.058 +07:00 [INF] Executed action QLCH.Controllers.CaLamNV.GetCaLam (QLCH) in 8.6879ms
+2025-03-08 23:48:35.059 +07:00 [INF] Executed endpoint 'QLCH.Controllers.CaLamNV.GetCaLam (QLCH)'
+2025-03-08 23:48:35.060 +07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7126/api/CaLamNV/GetCaLam - 404 null application/problem+json; charset=utf-8 16.325ms
+2025-03-08 23:48:36.365 +07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7126/api/CaLamNV/GetCaLam - null null
+2025-03-08 23:48:36.369 +07:00 [INF] Executing endpoint 'QLCH.Controllers.CaLamNV.GetCaLam (QLCH)'
+2025-03-08 23:48:36.370 +07:00 [INF] Route matched with {action = "GetCaLam", controller = "CaLamNV"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[System.Object]]] GetCaLam() on controller QLCH.Controllers.CaLamNV (QLCH).
+2025-03-08 23:48:36.372 +07:00 [INF] StoreIdClaim: 20
+2025-03-08 23:48:36.375 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__startOfWeek_1='?' (DbType = DateTime2), @__endOfWeek_2='?' (DbType = DateTime2), @__storeId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CaLamId], [c].[NgayLam], [c].[GioBatDau], [c].[GioKetThuc], [c].[GhiChu], [c].[Thu], [c].[calam], [n].[TenNV] AS [TenNhanVien], [n].[SDT], [n].[StoreId], @__startOfWeek_1 AS [StartOfWeek], @__endOfWeek_2 AS [EndOfWeek]
+FROM [CaLamNhanVien] AS [c]
+INNER JOIN [NhanVien] AS [n] ON [c].[NVid] = [n].[NVid]
+WHERE [c].[StoreId] = @__storeId_0 AND [c].[NgayLam] >= @__startOfWeek_1 AND [c].[NgayLam] <= @__endOfWeek_2
+2025-03-08 23:48:36.378 +07:00 [INF] No work shifts found for StoreId: 20
+2025-03-08 23:48:36.379 +07:00 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ProblemDetails'.
+2025-03-08 23:48:36.380 +07:00 [INF] Executed action QLCH.Controllers.CaLamNV.GetCaLam (QLCH) in 8.4063ms
+2025-03-08 23:48:36.381 +07:00 [INF] Executed endpoint 'QLCH.Controllers.CaLamNV.GetCaLam (QLCH)'
+2025-03-08 23:48:36.382 +07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7126/api/CaLamNV/GetCaLam - 404 null application/problem+json; charset=utf-8 16.4291ms
+2025-03-08 23:48:45.358 +07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7126/api/CaLamNV/GetCaLam - null null
+2025-03-08 23:48:45.361 +07:00 [INF] Executing endpoint 'QLCH.Controllers.CaLamNV.GetCaLam (QLCH)'
+2025-03-08 23:48:45.362 +07:00 [INF] Route matched with {action = "GetCaLam", controller = "CaLamNV"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[System.Object]]] GetCaLam() on controller QLCH.Controllers.CaLamNV (QLCH).
+2025-03-08 23:48:45.364 +07:00 [INF] StoreIdClaim: 20
+2025-03-08 23:48:45.367 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__startOfWeek_1='?' (DbType = DateTime2), @__endOfWeek_2='?' (DbType = DateTime2), @__storeId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CaLamId], [c].[NgayLam], [c].[GioBatDau], [c].[GioKetThuc], [c].[GhiChu], [c].[Thu], [c].[calam], [n].[TenNV] AS [TenNhanVien], [n].[SDT], [n].[StoreId], @__startOfWeek_1 AS [StartOfWeek], @__endOfWeek_2 AS [EndOfWeek]
+FROM [CaLamNhanVien] AS [c]
+INNER JOIN [NhanVien] AS [n] ON [c].[NVid] = [n].[NVid]
+WHERE [c].[StoreId] = @__storeId_0 AND [c].[NgayLam] >= @__startOfWeek_1 AND [c].[NgayLam] <= @__endOfWeek_2
+2025-03-08 23:48:45.370 +07:00 [INF] No work shifts found for StoreId: 20
+2025-03-08 23:48:45.371 +07:00 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ProblemDetails'.
+2025-03-08 23:48:45.372 +07:00 [INF] Executed action QLCH.Controllers.CaLamNV.GetCaLam (QLCH) in 8.4453ms
+2025-03-08 23:48:45.373 +07:00 [INF] Executed endpoint 'QLCH.Controllers.CaLamNV.GetCaLam (QLCH)'
+2025-03-08 23:48:45.374 +07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7126/api/CaLamNV/GetCaLam - 404 null application/problem+json; charset=utf-8 16.6103ms
+2025-03-08 23:48:52.084 +07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7126/api/CaLamNV/Filter?startDate=2025-03-08&endDate=2025-03-15 - null null
+2025-03-08 23:48:52.086 +07:00 [INF] Executing endpoint 'QLCH.Controllers.CaLamNV.Filter (QLCH)'
+2025-03-08 23:48:52.091 +07:00 [INF] Route matched with {action = "Filter", controller = "CaLamNV"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Filter(System.DateTime, System.DateTime) on controller QLCH.Controllers.CaLamNV (QLCH).
+2025-03-08 23:48:52.104 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__startdate_3='?' (DbType = DateTime2), @__enddate_4='?' (DbType = DateTime2), @__storeIdInt_0='?' (DbType = Int32), @__startDate_1='?' (DbType = DateTime2), @__endDate_2='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CaLamId], [c].[NgayLam], [c].[GioBatDau], [c].[GioKetThuc], [c].[GhiChu], [c].[Thu], [c].[calam], [n].[TenNV] AS [TenNhanVien], [n].[SDT], [n].[StoreId], @__startdate_3 AS [StartOfWeek], @__enddate_4 AS [EndOfWeek]
+FROM [CaLamNhanVien] AS [c]
+INNER JOIN [NhanVien] AS [n] ON [c].[NVid] = [n].[NVid]
+WHERE [c].[StoreId] = @__storeIdInt_0 AND [c].[NgayLam] >= @__startDate_1 AND [c].[NgayLam] <= @__endDate_2
+2025-03-08 23:48:52.108 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[<>f__AnonymousType4`12[[System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.TimeSpan, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.TimeSpan, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], QLCH, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-03-08 23:48:52.114 +07:00 [INF] Executed action QLCH.Controllers.CaLamNV.Filter (QLCH) in 22.3786ms
+2025-03-08 23:48:52.115 +07:00 [INF] Executed endpoint 'QLCH.Controllers.CaLamNV.Filter (QLCH)'
+2025-03-08 23:48:52.117 +07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7126/api/CaLamNV/Filter?startDate=2025-03-08&endDate=2025-03-15 - 200 null application/json; charset=utf-8 32.8703ms
+2025-03-08 23:48:56.001 +07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7126/api/NhanVien/Getnhanvien - null null
+2025-03-08 23:48:56.003 +07:00 [INF] Executing endpoint 'QLCH.Controllers.NhanVienController.Getnhanvien (QLCH)'
+2025-03-08 23:48:56.004 +07:00 [INF] Route matched with {action = "Getnhanvien", controller = "NhanVien"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[QLCH.Models.NhanVien]]] Getnhanvien() on controller QLCH.Controllers.NhanVienController (QLCH).
+2025-03-08 23:48:56.010 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__storeId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [n].[NVid], [n].[AnhNhanVien], [n].[MucLuong], [n].[NgayVaoLam], [n].[SDT], [n].[StoreId], [n].[TenNV]
+FROM [NhanVien] AS [n]
+WHERE [n].[StoreId] = @__storeId_0
+2025-03-08 23:48:56.014 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[QLCH.Models.NhanVien, QLCH, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-03-08 23:48:56.015 +07:00 [INF] Executed action QLCH.Controllers.NhanVienController.Getnhanvien (QLCH) in 9.4234ms
+2025-03-08 23:48:56.017 +07:00 [INF] Executed endpoint 'QLCH.Controllers.NhanVienController.Getnhanvien (QLCH)'
+2025-03-08 23:48:56.018 +07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7126/api/NhanVien/Getnhanvien - 200 null application/json; charset=utf-8 17.1061ms
+2025-03-08 23:48:56.027 +07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7126/api/AccountStaff/checkAccountnv?NVid=4017 - null null
+2025-03-08 23:48:56.030 +07:00 [INF] Executing endpoint 'QLCH.Controllers.AccountStaff.checkAccountnv (QLCH)'
+2025-03-08 23:48:56.034 +07:00 [INF] Route matched with {action = "checkAccountnv", controller = "AccountStaff"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] checkAccountnv(Int32) on controller QLCH.Controllers.AccountStaff (QLCH).
+2025-03-08 23:48:56.047 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__NVid_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [t].[TaiKhoanId], [t].[DiaChi], [t].[MatKhau], [t].[NVid], [t].[QuocGia], [t].[Sdt], [t].[StoreId], [t].[TenDangNhap]
+FROM [TaiKhoanNhanVien] AS [t]
+WHERE [t].[NVid] = @__NVid_0
+2025-03-08 23:48:56.061 +07:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-08 23:48:56.064 +07:00 [INF] Executed action QLCH.Controllers.AccountStaff.checkAccountnv (QLCH) in 28.8631ms
+2025-03-08 23:48:56.066 +07:00 [INF] Executed endpoint 'QLCH.Controllers.AccountStaff.checkAccountnv (QLCH)'
+2025-03-08 23:48:56.067 +07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7126/api/AccountStaff/checkAccountnv?NVid=4017 - 200 null application/json; charset=utf-8 40.3666ms
+2025-03-08 23:48:59.314 +07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7126/api/Ban/Getban - null null
+2025-03-08 23:48:59.318 +07:00 [INF] Executing endpoint 'QLCH.Controllers.BanController.GetBan (QLCH)'
+2025-03-08 23:48:59.318 +07:00 [INF] Route matched with {action = "GetBan", controller = "Ban"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[QLCH.Models.Bans]]] GetBan() on controller QLCH.Controllers.BanController (QLCH).
+2025-03-08 23:48:59.320 +07:00 [INF] StoreIdClaim: 20
+2025-03-08 23:48:59.324 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__storeId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BanId], [b].[IsInUse], [b].[SoBan], [b].[StoreId]
+FROM [Bans] AS [b]
+WHERE [b].[StoreId] = @__storeId_0
+2025-03-08 23:48:59.326 +07:00 [INF] Successfully retrieved products.
+2025-03-08 23:48:59.327 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[QLCH.Models.Bans, QLCH, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-03-08 23:48:59.328 +07:00 [INF] Executed action QLCH.Controllers.BanController.GetBan (QLCH) in 8.0456ms
+2025-03-08 23:48:59.329 +07:00 [INF] Executed endpoint 'QLCH.Controllers.BanController.GetBan (QLCH)'
+2025-03-08 23:48:59.330 +07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7126/api/Ban/Getban - 200 null application/json; charset=utf-8 15.7153ms

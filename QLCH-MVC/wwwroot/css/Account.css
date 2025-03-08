@@ -1,3 +1,4 @@
+
 ﻿body {
     font-family: 'Arial', sans-serif;
     margin: 0;
@@ -78,4 +79,3 @@ h1 {
 
     .status.inactive {
         color: red; /* Màu đỏ cho tài khoản chưa hoạt động */
-    }

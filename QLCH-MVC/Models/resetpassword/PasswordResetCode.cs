@@ -1,3 +1,4 @@
+
 ﻿namespace QLCH.Models.resetpassword
 {
     public class PasswordResetCode

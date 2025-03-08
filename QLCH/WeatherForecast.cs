@@ -1,3 +1,4 @@
+
 namespace QLCH
 {
     public class WeatherForecast

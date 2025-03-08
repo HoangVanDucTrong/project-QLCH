@@ -1,0 +1,316 @@
+
+/*.main-content {
+    flex: 1;
+    padding: 20px;
+    position: relative;
+}*/
+
+  /**/  .main-content h2 {
+        font-family: 'Montserrat', sans-serif;
+        background: linear-gradient(to right,#FF3045, #ff6f00);
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+table {
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+    table tbody tr {
+        border-bottom: 1px solid #ccc;
+    }
+
+        table tbody tr:nth-child(odd) {
+            background-color: #f9f9f9;
+        }
+
+        table tbody tr:hover {
+            background-color: #eaeaea;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+        }
+
+    table th, table td {
+        padding: 15px;
+        text-align: center;
+    }
+
+    table th {
+        background: #f8f8f8;
+        text-transform: uppercase;
+        color: #333;
+        font-weight: bold;
+    }
+
+.HinhAnhSanPham {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+} 
+
+.price {
+    background: #28a5a7;
+    color: white;
+    border-radius: 15px;
+    padding: 5px 10px;
+    display: inline-block;
+}
+
+.edit-btn {
+    color: #3498db;
+    cursor: pointer;
+}
+
+    .edit-btn:hover {
+        color: #00a4c1;
+        cursor: pointer;
+    }
+
+.delete-btn {
+    color: #e74c3c;
+    cursor: pointer;
+}
+
+    .delete-btn:hover {
+        color: #c74f04;
+    }
+
+.add-button {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 24px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+    .add-button:hover {
+        opacity: 0.9;
+    }
+/*Phần thêm dữ liệu */
+/* Form thêm sản phẩm */
+
+#addProductForm {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    z-index: 10;
+    width: 45%;
+    font-family: Arial, sans-serif;
+}
+
+    #addProductForm h3, #editProductForm h3 {
+        font-family: 'Montserrat', sans-serif;
+        background: linear-gradient(to right,#FF3045, #ff6f00);
+        color: white;
+        text-align: center;
+    }
+
+
+    #addProductForm label {
+        font-weight: bold;
+        color: #2c2c2c;
+        display: block;
+        margin-top: 10px;
+    }
+
+    #addProductForm input[type="text"],
+    #addProductForm input[type="number"],
+    #addProductForm textarea {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        font-size: 14px;
+    }
+
+        #addProductForm input:focus,
+        #addProductForm textarea:focus {
+            outline: none;
+            border-color: #FF3045;
+            box-shadow: 0 0 5px rgba(255, 48, 69, 0.3);
+        }
+
+    #addProductForm button {
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 48%;
+        font-size: 16px;
+        margin-top: 15px;
+    }
+
+        #addProductForm button:hover {
+            opacity: 0.9;
+        }
+
+        #addProductForm button:first-child {
+            background: #28a5a7;
+            color: white;
+        }
+
+        #addProductForm button:last-child {
+            background: #e74c3c;
+            color: white;
+            float: right;
+        }
+
+.image-preview {
+    width: 100%;
+    height: 150px;
+    border: 2px dashed #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 10px;
+    background: #f8f8f8;
+    position: relative;
+}
+
+    .image-preview img {
+        max-width: 100%;
+        max-height: 100%;
+        display: block;
+    }
+
+    .image-preview .default-text {
+        color: #999;
+        font-size: 14px;
+    }
+/*chỉnh sửa form dữ liệu */
+/* Form chỉnh sửa sản phẩm */
+#editProductForm {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    z-index: 10;
+    width: 45%;
+    font-family: Arial, sans-serif;
+    animation: fadeIn 0.3s;
+}
+
+
+    #editProductForm input[type="text"],
+    #editProductForm input[type="number"],
+    #editProductForm textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    #editProductForm .submit-btn {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+    #editProductForm .cancel-btn {
+        background-color: #f44336;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    #editProductForm .submit-btn:hover {
+        background-color: #45a049;
+    }
+
+    #editProductForm .cancel-btn:hover {
+        background-color: #e53935;
+    }
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9;
+}
+
+.confirm-dialog {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+}
+
+    .confirm-dialog p {
+        margin-bottom: 15px;
+        color: #333;
+    }
+
+    .confirm-dialog .confirm-btn {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+    .confirm-dialog .cancel-btn {
+        background-color: #f44336;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

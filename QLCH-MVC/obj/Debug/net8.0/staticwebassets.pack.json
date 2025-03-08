@@ -89,6 +89,10 @@
       "PackagePath": "staticwebassets\\css\\Home.css"
     },
     {
+      "Id": "D:\\Dự An\\QLCH\\QLCH-MVC\\wwwroot\\css\\SanPham.css",
+      "PackagePath": "staticwebassets\\css\\SanPham.css"
+    },
+    {
       "Id": "D:\\Dự An\\QLCH\\QLCH-MVC\\wwwroot\\css\\Sanphamclient.css",
       "PackagePath": "staticwebassets\\css\\Sanphamclient.css"
     },
@@ -151,6 +155,10 @@
     {
       "Id": "D:\\Dự An\\QLCH\\QLCH-MVC\\wwwroot\\js\\nhanvien.js",
       "PackagePath": "staticwebassets\\js\\nhanvien.js"
+    },
+    {
+      "Id": "D:\\Dự An\\QLCH\\QLCH-MVC\\wwwroot\\js\\sanpham.js",
+      "PackagePath": "staticwebassets\\js\\sanpham.js"
     },
     {
       "Id": "D:\\Dự An\\QLCH\\QLCH-MVC\\wwwroot\\js\\site.js",

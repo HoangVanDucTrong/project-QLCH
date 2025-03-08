@@ -1,3 +1,4 @@
+
 body{
     margin: 0;
     padding: 0;
@@ -70,11 +71,11 @@ border-radius: 5px ;
     .form {
         width: 90%;
     }
-    .CodeEmail{
+
+    .CodeEmail {
         color: #fff;
         height: auto;
         padding-top: 30px;
         width: 100%;
     }
-
 }

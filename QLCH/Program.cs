@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
@@ -51,7 +51,7 @@ builder.Services.AddCors(options =>
 var _logger = new LoggerConfiguration()
  .WriteTo.Console()// ghi ra console 
  .WriteTo.File("Logs/Book_log.txt", rollingInterval: RollingInterval.Minute)
- .MinimumLevel.Information() 
+ .MinimumLevel.Information()
  .CreateLogger();
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(_logger);

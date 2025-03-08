@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Fxwxoy87cfLrOUnVJprM1OdSfcq64Tw+wrxj0JMO+KY=",
+  "Hash": "PvHVdQCjPH7u3b8SbJRexmsXZgW9iGmGGQ7hAYu1ljY=",
   "Source": "QLCH-MVC",
   "BasePath": "_content/QLCH-MVC",
   "Mode": "Default",
@@ -205,6 +205,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\register.css"
+    },
+    {
+      "Identity": "D:\\Dự An\\QLCH\\QLCH-MVC\\wwwroot\\css\\SanPham.css",
+      "SourceId": "QLCH-MVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Dự An\\QLCH\\QLCH-MVC\\wwwroot\\",
+      "BasePath": "_content/QLCH-MVC",
+      "RelativePath": "css/SanPham.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\SanPham.css"
     },
     {
       "Identity": "D:\\Dự An\\QLCH\\QLCH-MVC\\wwwroot\\css\\Sanphamclient.css",
@@ -414,6 +433,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\nhanvien.js"
+    },
+    {
+      "Identity": "D:\\Dự An\\QLCH\\QLCH-MVC\\wwwroot\\js\\sanpham.js",
+      "SourceId": "QLCH-MVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Dự An\\QLCH\\QLCH-MVC\\wwwroot\\",
+      "BasePath": "_content/QLCH-MVC",
+      "RelativePath": "js/sanpham.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\sanpham.js"
     },
     {
       "Identity": "D:\\Dự An\\QLCH\\QLCH-MVC\\wwwroot\\js\\Sanphamclient.js",

@@ -1,3 +1,4 @@
+
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace QLCH_MVC.Models
@@ -11,12 +12,13 @@ namespace QLCH_MVC.Models
         [Required]
         [Range(0, int.MaxValue, ErrorMessage = "Giá không được âm.")]
         public int Gia { get; set; }
-        public string GiaHienThi { get; set; }
+      //  public string GiaHienThi { get; set; }
         [Required]
         [StringLength(30)]
         public string MoTa { get; set; }
 
         public string? ImageBase64 { get; set; }
+        [Required(ErrorMessage = "Vui lòng chọn danh mục sản phẩm.")]
         public int DanhMucId { get; set; }
         public int? StoreId { get; set; }
    
